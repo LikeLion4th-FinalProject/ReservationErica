@@ -1,5 +1,5 @@
 function Home() {
-  return <div>Home</div>;
+  return <div className="semibold">Home</div>;
 }
 
 export default Home;
