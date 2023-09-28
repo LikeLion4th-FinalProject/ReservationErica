@@ -1,16 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
-import { RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import CodegetPage from "./pages/CodegetPage.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { RouterProvider } from 'react-router';
+import { createBrowserRouter } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import CodegetPage from './pages/CodegetPage.jsx';
+import Reservation from './pages/Reservation.jsx';
+import RouteTest from './pages/RouteTest.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
@@ -18,17 +20,25 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "login",
+        path: 'login',
         element: <LoginPage />,
       },
       {
-        path: "auth/kakao/callback",
+        path: 'auth/kakao/callback',
         element: <CodegetPage />,
+      },
+      {
+        path: 'reservation/:id',
+        element: <Reservation />,
+      },
+      {
+        path: 'routetest',
+        element: <RouteTest />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
 );
