@@ -1,0 +1,34 @@
+import { AiOutlineUser, AiOutlineCheck } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
+
+function BtnNav() {
+  const location = useLocation();
+
+  const isReservationPage = location.pathname.startsWith("/reservation");
+  const isMyPage = location.pathname.startsWith("/mypage");
+
+  return (
+    <section
+      className={`absolute bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+    >
+      <div
+        className={`flex items-center flex-col justify-center w-full h-full ${
+          isReservationPage ? "bg-gray0 text-white" : "bg-white text-gray0"
+        }`}
+      >
+        <AiOutlineCheck className="text-lg" />
+        <span className="text-btn">예약하기</span>
+      </div>
+      <div
+        className={`flex items-center flex-col gap-[1px] justify-center  w-full h-full${
+          isMyPage ? "bg-gray0 text-white" : "bg-white text-gray0"
+        }`}
+      >
+        <AiOutlineUser className="text-lg" />
+        <span className="text-btn">마이페이지</span>
+      </div>
+    </section>
+  );
+}
+
+export default BtnNav;
