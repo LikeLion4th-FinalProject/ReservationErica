@@ -1,5 +1,5 @@
 function ReserveHome() {
-  return <div>ReserveHome</div>;
+  return <section>ReserveHome</section>;
 }
 
 export default ReserveHome;
