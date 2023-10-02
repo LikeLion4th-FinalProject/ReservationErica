@@ -76,10 +76,14 @@
 * {
   padding: 0;
   box-sizing: border-box;
+}
+
+#root {
   max-width: 480px;
   min-width: 320px;
   margin: 0 auto;
 }
+
 body {
   font-family: "Pretendard-Regular", sans-serif;
 }
