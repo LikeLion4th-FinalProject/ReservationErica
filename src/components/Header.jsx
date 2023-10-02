@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function Header({ title }) {
   const navigate = useNavigate(-1);
   return (
-    <section className="h-[50px] w-full flex items-center justify-between px-4">
+    <section className="h-[56px] w-full flex items-center justify-between px-4">
       <div className="w-full flex items-center justify-between">
         <FaArrowLeft
           onClick={() => navigate(-1)}
