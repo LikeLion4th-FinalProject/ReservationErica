@@ -9,7 +9,7 @@ function BtnNav() {
 
   return (
     <section
-      className={`absolute bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+      className={`sticky bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
     >
       <Link
         to={"/reservation"}
@@ -22,7 +22,7 @@ function BtnNav() {
       </Link>
       <Link
         to={"/mypage"}
-        className={`flex items-center flex-col gap-[1px] justify-center  w-full h-full${
+        className={`flex items-center flex-col justify-center w-full h-full ${
           isMyPage ? "bg-gray0 text-white" : "bg-white text-gray0"
         }`}
       >

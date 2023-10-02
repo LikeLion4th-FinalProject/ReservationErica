@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <Header title="Home" />
-      <Outlet />
+      <div className="overflow-y-scroll">
+        <Outlet />
+      </div>
       <BtnNav />
     </>
   );
