@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import CodegetPage from './pages/CodegetPage.jsx';
 import Reservation from './pages/Reservation.jsx';
 import RouteTest from './pages/RouteTest.jsx';
+import ReserveHome from './pages/ReserveHome.jsx';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: 'routetest',
         element: <RouteTest />,
+      },
+      {
+        path: 'reservation',
+        element: <ReserveHome />,
       },
     ],
   },
