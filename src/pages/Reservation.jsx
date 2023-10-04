@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsCalendar4Event } from 'react-icons/bs';
+import { BiTime } from 'react-icons/bi';
+import { GoPeople } from 'react-icons/go';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { addDays } from 'date-fns';
 import { ko } from 'date-fns/esm/locale';
 import IndicatorSection from '../components/IndicatorSection';
+import TimePicker from '../components/TimePicker';
+import { dayAndNight, selectHour, selectMinute } from '../styles/static';
 
 export default function Reservation() {
   const params = useParams();
   // console.log(params);
-  const [startDate, setStartDate] = useState(null);
-  const [selectTime, setSelectTime] = useState(true);
+  const [startDate, setStartDate] = useState(new Date());
+  const [selectUse, setSelectUse] = useState(true);
   const [peopleCount, setPeopleCount] = useState(0);
-  console.log(selectTime);
+  const [selectTimeStart, setSelectTimeStart] = useState();
+  const [selectTimeEnd, setSelectTimeEnd] = useState();
+
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
   }
+
+  const reserveInfo = {
+    resYear: startDate.getFullYear(),
+    resMonth: startDate.getMonth() + 1,
+    resDate: startDate.getDate(),
+    resDay: startDate.getDay(),
+  };
+  // console.log(reserveInfo);
+  const numToDay = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
     <div className='flex flex-col bg-[#d9d9d9]'>
@@ -26,23 +41,23 @@ export default function Reservation() {
         <p className='text-sm font-thin'>{params.id}번 방 상세정보 ...</p>
       </section>
       <section className='py-2 px-4 bg-gray4 mb-[1px]'>
-        <div className='flex items-center gap-2 font-bold'>
-          <BsCalendar4Event size={18} />
-          <p className=''>예약할 날짜를 선택해주세요</p>
+        <div className='flex items-center gap-2 font-semibold'>
+          <BsCalendar4Event size={15} />
+          <p className='text-lg'>예약할 날짜를 선택해주세요</p>
         </div>
         <div>
           <DatePicker
             locale={ko}
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(i) => setStartDate(i)}
             minDate={new Date()}
             maxDate={addDays(new Date(), 7)}
-            placeholderText='최대 7일만 고를 수 있음'
+            placeholderText='클릭하면 나옴 ㅋㅋ'
           />
         </div>
       </section>
       <section className='px-4 bg-gray4 mb-[1px]'>
-        <p className='mt-3 font-bold text-[20px] text-body'>예약 현황</p>
+        <p className='mt-3 font-semibold text-lg text-body'>예약 현황</p>
         <IndicatorSection />
         <section className='grid grid-cols-7 grid-rows-2 mt-2 gap-1 mb-3'>
           {hours.map((hour, index) => (
@@ -56,33 +71,50 @@ export default function Reservation() {
           ))}
         </section>
       </section>
-      <section className='px-4 bg-gray4 mb-[1px]'>
-        <p>시간을 선택해주세요</p>
-        <div className='flex justify-around border-b'>
+      <section className='px-4 bg-gray4 mb-[1px] py-2'>
+        <p className='flex items-center gap-1 font-semibold text-lg'>
+          <BiTime size={20} />
+          시간을 선택해주세요
+        </p>
+        <div className='flex justify-around border-b text-sm'>
           <div
-            className={`w-full text-center border-b ${
-              selectTime && 'text-[#0D51FF] border-[#0D51FF]'
+            className={`w-full text-center border-b py-3 ${
+              selectUse && 'text-[#0D51FF] border-[#0D51FF]'
             }`}
-            onClick={() => setSelectTime(true)}
+            onClick={() => setSelectUse(true)}
           >
             이용 시작
           </div>
           <div
-            className={`w-full text-center border-b ${
-              !selectTime && 'text-[#0D51FF] border-[#0D51FF]'
+            className={`w-full text-center border-b py-3 ${
+              !selectUse && 'text-[#0D51FF] border-[#0D51FF]'
             }`}
-            onClick={() => setSelectTime(false)}
+            onClick={() => setSelectUse(false)}
           >
             이용 종료
           </div>
         </div>
-        <p>최소 30분 최대 2시간 이용 가능</p>
-        {selectTime ? <div>시작 탭</div> : <div>종료 탭</div>}
+        <p className='text-xs pt-3 pl-3'>최소 30분 최대 2시간 이용 가능</p>
+        {selectUse ? (
+          <div>
+            <TimePicker
+              list={selectHour}
+              onSelectedChange={setSelectTimeStart}
+            />
+          </div>
+        ) : (
+          <div>
+            <TimePicker list={selectHour} onSelectedChange={setSelectTimeEnd} />
+          </div>
+        )}
       </section>
       <section className='px-4 bg-gray4 mb-1 py-2'>
-        <p>인원 수를 입력해주세요</p>
-        <div className='flex justify-between'>
-          <span>{peopleCount}명</span>
+        <p className='flex items-center gap-1 font-semibold text-lg'>
+          <GoPeople />
+          인원 수를 입력해주세요
+        </p>
+        <div className='flex justify-between mt-4 items-end'>
+          <span className='text-sm pb-2 text-[#0D51FF]'>{peopleCount}명</span>
           <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl'>
             <button onClick={() => setPeopleCount(peopleCount - 1)}>-</button>
             <span className='mx-6'>{peopleCount}</span>
@@ -91,9 +123,19 @@ export default function Reservation() {
         </div>
       </section>
       <section className='px-4 bg-gray4'>비품 목록</section>
-      <div className='sticky top-0 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
-        2023.09.27(화), 15:00 ~ 17:00, 3명
+      <div className='fixed bottom-[50px] left-0 right-0 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
+        {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
+        {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
+        {selectTimeEnd}시, {peopleCount}명
       </div>
     </div>
   );
 }
+/**
+ * 투두리스트
+ * 1. 달력 만들기 (커스터마이징 or JS달력 만들기 검색) : 공휴일 정보 가져오기?
+ * 2. time picker 구현 => 오전/오후, 분으로 쪼개기
+ * 3. 예약페이지 예약 내용 객체로 담아서 제출하기
+ * 4-1. 하단바 내용입력으로 바꾸기
+ * 4-2. 모든 정보가 입력 되었을 경우에만 하단 버튼 활성화
+ */
