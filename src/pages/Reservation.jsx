@@ -25,13 +25,24 @@ export default function Reservation() {
     hours.push(i);
   }
 
+  // const reserveInfo = [];
+  // useEffect(() => {
+  //   reserveInfo.push({
+  //     resYear: startDate.getFullYear(),
+  //     resMonth: startDate.getMonth() + 1,
+  //     resDate: startDate.getDate(),
+  //     resDay: startDate.getDay(),
+  //   });
+  //   console.log(reserveInfo[0]);
+  // }, [reserveInfo]);
+
   const reserveInfo = {
     resYear: startDate.getFullYear(),
     resMonth: startDate.getMonth() + 1,
     resDate: startDate.getDate(),
     resDay: startDate.getDay(),
   };
-  // console.log(reserveInfo);
+  console.log(reserveInfo[0]);
   const numToDay = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
@@ -48,8 +59,8 @@ export default function Reservation() {
         <div>
           <DatePicker
             locale={ko}
-            selected={startDate}
-            onChange={(i) => setStartDate(i)}
+            // selected={startDate}
+            onChange={(date) => setStartDate(date)}
             minDate={new Date()}
             maxDate={addDays(new Date(), 7)}
             placeholderText='클릭하면 나옴 ㅋㅋ'
@@ -123,11 +134,13 @@ export default function Reservation() {
         </div>
       </section>
       <section className='px-4 bg-gray4'>비품 목록</section>
-      <div className='fixed bottom-[50px] left-0 right-0 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
-        {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
-        {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
-        {selectTimeEnd}시, {peopleCount}명
-      </div>
+      {reserveInfo && (
+        <div className='sticky bottom-0 left-0 right-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
+          {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
+          {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
+          {selectTimeEnd}시, {peopleCount}명
+        </div>
+      )}
     </div>
   );
 }
