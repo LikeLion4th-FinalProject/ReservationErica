@@ -3,6 +3,7 @@ import "../App.css";
 
 import Profile from "../components/Profile.jsx";
 import PlaceCard from "../components/PlaceCard.jsx";
+import MypageCard from "../components/MypageCard.jsx";
 
 function MyPage() {
   return (
@@ -18,7 +19,7 @@ function MyPage() {
         </p>
       </div>
 
-      <PlaceCard />
+      <MypageCard />
     </div>
   );
 }
