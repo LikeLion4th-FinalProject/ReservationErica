@@ -3,7 +3,7 @@ import { BsFillCircleFill } from "react-icons/bs";
 
 export default function IndicatorSection() {
   return (
-    <section className="w-full bg-gray4 h-[40px] mt-5 py-[14px] flex gap-[7px] text-btn justify-center gap-4">
+    <section className="w-full bg-gray4 h-[40px] mt-2 py-[14px] flex gap-[7px] text-btn justify-start gap-4">
       {indicators.map((indicator, index) => (
         <div key={index} className={INDICATOR_STYLE}>
           <BsFillCircleFill size={10} className={indicator.color} />
