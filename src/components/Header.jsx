@@ -29,7 +29,7 @@ function Header({ title }) {
           </div>
         </section>
       ) : (
-        <div className="h-[100px] w-full flex items-center justify-between px-4">
+        <div className="h-[80px] w-full flex items-center justify-between px-4">
           <h1
             className="bold text-gray0 flex-[1.6] text-center"
             style={{ fontSize: "18px" }}

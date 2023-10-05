@@ -90,7 +90,7 @@ function MypageCard({ title }) {
         ))}
       </section>
       <button className="flex justify-center w-full bg-gray0 text-white py-[10px] rounded-full text-sm">
-        예약하기
+        여기 연장하기랑 취소하기 버튼으로 바꿔야 해
       </button>
     </section>
   );
