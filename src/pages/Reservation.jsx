@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsCalendar4Event } from 'react-icons/bs';
 import { BiTime } from 'react-icons/bi';
 import { GoPeople } from 'react-icons/go';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { addDays } from 'date-fns';
-import { ko } from 'date-fns/esm/locale';
 import IndicatorSection from '../components/IndicatorSection';
 import TimePicker from '../components/TimePicker';
 import { dayAndNight, selectHour, selectMinute } from '../styles/static';
