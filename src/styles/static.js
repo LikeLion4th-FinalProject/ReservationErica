@@ -34,3 +34,5 @@ export const selectHour = [
 ];
 
 export const selectMinute = ['00', '30'];
+
+export const dayList = ['일', '월', '화', '수', '목', '금', '토'];

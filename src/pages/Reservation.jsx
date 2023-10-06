@@ -10,6 +10,7 @@ import { ko } from 'date-fns/esm/locale';
 import IndicatorSection from '../components/IndicatorSection';
 import TimePicker from '../components/TimePicker';
 import { dayAndNight, selectHour, selectMinute } from '../styles/static';
+import Calandar from '../components/Calandar';
 
 export default function Reservation() {
   const params = useParams();
@@ -24,17 +25,6 @@ export default function Reservation() {
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
   }
-
-  // const reserveInfo = [];
-  // useEffect(() => {
-  //   reserveInfo.push({
-  //     resYear: startDate.getFullYear(),
-  //     resMonth: startDate.getMonth() + 1,
-  //     resDate: startDate.getDate(),
-  //     resDay: startDate.getDay(),
-  //   });
-  //   console.log(reserveInfo[0]);
-  // }, [reserveInfo]);
 
   const reserveInfo = {
     resYear: startDate.getFullYear(),
@@ -57,14 +47,7 @@ export default function Reservation() {
           <p className='text-lg'>예약할 날짜를 선택해주세요</p>
         </div>
         <div>
-          <DatePicker
-            locale={ko}
-            // selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            minDate={new Date()}
-            maxDate={addDays(new Date(), 7)}
-            placeholderText='클릭하면 나옴 ㅋㅋ'
-          />
+          <Calandar />
         </div>
       </section>
       <section className='px-4 bg-gray4 mb-[1px]'>
