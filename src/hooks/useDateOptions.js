@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function useDateOptions() {
   const [options, setOptions] = useState([]);
@@ -9,7 +9,7 @@ function useDateOptions() {
     for (let i = 0; i < 7; i++) {
       const date = new Date();
       date.setDate(today.getDate() + i);
-      const formattedDate = date.toISOString().split("T")[0];
+      const formattedDate = date.toISOString().split('T')[0];
       tempOptions.push(formattedDate);
     }
     setOptions(tempOptions);
