@@ -13,7 +13,9 @@ function BtnNav() {
       className={`sticky bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
     >
       {isReserveDetailPage ? (
-        <div>test</div>
+        <button className='w-full h-full bg-gray2 text-white'>
+          <span>예약하기</span>
+        </button>
       ) : (
         <>
           <Link

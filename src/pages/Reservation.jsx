@@ -33,7 +33,7 @@ export default function Reservation() {
   const numToDay = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
-    <div className='flex flex-col bg-[#d9d9d9]'>
+    <div className='flex flex-col bg-[#d9d9d9] h-full'>
       <section className='p-4 flex flex-col gap-2 bg-gray4 mb-1'>
         <p className='text-xl font-extrabold'>Smash Room {params.id}번 방</p>
         <p className='text-sm font-thin'>{params.id}번 방 상세정보 ...</p>
@@ -115,7 +115,7 @@ export default function Reservation() {
       </section>
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
-        <div className='sticky bottom-0 left-0 right-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
+        <div className='sticky bottom-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
           {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
           {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
           {selectTimeEnd}시, {peopleCount}명
@@ -126,9 +126,7 @@ export default function Reservation() {
 }
 /**
  * 투두리스트
- * 1. 달력 만들기 (커스터마이징 or JS달력 만들기 검색) : 공휴일 정보 가져오기?
- * 2. time picker 구현 => 오전/오후, 분으로 쪼개기
- * 3. 예약페이지 예약 내용 객체로 담아서 제출하기
- * 4-1. 하단바 내용입력으로 바꾸기
- * 4-2. 모든 정보가 입력 되었을 경우에만 하단 버튼 활성화
+ * 1. 모든 정보가 입력 되었을 경우에만 하단 버튼 활성화
+ * 2. 하단 예약사항 한 눈에 보는거 어떻ㄱㅔ 고정시키지
+ * 3. time picker 구현 => 오전/오후, 분으로 쪼개기
  */

@@ -77,22 +77,19 @@ export default function Calandar() {
               {date}
             </button>
           ))}
-          {availableArr.map(
-            (date, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleDatePicker(date)}
-                className={`h-10 hover:cursor-pointer rounded-xl bg-white ${
-                  datePick === date
-                    ? 'bg-[#0D51FF] text-white'
-                    : 'hover:bg-[#ceddff]'
-                }`}
-              >
-                {date}
-              </button>
-            )
-            // className='h-10 hover:cursor-pointer hover:bg-[#ceddff] hover:rounded-xl'
-          )}
+          {availableArr.map((date, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleDatePicker(date)}
+              className={`h-10 hover:cursor-pointer rounded-xl bg-white ${
+                datePick === date
+                  ? 'bg-[#0D51FF] text-white'
+                  : 'hover:bg-[#ceddff]'
+              }`}
+            >
+              {date}
+            </button>
+          ))}
           {notAvailableArrAfter.map((date, idx) => (
             <button key={idx} className='h-10 text-gray-300 hover:cursor-auto'>
               {date}
