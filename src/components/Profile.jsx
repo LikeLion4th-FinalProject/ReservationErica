@@ -10,10 +10,10 @@ import SelectMenu from "../components/SelectMenu.jsx";
 
 function Profile() {
   return (
-    <section className="w-full flex-col bg-gray4 shadow-md rounded-2xl border-[1px] mb-10 items-center">
+    <section className="w-full flex-col bg-gray4 rounded-2xl border-[1px] mb-10 items-center">
       <div className="flex items-center px-4 py-6">
         <div className="mx-4">
-          <img src={Image} style={{ width: "85px" }} />
+          <img src={Image} style={{ width: "88px" }} />
         </div>
         <div>
           <div className="flex items-center">

@@ -9,7 +9,7 @@ import Image from "../static/profile_image.png";
 function SelectMenu() {
   return (
     <div
-      className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-lg border-[1px]"
+      className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-xl rounded-b-lg"
       style={{ fontSize: "14px" }}
     >
       <button className="flex items-center justify-center py-3 border-r border-gray-300">

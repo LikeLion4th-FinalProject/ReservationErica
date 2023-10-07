@@ -7,7 +7,7 @@ import MypageCard from "../components/MypageCard.jsx";
 
 function MyPage() {
   return (
-    <div>
+    <div className="px-4 rounded-b-lg rounded-2xl">
       <Profile />
 
       <div>
