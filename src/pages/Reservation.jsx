@@ -6,31 +6,37 @@ import { GoPeople } from 'react-icons/go';
 import 'react-datepicker/dist/react-datepicker.css';
 import IndicatorSection from '../components/IndicatorSection';
 import TimePicker from '../components/TimePicker';
-import { dayAndNight, selectHour, selectMinute } from '../styles/static';
+import {
+  dayAndNight,
+  dayList,
+  selectHour,
+  selectMinute,
+} from '../styles/static';
 import Calandar from '../components/Calandar';
 
 export default function Reservation() {
   const params = useParams();
-  // console.log(params);
-  const [startDate, setStartDate] = useState(new Date());
+
   const [selectUse, setSelectUse] = useState(true);
   const [peopleCount, setPeopleCount] = useState(0);
   const [selectTimeStart, setSelectTimeStart] = useState();
   const [selectTimeEnd, setSelectTimeEnd] = useState();
 
+  // 예약내용 들어갈 객체
+  const [reserveInfo, setReserveInfo] = useState({
+    year: '',
+    month: '',
+    date: '',
+    day: '',
+    hour: '',
+    minute: '',
+    useTime: '',
+  });
+
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
   }
-
-  const reserveInfo = {
-    resYear: startDate.getFullYear(),
-    resMonth: startDate.getMonth() + 1,
-    resDate: startDate.getDate(),
-    resDay: startDate.getDay(),
-  };
-  console.log(reserveInfo[0]);
-  const numToDay = ['일', '월', '화', '수', '목', '금', '토'];
 
   return (
     <div className='flex flex-col bg-[#d9d9d9] h-full'>
@@ -44,7 +50,7 @@ export default function Reservation() {
           <p className='text-lg'>예약할 날짜를 선택해주세요</p>
         </div>
         <div>
-          <Calandar />
+          <Calandar data={reserveInfo} reserveInfo={setReserveInfo} />
         </div>
       </section>
       <section className='px-4 bg-gray4 mb-[1px]'>
@@ -116,9 +122,9 @@ export default function Reservation() {
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
         <div className='sticky bottom-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
-          {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
-          {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
-          {selectTimeEnd}시, {peopleCount}명
+          {reserveInfo.year}.{reserveInfo.month}.{reserveInfo.date}(
+          {reserveInfo.day}), 오후 {reserveInfo.hour}시 ~{selectTimeEnd}시,{' '}
+          {peopleCount}명
         </div>
       )}
     </div>
