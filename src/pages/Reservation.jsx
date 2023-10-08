@@ -16,6 +16,7 @@ import {
 } from '../styles/static';
 import Calandar from '../components/Calandar';
 import { isObjectFullyFilled } from '../utils/isObjectFullly';
+import ConfirmModal from '../components/modal/ConfirmModal';
 
 export default function Reservation() {
   const params = useParams();
@@ -26,6 +27,7 @@ export default function Reservation() {
   const [selectTimeEnd, setSelectTimeEnd] = useState(1);
   const [isMaxPeople, setMaxPeople] = useState(false);
   const [isMinPeople, setMinPeople] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   // 예약내용 들어갈 객체
   const [reserveInfo, setReserveInfo] = useState({
@@ -143,13 +145,13 @@ export default function Reservation() {
           <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl flex'>
             {!isMinPeople && (
               <button onClick={() => setPeopleCount(peopleCount - 1)}>
-                <AiOutlineMinus />
+                <AiOutlineMinus size={18} className='font-black' />
               </button>
             )}
             <span className='mx-4'>{peopleCount}</span>
             {!isMaxPeople && (
               <button onClick={() => setPeopleCount(peopleCount + 1)}>
-                <AiOutlinePlus />
+                <AiOutlinePlus size={18} className='font-black' />
               </button>
             )}
           </div>
@@ -167,7 +169,10 @@ export default function Reservation() {
         className={`fixed bottom-0 left-0 right-0 z-51 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
       >
         {isFormValid ? (
-          <button className='w-full h-full bg-[#0D51FF] text-white'>
+          <button
+            className='w-full h-full bg-[#0D51FF] text-white transition-colors duration-1000'
+            onClick={() => setModalOpen(true)}
+          >
             <span>예약하기</span>
           </button>
         ) : (
@@ -176,6 +181,12 @@ export default function Reservation() {
           </button>
         )}
       </section>
+      {isModalOpen && (
+        <ConfirmModal
+          content={`Smash ${params.id}번 방을 예약하시겠습니까?`}
+          isOpen={setModalOpen}
+        />
+      )}
     </div>
   );
 }

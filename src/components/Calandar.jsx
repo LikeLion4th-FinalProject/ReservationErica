@@ -106,10 +106,10 @@ export default function Calandar({ data, reserveInfo }) {
             <button
               key={idx}
               onClick={() => handleDatePicker(date)}
-              className={`h-10 hover:cursor-pointer rounded-xl bg-white ${
+              className={`h-10 hover:cursor-pointer rounded-xl ${
                 datePick === date
-                  ? 'bg-[#0D51FF] text-white'
-                  : 'hover:bg-[#ceddff]'
+                  ? 'bg-[#0D51FF] text-white transition ease-in-out duration-500'
+                  : 'bg-white hover:bg-[#ceddff]'
               }`}
             >
               {date}
