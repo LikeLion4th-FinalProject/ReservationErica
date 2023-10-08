@@ -13,25 +13,34 @@ import {
   selectMinute,
 } from '../styles/static';
 import Calandar from '../components/Calandar';
+import { isObjectFullyFilled } from '../utils/isObjectFullly';
 
 export default function Reservation() {
   const params = useParams();
 
   const [selectUse, setSelectUse] = useState(true);
-  const [peopleCount, setPeopleCount] = useState(0);
-  const [selectTimeStart, setSelectTimeStart] = useState();
-  const [selectTimeEnd, setSelectTimeEnd] = useState();
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [selectTimeStart, setSelectTimeStart] = useState(1);
+  const [selectTimeEnd, setSelectTimeEnd] = useState(1);
 
   // 예약내용 들어갈 객체
   const [reserveInfo, setReserveInfo] = useState({
-    year: '',
-    month: '',
-    date: '',
-    day: '',
-    hour: '',
-    minute: '',
-    useTime: '',
+    year: null,
+    month: null,
+    date: null,
+    day: null,
+    hour: null,
+    minute: 0,
+    useTime: null,
+    people: peopleCount,
   });
+
+  const [isFormValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    setFormValid(isObjectFullyFilled(reserveInfo));
+    console.log(isFormValid);
+  }, [reserveInfo, peopleCount]);
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
@@ -39,7 +48,7 @@ export default function Reservation() {
   }
 
   return (
-    <div className='flex flex-col bg-[#d9d9d9] h-full'>
+    <div className='flex flex-col bg-[#d9d9d9] pb-[100px]'>
       <section className='p-4 flex flex-col gap-2 bg-gray4 mb-1'>
         <p className='text-xl font-extrabold'>Smash Room {params.id}번 방</p>
         <p className='text-sm font-thin'>{params.id}번 방 상세정보 ...</p>
@@ -95,13 +104,22 @@ export default function Reservation() {
         {selectUse ? (
           <div>
             <TimePicker
-              list={selectHour}
+              isStart={true}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              hourList={selectHour}
               onSelectedChange={setSelectTimeStart}
             />
           </div>
         ) : (
           <div>
-            <TimePicker list={selectHour} onSelectedChange={setSelectTimeEnd} />
+            <TimePicker
+              isStart={false}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              hourList={selectHour}
+              onSelectedChange={setSelectTimeEnd}
+            />
           </div>
         )}
       </section>
@@ -121,12 +139,25 @@ export default function Reservation() {
       </section>
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
-        <div className='sticky bottom-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
+        <div className='fixed bottom-[49px] z-50 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF] w-full h-[50px]'>
           {reserveInfo.year}.{reserveInfo.month}.{reserveInfo.date}(
-          {reserveInfo.day}), 오후 {reserveInfo.hour}시 ~{selectTimeEnd}시,{' '}
+          {reserveInfo.day}), 오후 {selectTimeStart}시 ~ {selectTimeEnd}시,{' '}
           {peopleCount}명
         </div>
       )}
+      <section
+        className={`fixed bottom-0 left-0 right-0 z-51 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+      >
+        {isFormValid ? (
+          <button className='w-full h-full bg-[#0D51FF] text-white'>
+            <span>예약하기</span>
+          </button>
+        ) : (
+          <button className='w-full h-full bg-gray2 text-white'>
+            <span>예약하기</span>
+          </button>
+        )}
+      </section>
     </div>
   );
 }

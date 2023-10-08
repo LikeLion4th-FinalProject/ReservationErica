@@ -65,7 +65,7 @@ export default function Calandar({ data, reserveInfo }) {
 
   const handleDatePicker = (date) => {
     setDatePick(date);
-    console.log('선택한 날짜 : ', date);
+    // console.log('선택한 날짜 : ', date);
   };
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function Calandar({ data, reserveInfo }) {
       date: datePick,
       day: dayList[getDay],
     });
-    console.log('datePick : ', datePick);
+    // console.log('datePick : ', datePick);
   }, [datePick]);
 
   return (

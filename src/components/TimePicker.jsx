@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 
-const Picker = ({ list, onSelectedChange }) => {
+const Picker = ({ isStart, hourList, onSelectedChange, data, reserveInfo }) => {
   const SCROLL_DEBOUNCE_TIME = 100;
 
-  const newList = ['', ...list, ''];
+  const newList = ['', ...hourList, ''];
   const ref = useRef(null);
   const [selected, setSelected] = useState(1);
   const itemRefs = useRef([]);
@@ -20,13 +20,16 @@ const Picker = ({ list, onSelectedChange }) => {
         const index = Math.floor(
           (ref.current.scrollTop + ITEM_HEIGHT / 2) / ITEM_HEIGHT
         );
-        if (list[index] !== '') {
+        if (hourList[index] !== '') {
           setSelected(index);
           itemRefs.current[index]?.scrollIntoView({
             behavior: 'smooth',
             block: 'center',
           });
           onSelectedChange && onSelectedChange(newList[index]);
+          isStart
+            ? reserveInfo({ ...data, hour: index })
+            : reserveInfo({ ...data, useTime: index });
         }
       }, SCROLL_DEBOUNCE_TIME);
     }
