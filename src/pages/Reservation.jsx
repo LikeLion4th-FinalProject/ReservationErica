@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsCalendar4Event } from 'react-icons/bs';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus } from 'react-icons/ai';
 import { BiTime } from 'react-icons/bi';
 import { GoPeople } from 'react-icons/go';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -22,6 +24,8 @@ export default function Reservation() {
   const [peopleCount, setPeopleCount] = useState(1);
   const [selectTimeStart, setSelectTimeStart] = useState(1);
   const [selectTimeEnd, setSelectTimeEnd] = useState(1);
+  const [isMaxPeople, setMaxPeople] = useState(false);
+  const [isMinPeople, setMinPeople] = useState(false);
 
   // 예약내용 들어갈 객체
   const [reserveInfo, setReserveInfo] = useState({
@@ -39,7 +43,13 @@ export default function Reservation() {
 
   useEffect(() => {
     setFormValid(isObjectFullyFilled(reserveInfo));
-    console.log(isFormValid);
+    // console.log(isFormValid);
+    if (peopleCount >= 8) setMaxPeople(true);
+    else if (peopleCount <= 1) setMinPeople(true);
+    else {
+      setMaxPeople(false);
+      setMinPeople(false);
+    }
   }, [reserveInfo, peopleCount]);
 
   const hours = [];
@@ -130,10 +140,18 @@ export default function Reservation() {
         </p>
         <div className='flex justify-between mt-4 items-end'>
           <span className='text-sm pb-2 text-[#0D51FF]'>{peopleCount}명</span>
-          <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl'>
-            <button onClick={() => setPeopleCount(peopleCount - 1)}>-</button>
-            <span className='mx-6'>{peopleCount}</span>
-            <button onClick={() => setPeopleCount(peopleCount + 1)}>+</button>
+          <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl flex'>
+            {!isMinPeople && (
+              <button onClick={() => setPeopleCount(peopleCount - 1)}>
+                <AiOutlineMinus />
+              </button>
+            )}
+            <span className='mx-4'>{peopleCount}</span>
+            {!isMaxPeople && (
+              <button onClick={() => setPeopleCount(peopleCount + 1)}>
+                <AiOutlinePlus />
+              </button>
+            )}
           </div>
         </div>
       </section>
