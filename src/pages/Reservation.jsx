@@ -31,10 +31,10 @@ export default function Reservation() {
 
   // 예약내용 들어갈 객체
   const [reserveInfo, setReserveInfo] = useState({
-    year: null,
-    month: null,
-    date: null,
-    day: null,
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
+    day: dayList[new Date().getDay()],
     hour: null,
     minute: 0,
     useTime: null,
@@ -114,7 +114,21 @@ export default function Reservation() {
         </div>
         <p className='text-xs pt-3 pl-3'>최소 30분 최대 2시간 이용 가능</p>
         {selectUse ? (
-          <div>
+          <div className='flex'>
+            {/* <TimePicker
+              isStart={true}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              hourList={selectHour}
+              onSelectedChange={setSelectTimeStart}
+            />
+            <TimePicker
+              isStart={true}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              hourList={selectHour}
+              onSelectedChange={setSelectTimeStart}
+            /> */}
             <TimePicker
               isStart={true}
               data={reserveInfo}
