@@ -23,23 +23,33 @@ export default function Reservation() {
 
   const [selectUse, setSelectUse] = useState(true);
   const [peopleCount, setPeopleCount] = useState(1);
-  const [selectTimeStart, setSelectTimeStart] = useState(1);
-  const [selectTimeEnd, setSelectTimeEnd] = useState(1);
+  const [startTimeLange, setStartTimeLange] = useState('오전');
+  const [startTimeHour, setStartTimeHour] = useState(1);
+  const [startTimeMinute, setStartTimeMinute] = useState('00');
+  const [endTimeLange, setEndTimeLange] = useState('오전');
+  const [endTimeHour, setEndTimeHour] = useState(1);
+  const [endTimeMinute, setEndTimeMinute] = useState('00');
   const [isMaxPeople, setMaxPeople] = useState(false);
   const [isMinPeople, setMinPeople] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // 예약내용 들어갈 객체
+  // 예약내용 들어갈 객체  (서버로 보낼 내용)
   const [reserveInfo, setReserveInfo] = useState({
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
     date: new Date().getDate(),
     day: dayList[new Date().getDay()],
-    hour: null,
-    minute: 0,
-    useTime: null,
+    startLange: undefined,
+    startHour: undefined,
+    startMinute: undefined,
+    endLange: undefined,
+    endHour: undefined,
+    endMinute: undefined,
+    // useTime: undefined,
     people: peopleCount,
   });
+
+  console.log(reserveInfo);
 
   const [isFormValid, setFormValid] = useState(false);
 
@@ -115,36 +125,56 @@ export default function Reservation() {
         <p className='text-xs pt-3 pl-3'>최소 30분 최대 2시간 이용 가능</p>
         {selectUse ? (
           <div className='flex'>
-            {/* <TimePicker
+            <TimePicker
               isStart={true}
+              flag={'startLange'}
               data={reserveInfo}
               reserveInfo={setReserveInfo}
-              hourList={selectHour}
-              onSelectedChange={setSelectTimeStart}
+              pickList={['오전', '오후']}
+              onSelectedChange={setStartTimeLange}
             />
             <TimePicker
               isStart={true}
+              flag={'startHour'}
               data={reserveInfo}
               reserveInfo={setReserveInfo}
-              hourList={selectHour}
-              onSelectedChange={setSelectTimeStart}
-            /> */}
+              pickList={selectHour}
+              onSelectedChange={setStartTimeHour}
+            />
             <TimePicker
               isStart={true}
+              flag={'startMinute'}
               data={reserveInfo}
               reserveInfo={setReserveInfo}
-              hourList={selectHour}
-              onSelectedChange={setSelectTimeStart}
+              pickList={['00', '30']}
+              onSelectedChange={setStartTimeMinute}
             />
           </div>
         ) : (
-          <div>
+          <div className='flex'>
             <TimePicker
               isStart={false}
+              flag={'endLange'}
               data={reserveInfo}
               reserveInfo={setReserveInfo}
-              hourList={selectHour}
-              onSelectedChange={setSelectTimeEnd}
+              pickList={['오전', '오후']}
+              onSelectedChange={setEndTimeLange}
+            />
+            <TimePicker
+              isStart={false}
+              flag={'endHour'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={selectHour}
+              onSelectedChange={setEndTimeHour}
+            />
+            <TimePicker
+              isStart={false}
+              flag={'endMinute'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={['00', '30']}
+              onSelectedChange={setEndTimeMinute}
             />
           </div>
         )}
@@ -174,13 +204,11 @@ export default function Reservation() {
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
         <div className='fixed bottom-[49px] z-50 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF] w-full h-[50px]'>
-          {reserveInfo.year}.{reserveInfo.month}.{reserveInfo.date}(
-          {reserveInfo.day}), 오후 {selectTimeStart}시 ~ {selectTimeEnd}시,{' '}
-          {peopleCount}명
+          {`${reserveInfo.year}.${reserveInfo.month}.${reserveInfo.date}(${reserveInfo.day}), ${startTimeLange} ${startTimeHour}:${startTimeMinute} ~ ${endTimeLange} ${endTimeHour}:${endTimeMinute}, ${peopleCount}명`}
         </div>
       )}
       <section
-        className={`fixed bottom-0 left-0 right-0 z-51 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+        className={`fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
       >
         {isFormValid ? (
           <button
