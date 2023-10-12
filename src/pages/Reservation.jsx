@@ -1,39 +1,76 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsCalendar4Event } from 'react-icons/bs';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus } from 'react-icons/ai';
 import { BiTime } from 'react-icons/bi';
 import { GoPeople } from 'react-icons/go';
 import 'react-datepicker/dist/react-datepicker.css';
 import IndicatorSection from '../components/IndicatorSection';
 import TimePicker from '../components/TimePicker';
-import { dayAndNight, selectHour, selectMinute } from '../styles/static';
+import {
+  dayAndNight,
+  dayList,
+  selectHour,
+  selectMinute,
+} from '../styles/static';
 import Calandar from '../components/Calandar';
+import { isObjectFullyFilled } from '../utils/isObjectFullly';
+import ConfirmModal from '../components/modal/ConfirmModal';
 
 export default function Reservation() {
   const params = useParams();
-  // console.log(params);
-  const [startDate, setStartDate] = useState(new Date());
+
   const [selectUse, setSelectUse] = useState(true);
-  const [peopleCount, setPeopleCount] = useState(0);
-  const [selectTimeStart, setSelectTimeStart] = useState();
-  const [selectTimeEnd, setSelectTimeEnd] = useState();
+  const [peopleCount, setPeopleCount] = useState(1);
+  const [startTimeLange, setStartTimeLange] = useState('오전');
+  const [startTimeHour, setStartTimeHour] = useState(1);
+  const [startTimeMinute, setStartTimeMinute] = useState('00');
+  const [endTimeLange, setEndTimeLange] = useState('오전');
+  const [endTimeHour, setEndTimeHour] = useState(1);
+  const [endTimeMinute, setEndTimeMinute] = useState('00');
+  const [isMaxPeople, setMaxPeople] = useState(false);
+  const [isMinPeople, setMinPeople] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  // 예약내용 들어갈 객체  (서버로 보낼 내용)
+  const [reserveInfo, setReserveInfo] = useState({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
+    day: dayList[new Date().getDay()],
+    startLange: undefined,
+    startHour: undefined,
+    startMinute: undefined,
+    endLange: undefined,
+    endHour: undefined,
+    endMinute: undefined,
+    // useTime: undefined,
+    people: peopleCount,
+  });
+
+  console.log(reserveInfo);
+
+  const [isFormValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    setFormValid(isObjectFullyFilled(reserveInfo));
+    // console.log(isFormValid);
+    if (peopleCount >= 8) setMaxPeople(true);
+    else if (peopleCount <= 1) setMinPeople(true);
+    else {
+      setMaxPeople(false);
+      setMinPeople(false);
+    }
+  }, [reserveInfo, peopleCount]);
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
   }
 
-  const reserveInfo = {
-    resYear: startDate.getFullYear(),
-    resMonth: startDate.getMonth() + 1,
-    resDate: startDate.getDate(),
-    resDay: startDate.getDay(),
-  };
-  console.log(reserveInfo[0]);
-  const numToDay = ['일', '월', '화', '수', '목', '금', '토'];
-
   return (
-    <div className='flex flex-col bg-[#d9d9d9] h-full'>
+    <div className='flex flex-col bg-[#d9d9d9] pb-[100px]'>
       <section className='p-4 flex flex-col gap-2 bg-gray4 mb-1'>
         <p className='text-xl font-extrabold'>Smash Room {params.id}번 방</p>
         <p className='text-sm font-thin'>{params.id}번 방 상세정보 ...</p>
@@ -44,7 +81,7 @@ export default function Reservation() {
           <p className='text-lg'>예약할 날짜를 선택해주세요</p>
         </div>
         <div>
-          <Calandar />
+          <Calandar data={reserveInfo} reserveInfo={setReserveInfo} />
         </div>
       </section>
       <section className='px-4 bg-gray4 mb-[1px]'>
@@ -87,15 +124,58 @@ export default function Reservation() {
         </div>
         <p className='text-xs pt-3 pl-3'>최소 30분 최대 2시간 이용 가능</p>
         {selectUse ? (
-          <div>
+          <div className='flex'>
             <TimePicker
-              list={selectHour}
-              onSelectedChange={setSelectTimeStart}
+              isStart={true}
+              flag={'startLange'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={['오전', '오후']}
+              onSelectedChange={setStartTimeLange}
+            />
+            <TimePicker
+              isStart={true}
+              flag={'startHour'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={selectHour}
+              onSelectedChange={setStartTimeHour}
+            />
+            <TimePicker
+              isStart={true}
+              flag={'startMinute'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={['00', '30']}
+              onSelectedChange={setStartTimeMinute}
             />
           </div>
         ) : (
-          <div>
-            <TimePicker list={selectHour} onSelectedChange={setSelectTimeEnd} />
+          <div className='flex'>
+            <TimePicker
+              isStart={false}
+              flag={'endLange'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={['오전', '오후']}
+              onSelectedChange={setEndTimeLange}
+            />
+            <TimePicker
+              isStart={false}
+              flag={'endHour'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={selectHour}
+              onSelectedChange={setEndTimeHour}
+            />
+            <TimePicker
+              isStart={false}
+              flag={'endMinute'}
+              data={reserveInfo}
+              reserveInfo={setReserveInfo}
+              pickList={['00', '30']}
+              onSelectedChange={setEndTimeMinute}
+            />
           </div>
         )}
       </section>
@@ -106,20 +186,48 @@ export default function Reservation() {
         </p>
         <div className='flex justify-between mt-4 items-end'>
           <span className='text-sm pb-2 text-[#0D51FF]'>{peopleCount}명</span>
-          <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl'>
-            <button onClick={() => setPeopleCount(peopleCount - 1)}>-</button>
-            <span className='mx-6'>{peopleCount}</span>
-            <button onClick={() => setPeopleCount(peopleCount + 1)}>+</button>
+          <div className='bg-gray3 mb-2 px-4 py-1 rounded-2xl flex'>
+            {!isMinPeople && (
+              <button onClick={() => setPeopleCount(peopleCount - 1)}>
+                <AiOutlineMinus size={18} className='font-black' />
+              </button>
+            )}
+            <span className='mx-4'>{peopleCount}</span>
+            {!isMaxPeople && (
+              <button onClick={() => setPeopleCount(peopleCount + 1)}>
+                <AiOutlinePlus size={18} className='font-black' />
+              </button>
+            )}
           </div>
         </div>
       </section>
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
-        <div className='sticky bottom-0 z-51 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF]'>
-          {reserveInfo.resYear}.{reserveInfo.resMonth}.{reserveInfo.resDate}(
-          {numToDay[reserveInfo.resDay]}), 오후 {selectTimeStart}시 ~{' '}
-          {selectTimeEnd}시, {peopleCount}명
+        <div className='fixed bottom-[49px] z-50 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF] w-full h-[50px]'>
+          {`${reserveInfo.year}.${reserveInfo.month}.${reserveInfo.date}(${reserveInfo.day}), ${startTimeLange} ${startTimeHour}:${startTimeMinute} ~ ${endTimeLange} ${endTimeHour}:${endTimeMinute}, ${peopleCount}명`}
         </div>
+      )}
+      <section
+        className={`fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+      >
+        {isFormValid ? (
+          <button
+            className='w-full h-full bg-[#0D51FF] text-white transition-colors duration-1000'
+            onClick={() => setModalOpen(true)}
+          >
+            <span>예약하기</span>
+          </button>
+        ) : (
+          <button className='w-full h-full bg-gray2 text-white'>
+            <span>예약하기</span>
+          </button>
+        )}
+      </section>
+      {isModalOpen && (
+        <ConfirmModal
+          content={`Smash ${params.id}번 방을 예약하시겠습니까?`}
+          isOpen={setModalOpen}
+        />
       )}
     </div>
   );
