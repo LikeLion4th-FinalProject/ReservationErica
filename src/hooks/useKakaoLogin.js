@@ -38,6 +38,13 @@ const useKakaoLogin = (code) => {
         },
       });
       setUserData(data);
+      sessionStorage.setItem(
+        "kakaoLoginData",
+        JSON.stringify({
+          name: data.properties.nickname, // 주의: 여기를 수정했습니다.
+          id: data.id,
+        })
+      );
     } catch (error) {
       console.error("Error fetching user data: ", error.response.data);
     }
