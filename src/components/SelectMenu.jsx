@@ -19,20 +19,20 @@ function SelectMenu() {
         />
         <h1>이전 예약내역</h1>
       </button>
-      <button className="flex items-center justify-center py-3 border-r border-gray-300">
+      <button className="flex items-center justify-center py-3 border-gray-300">
         <img
           src={Icon2}
           style={{ width: "15px", height: "15px", marginRight: "5px" }}
         />
         <h1>건의내역</h1>
       </button>
-      <button className="flex items-center justify-center">
+      {/* <button className="flex items-center justify-center">
         <img
           src={Icon3}
           style={{ width: "15px", height: "15px", marginRight: "5px" }}
         />
         <h1>제재내역</h1>
-      </button>
+      </button> */}
     </div>
   );
 }

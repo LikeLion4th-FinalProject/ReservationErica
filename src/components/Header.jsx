@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function Header({ title }) {
   const navigate = useNavigate(-1);
   const location = useLocation();
-  let visible = true; // 헤더 상황 따라 보이게 할 지 결정하는 변수
+  let visible = true;
 
   switch (location.pathname) {
     case "/mypage/0":

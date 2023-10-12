@@ -6,7 +6,7 @@ import PlaceCard from "../components/PlaceCard.jsx";
 import MypageCard from "../components/MypageCard.jsx";
 
 function MyPage() {
-  let reserve = true; // true: 예약 전, false: 예약 후(이용 전, 이용 후)
+  let reserve = false; // true: 예약 전, false: 예약 후(이용 전, 이용 후)
 
   return (
     <div className="px-4 rounded-b-lg rounded-2xl">

@@ -8,15 +8,26 @@ function MypageCard({ title }) {
     hours.push(i);
   }
 
+  let before = false; // 예약 후 상태에서, 이용 전이면 true, 이용 후면 false
+
   return (
     <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-20">
       <section className="w-full flex flex-col bg-gray4 rounded-t-2xl px-4 py-3 ">
         <div className="flex justify-between items-center scroll-pr-32 pb-2 border-b-[1px] border-gray1">
           <h1 className="text-lg semibold">SMASH 0</h1>
           <div className="flex">
-            <div className="flex items-center p-1 px-2 mx-2 border-solid border border-blue-500 text-blue-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
+            {/* <div className="flex items-center p-1 px-2 mx-2 border-solid border border-blue-500 text-blue-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
               <span>이용중</span>
-            </div>
+            </div> */}
+            {before ? (
+              <div className="flex items-center p-1 px-2 mx-2 border-solid border border-gray-300 text-gray-400 rounded-full bg-gray3 text-btn tracking-wider gap-1">
+                <span>이용 전</span>
+              </div>
+            ) : (
+              <div className="flex items-center p-1 px-2 mx-2 border-solid border border-blue-500 text-blue-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
+                <span>이용 중</span>
+              </div>
+            )}
             <button className="flex items-center p-1 px-2 rounded-full bg-gray3 text-btn text-red tracking-wider gap-1">
               <RiAlarmWarningLine size={12} />
               <span>건의하기</span>

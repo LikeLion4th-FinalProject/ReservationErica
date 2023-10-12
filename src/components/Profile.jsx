@@ -20,9 +20,9 @@ function Profile() {
             <h3 className="semibold mx-2" style={{ fontSize: "20px" }}>
               김아무개
             </h3>
-            <div className="p-1 px-2 mx-2 my-2 border text-gray-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
+            {/* <div className="p-1 px-2 mx-2 my-2 border text-gray-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
               <span>제재수 0</span>
-            </div>
+            </div> */}
           </div>
           <div className="flex mt-2">
             <div className="mx-2 text-gray-500">
