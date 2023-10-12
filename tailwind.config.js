@@ -14,7 +14,8 @@ export default {
         gray4: "#F9F9F9",
         dark: "606060",
         red: "#FF0000",
-        primary: "#0038FF",
+        primary: "#0D51FF",
+        secondary: "#85A7FF",
       },
       fontSize: {
         title: "24px",

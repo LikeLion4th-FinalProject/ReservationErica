@@ -13,7 +13,7 @@ function CodegetPage() {
       // 사용자가 데이터베이스에 있다면
       // navigate("/reservation");
       // 사용자가 데이터베이스에 없다면
-      // navigate("/signup");
+      navigate("/signup");
     }
   }, [userData]);
 
