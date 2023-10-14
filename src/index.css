@@ -73,6 +73,17 @@
   font-style: normal;
 }
 
+@layer utilities {
+  .scroll-custom {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scroll-custom::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
 body {
   padding: 0;
   box-sizing: border-box;

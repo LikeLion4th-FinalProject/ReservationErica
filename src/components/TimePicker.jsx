@@ -69,7 +69,7 @@ const Picker = ({
     <ul
       ref={ref}
       onScroll={handleScroll}
-      className='w-full overflow-hidden h-[90px] overflow-y-auto'
+      className='w-full overflow-hidden h-[90px] overflow-y-auto scroll-custom'
     >
       <div className='box-border h-[30px] bg-gray3 sticky top-[30px]' />
       {newList.map((item, index) => (
