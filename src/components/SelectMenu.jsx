@@ -6,20 +6,38 @@ import Icon2 from "../static/icon2.png";
 import Icon3 from "../static/icon3.png";
 import Image from "../static/profile_image.png";
 
+import { useNavigate } from "react-router-dom";
+
 function SelectMenu() {
+  const movePage = useNavigate();
+
+  function gobeforereserve() {
+    movePage("/beforereserve");
+  }
+
+  function gosuggest() {
+    movePage("/suggest");
+  }
+
   return (
     <div
       className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-xl rounded-b-lg"
       style={{ fontSize: "14px" }}
     >
-      <button className="flex items-center justify-center py-3 border-r border-gray-300">
+      <button
+        className="flex items-center justify-center py-3 border-r border-gray-300"
+        onClick={gobeforereserve}
+      >
         <img
           src={Icon1}
           style={{ width: "15px", height: "15px", marginRight: "5px" }}
         />
         <h1>이전 예약내역</h1>
       </button>
-      <button className="flex items-center justify-center py-3 border-gray-300">
+      <button
+        className="flex items-center justify-center py-3 border-gray-300"
+        onClick={gosuggest}
+      >
         <img
           src={Icon2}
           style={{ width: "15px", height: "15px", marginRight: "5px" }}

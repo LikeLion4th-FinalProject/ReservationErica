@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import CodegetPage from "./pages/CodegetPage.jsx";
 import ReserveHome from "./pages/ReserveHome.jsx";
 import MyPage from "./pages/MyPage.jsx";
+import Suggest from "./pages/Suggest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         path: "mypage/:id",
         element: <MyPage />,
       },
+      {
+        path: "suggest",
+        element: <Suggest />,
+      },
+      // {
+      //   path: "beforereserve",
+      //   element: <BeforeReserve />,
+      // },
     ],
   },
 ]);
