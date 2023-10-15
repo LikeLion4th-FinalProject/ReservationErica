@@ -13,44 +13,101 @@ import {
 import Calandar from '../components/Calandar';
 import { isObjectFullyFilled } from '../utils/isObjectFullly';
 import ConfirmModal from '../components/modal/ConfirmModal';
+import {
+  calculateInitialEndTimeHour,
+  calculateInitialEndTimeLange,
+  calculateInitialStartTimeHour,
+  calculateInitialStartTimeLange,
+  calculateInitialStartTimeMinute,
+} from '../utils/initialStartTime';
 
 export default function Reservation() {
+  // console.log('랜더링 몇 번 될까요');
   const params = useParams();
+  const today = new Date();
 
+  const initialStartTimeLange = calculateInitialStartTimeLange();
+  const initialStartTimeHour = calculateInitialStartTimeHour();
+  const initialStartTimeMinute = calculateInitialStartTimeMinute();
+  const initialEndTimeLange = calculateInitialEndTimeLange(
+    initialStartTimeLange,
+    initialStartTimeHour
+  );
+  const initialEndTimeHour = calculateInitialEndTimeHour(initialStartTimeHour);
+  const initialEndTimeMinute = initialStartTimeMinute;
+  // console.log(
+  //   initialStartTimeLange,
+  //   initialStartTimeHour,
+  //   initialStartTimeMinute
+  // );
   const [selectUse, setSelectUse] = useState(true);
-  const [startTimeLange, setStartTimeLange] = useState('오전');
-  const [startTimeHour, setStartTimeHour] = useState(1);
-  const [startTimeMinute, setStartTimeMinute] = useState('00');
-  const [endTimeLange, setEndTimeLange] = useState('오전');
-  const [endTimeHour, setEndTimeHour] = useState(1);
-  const [endTimeMinute, setEndTimeMinute] = useState('00');
-  const [peopleCount, setPeopleCount] = useState('1명');
+  const [startTimeLange, setStartTimeLange] = useState(initialStartTimeLange);
+  const [startTimeHour, setStartTimeHour] = useState(initialStartTimeHour);
+  const [startTimeMinute, setStartTimeMinute] = useState(
+    initialStartTimeMinute
+  );
+
+  const [endTimeLange, setEndTimeLange] = useState(initialEndTimeLange);
+  const [endTimeHour, setEndTimeHour] = useState(initialEndTimeHour);
+  const [endTimeMinute, setEndTimeMinute] = useState(initialEndTimeMinute);
+  const [peopleCount, setPeopleCount] = useState();
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const nowTime = new Date();
+    // 현재시간 예외처리
+    if (nowTime.getMinutes() < 30) {
+      // 00~30 분 사이일 경우 초기 시간 조정
+      setStartTimeMinute('30');
+      if (nowTime.getHours() > 12) {
+        setStartTimeLange('오후');
+        setStartTimeHour(nowTime.getHours() - 12);
+      }
+    } else {
+      // 30~60 분 사이일 경우 초기 시간 조정
+      setStartTimeMinute('00');
+      if (nowTime.getHours() > 12) {
+        setStartTimeLange('오후');
+        setStartTimeHour(nowTime.getHours() - 11);
+      }
+    }
+  }, []);
 
   // 예약내용 들어갈 객체  (서버로 보낼 내용)
   const [reserveInfo, setReserveInfo] = useState({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    date: new Date().getDate(),
-    day: dayList[new Date().getDay()],
-    startLange: undefined,
-    startHour: undefined,
-    startMinute: undefined,
-    endLange: undefined,
-    endHour: undefined,
-    endMinute: undefined,
+    year: today.getFullYear(),
+    month: today.getMonth() + 1,
+    date: today.getDate(),
+    day: dayList[today.getDay()],
+    startLange: startTimeLange,
+    startHour: startTimeHour,
+    startMinute: startTimeMinute,
+    endLange: endTimeLange,
+    endHour: endTimeHour,
+    endMinute: endTimeMinute,
     // useTime: undefined,
     people: peopleCount,
   });
 
-  console.log(reserveInfo);
+  // console.log(`컴포넌트 랜더링 이후, 사람 수 ${reserveInfo.people}`);
+  // console.log(reserveInfo);
 
   const [isFormValid, setFormValid] = useState(false);
 
   useEffect(() => {
+    // console.log('첫번째 useEffect 들어옴...');
+
     setFormValid(isObjectFullyFilled(reserveInfo));
     // console.log(isFormValid);
-  }, [reserveInfo, peopleCount]);
+  }, [reserveInfo]);
+
+  const handleCount = (item) => {
+    setPeopleCount(item);
+  };
+  useEffect(() => {
+    // console.log('두번째 useEffect 동작중...!!!!!!!');
+    setReserveInfo({ ...reserveInfo, people: peopleCount });
+  }, [peopleCount]);
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
@@ -114,24 +171,24 @@ export default function Reservation() {
             <TimePicker
               isStart={true}
               flag={'startLange'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={['오전', '오후']}
               onSelectedChange={setStartTimeLange}
             />
             <TimePicker
               isStart={true}
               flag={'startHour'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={selectHour}
               onSelectedChange={setStartTimeHour}
             />
             <TimePicker
               isStart={true}
               flag={'startMinute'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={['00', '30']}
               onSelectedChange={setStartTimeMinute}
             />
@@ -141,24 +198,24 @@ export default function Reservation() {
             <TimePicker
               isStart={false}
               flag={'endLange'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={['오전', '오후']}
               onSelectedChange={setEndTimeLange}
             />
             <TimePicker
               isStart={false}
               flag={'endHour'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={selectHour}
               onSelectedChange={setEndTimeHour}
             />
             <TimePicker
               isStart={false}
               flag={'endMinute'}
-              data={reserveInfo}
-              reserveInfo={setReserveInfo}
+              getInfoData={reserveInfo}
+              setInfoData={setReserveInfo}
               pickList={['00', '30']}
               onSelectedChange={setEndTimeMinute}
             />
@@ -182,7 +239,7 @@ export default function Reservation() {
               <button
                 key={index}
                 className='bg-gray3 px-3 py-1 rounded-xl'
-                onClick={() => setPeopleCount(item)}
+                onClick={() => handleCount(item)}
               >
                 {item}
               </button>
@@ -193,7 +250,14 @@ export default function Reservation() {
       <section className='px-4 bg-gray4'>비품 목록</section>
       {reserveInfo && (
         <div className='fixed bottom-[49px] z-50 px-4 py-2 bg-gray4 border-t border-[#0D51FF] text-[#0D51FF] w-full h-[50px]'>
-          {`${reserveInfo.year}.${reserveInfo.month}.${reserveInfo.date}(${reserveInfo.day}), ${startTimeLange} ${startTimeHour}:${startTimeMinute} ~ ${endTimeLange} ${endTimeHour}:${endTimeMinute}, ${peopleCount}`}
+          {`${reserveInfo.year}.${reserveInfo.month}.${reserveInfo.date}(${reserveInfo.day}), `}
+          {startTimeLange && `${startTimeLange} `}
+          {startTimeHour && `${startTimeHour}:`}
+          {startTimeMinute && `${startTimeMinute} ~`}
+          {endTimeLange && ` ${endTimeLange}`}
+          {endTimeHour && ` ${endTimeHour}`}
+          {endTimeMinute && `:${endTimeMinute}`}
+          {peopleCount && `, ${peopleCount}`}
         </div>
       )}
       <section

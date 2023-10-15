@@ -3,27 +3,65 @@ import { useRef, useEffect, useState } from 'react';
 const Picker = ({
   isStart,
   flag,
-  data,
-  reserveInfo,
+  getInfoData,
+  setInfoData,
   pickList,
   onSelectedChange,
 }) => {
   const SCROLL_DEBOUNCE_TIME = 100;
 
   const newList = ['', ...pickList, ''];
+  // console.log(getInfoData);
+
+  const indexOfNewList = getIndexOfNewList();
+  // console.log(indexOfNewList);
+
+  function getIndexOfNewList() {
+    let tmp = '';
+    if (flag == 'startLange') {
+      tmp = newList.indexOf(getInfoData.startLange);
+      return tmp;
+    }
+    if (flag == 'startHour') {
+      tmp = newList.indexOf(String(getInfoData.startHour));
+      return tmp;
+    }
+    if (flag == 'startMinute') {
+      tmp = newList.indexOf(getInfoData.startMinute);
+      return tmp;
+    }
+    if (flag == 'endLange') {
+      tmp = newList.indexOf(getInfoData.endLange);
+      return tmp;
+    }
+    if (flag == 'endHour') {
+      tmp = newList.indexOf(String(getInfoData.endHour));
+      return tmp;
+    }
+    if (flag == 'endMinute') {
+      tmp = newList.indexOf(getInfoData.endMinute);
+      return tmp;
+    }
+  }
 
   // ul 을 참조
   const ref = useRef(null);
   // 선택된 항목의 순서를 저장 (초기값이 1인 이유 -> newList의 처음, 마지막 항이 빈 문자열이므로)
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(indexOfNewList);
+  console.log(selected, indexOfNewList);
   const itemRefs = useRef([]);
   const timerRef = useRef(null);
   const ITEM_HEIGHT = 30;
+
+  useEffect(() => {
+    console.log('test');
+  }, [selected]);
 
   // 실제로 스크롤 중 선택된 item을 정중앙으로 정렬해주는 스크롤 이벤트를 적용해주는 함수
   const handleScroll = () => {
     if (ref.current) {
       clearTimeout(timerRef.current);
+      // console.log(ref.current.scrollTop);
       if (ref.current.scrollTop < ITEM_HEIGHT) {
         ref.current.scrollTop = ITEM_HEIGHT;
       }
@@ -31,27 +69,32 @@ const Picker = ({
         const index = Math.floor(
           (ref.current.scrollTop + ITEM_HEIGHT / 2) / ITEM_HEIGHT
         );
+        // console.log(index);
+        // ref.current.scrollTop = index * ITEM_HEIGHT;
         if (pickList[index] !== '') {
+          // console.log(pickList[index]);
           setSelected(index);
           itemRefs.current[index].scrollIntoView({
             behavior: 'smooth',
             block: 'center',
           });
+          // console.log(itemRefs.current[index - 1]);
           onSelectedChange && onSelectedChange(newList[index]);
+          // console.log(`isStart : ${isStart}, index : ${index}, flag : ${flag}`);
           if (isStart) {
             flag == 'startLange' &&
-              reserveInfo({ ...data, startLange: pickList[index - 1] });
+              setInfoData({ ...getInfoData, startLange: pickList[index - 1] });
             flag == 'startHour' &&
-              reserveInfo({ ...data, startHour: pickList[index - 1] });
+              setInfoData({ ...getInfoData, startHour: pickList[index - 1] });
             flag == 'startMinute' &&
-              reserveInfo({ ...data, startMinute: pickList[index - 1] });
+              setInfoData({ ...getInfoData, startMinute: pickList[index - 1] });
           } else {
             flag == 'endLange' &&
-              reserveInfo({ ...data, endLange: pickList[index - 1] });
+              setInfoData({ ...getInfoData, endLange: pickList[index - 1] });
             flag == 'endHour' &&
-              reserveInfo({ ...data, endHour: pickList[index - 1] });
+              setInfoData({ ...getInfoData, endHour: pickList[index - 1] });
             flag == 'endMinute' &&
-              reserveInfo({ ...data, endMinute: pickList[index - 1] });
+              setInfoData({ ...getInfoData, endMinute: pickList[index - 1] });
           }
         }
       }, SCROLL_DEBOUNCE_TIME);
