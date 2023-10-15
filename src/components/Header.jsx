@@ -6,7 +6,6 @@ function Header({ title }) {
   const location = useLocation();
   let visible = true;
   let visible2 = true;
-  // 임시
 
   switch (location.pathname) {
     case "/mypage/0":
