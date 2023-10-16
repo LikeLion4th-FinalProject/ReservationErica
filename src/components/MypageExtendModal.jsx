@@ -4,7 +4,7 @@ import "../App.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MypageCancelModal({ content, extendCount, isOpen }) {
+export default function MypageExtendModal({ content, extendCount, isOpen }) {
   const navigate = useNavigate();
 
   return (
