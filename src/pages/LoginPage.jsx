@@ -1,6 +1,10 @@
+import { useLocation } from "react-router-dom";
 import { kakaoURL } from "../static";
 
 function LoginPage() {
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } }; // `from` 정보가 없을 경우 기본값 설정
+
   const handleKakaoLogin = () => {
     window.location.href = kakaoURL;
   };
@@ -10,6 +14,13 @@ function LoginPage() {
       <div className="p-4 bg-white w-80">
         <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
 
+        {from.pathname !== "/" && (
+          <div className="mb-8 text-center text-red-500">
+            로그인이 필요한 페이지입니다.
+            <br />
+            계속하려면 로그인 해주세요.
+          </div>
+        )}
         <div className="mb-4 flex flex-col">
           <label className="w-full text-sm font-bold mb-2" htmlFor="username">
             아이디
