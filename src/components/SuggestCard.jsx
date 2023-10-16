@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import "../index.css";
 import "../App.css";
 
@@ -8,6 +10,12 @@ let nocheck_suggest = true;
 let nofinish_suggest = true;
 
 function SuggestCard() {
+  const movePage = useNavigate();
+
+  function godetailsuggest() {
+    movePage("/detailsuggest");
+  }
+
   return (
     <div className="w-full flex flex-col bg-gray4 border-[1px] rounded-t-2xl rounded-b-2xl border-[1px]">
       <section className="w-full h-36 flex flex-col bg-gray4 rounded-t-2xl rounded-b-2xl px-4 py-3">
@@ -67,6 +75,7 @@ function SuggestCard() {
                 display: "flex",
                 justifyContent: "flex-end",
               }}
+              onClick={godetailsuggest}
             >
               <h2 className="text-xs" style={{ color: "gray" }}>
                 세부내용보기
