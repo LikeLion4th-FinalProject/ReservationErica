@@ -8,7 +8,7 @@ function MypageCard({ title }) {
     hours.push(i);
   }
 
-  let before = false; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
+  let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
 
   return (
     <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-20">
