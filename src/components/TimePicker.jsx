@@ -46,7 +46,7 @@ const Picker = ({
 
   // ul 을 참조
   const ref = useRef(null);
-  // 선택된 항목의 순서를 저장 (초기값이 1인 이유 -> newList의 처음, 마지막 항이 빈 문자열이므로)
+  // 선택된 항목의 순서를 저장
   const [selected, setSelected] = useState(indexOfNewList);
   console.log(selected, indexOfNewList);
   const itemRefs = useRef([]);
@@ -54,8 +54,15 @@ const Picker = ({
   const ITEM_HEIGHT = 30;
 
   useEffect(() => {
-    console.log('test');
-  }, [selected]);
+    // picker컴포넌트가 마운트시, 초기에 설정된 값이 정중앙에 올 수 있도록 scrollTop값을 설정
+    if (ref.current) {
+      ref.current.scrollTop = selected * ITEM_HEIGHT;
+    }
+
+    //
+    setSelected(indexOfNewList);
+    // handleScroll();
+  }, [indexOfNewList, selected]);
 
   // 실제로 스크롤 중 선택된 item을 정중앙으로 정렬해주는 스크롤 이벤트를 적용해주는 함수
   const handleScroll = () => {
@@ -100,13 +107,6 @@ const Picker = ({
       }, SCROLL_DEBOUNCE_TIME);
     }
   };
-
-  // picker컴포넌트가 마운트시, 초기에 설정된 값이 정중앙에 올 수 있도록 scrollTop값을 설정
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollTop = selected * ITEM_HEIGHT;
-    }
-  }, []);
 
   return (
     <ul
