@@ -13,7 +13,7 @@ export function isObjectFullyFilled(obj) {
   for (const [key, value] of Object.entries(obj)) {
     // console.log(`${key}: ${value}`);
     if (value == null || value == undefined) {
-      console.log(`${key}: ${value}`);
+      // console.log(`${key}: ${value}`);
       check = false;
     }
   }
