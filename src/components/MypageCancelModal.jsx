@@ -11,7 +11,7 @@ export default function MypageCancelModal({ content, isOpen }) {
     <div className="fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]">
       <div className="w-full h-full bg-black opacity-50"></div>
       <div className="absolute max-w-[400px] w-[80%] min-h-[150px] h-[20%] bg-white shadow-xl flex flex-col justify-between rounded-3xl">
-        <h1 className="flex justify-center items-center h-full bg-gray3 rounded-t-3xl bold">
+        <h1 className="flex justify-center items-center h-full bg-gray3 rounded-t-3xl">
           {content}
         </h1>
         <div className="w-full h-1/3 flex justify-between items-center">
