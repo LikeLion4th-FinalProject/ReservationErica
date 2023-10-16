@@ -80,6 +80,8 @@ function SignupPage() {
         </section>
         <button
           type="submit"
+          disabled={!isFormComplete}
+          onClick={handleSubmit}
           className={`p-4 py-[10px] semibold w-full rounded ${buttonClasses} mt-4`}
         >
           가입하기

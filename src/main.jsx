@@ -9,6 +9,7 @@ import CodegetPage from "./pages/CodegetPage.jsx";
 import Reservation from "./pages/Reservation.jsx";
 import ReserveHome from "./pages/ReserveHome.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
+import { PrivateRoute } from "./hooks/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "reservation/:id",
-        element: <Reservation />,
+        element: (
+          <PrivateRoute>
+            <Reservation />
+          </PrivateRoute>
+        ),
       },
       {
         path: "reservation",
