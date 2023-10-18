@@ -6,10 +6,15 @@ function DateDropdown({ onDateSelect, selectedDate }) {
   const [isOpen, setIsOpen] = useState(false);
   const options = useDateOptions();
 
-  const handleDateSelect = (date) => {
+  const handleDateSelect = (date, day) => {
     if (onDateSelect) {
-      onDateSelect(date);
+      onDateSelect({
+        ...selectedDate,
+        pickDate: date,
+        pickDay: day,
+      });
     }
+    // console.log(date, day);
     setIsOpen(false);
   };
 
@@ -19,7 +24,9 @@ function DateDropdown({ onDateSelect, selectedDate }) {
         className='w-full h-[45px] flex justify-between items-center p-4 pr-2 bg-gray4 cursor-pointer rounded-xl'
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedDate || '날짜를 선택하세요'}
+        {!selectedDate.pickDate
+          ? '날짜를 선택하세요'
+          : `${selectedDate.pickDate} (${selectedDate.pickDay})`}
         {isOpen ? <GoTriangleUp size={32} /> : <GoTriangleDown size={32} />}
       </div>
       <div
@@ -33,9 +40,11 @@ function DateDropdown({ onDateSelect, selectedDate }) {
           <div
             key={index}
             className='p-2 hover:bg-gray-100 cursor-pointer rounded transition-all duration-200 my-1 mx-2 border-b border-gray-200 last:border-b-0'
-            onClick={() => handleDateSelect(date)}
+            onClick={() =>
+              handleDateSelect(date.formattedDate, date.formattedDay)
+            }
           >
-            {date}
+            {`${date.formattedDate} (${date.formattedDay})`}
           </div>
         ))}
       </div>
