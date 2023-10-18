@@ -24,9 +24,7 @@ function DateDropdown({ onDateSelect, selectedDate }) {
         className='w-full h-[45px] flex justify-between items-center p-4 pr-2 bg-gray4 cursor-pointer rounded-xl'
         onClick={() => setIsOpen(!isOpen)}
       >
-        {!selectedDate.pickDate
-          ? '날짜를 선택하세요'
-          : `${selectedDate.pickDate} (${selectedDate.pickDay})`}
+        {`${selectedDate.pickDate} (${selectedDate.pickDay})`}
         {isOpen ? <GoTriangleUp size={32} /> : <GoTriangleDown size={32} />}
       </div>
       <div
