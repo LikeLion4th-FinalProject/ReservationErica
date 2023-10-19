@@ -1,3 +1,4 @@
+
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
@@ -9,6 +10,7 @@ import CodegetPage from './pages/CodegetPage.jsx';
 import Reservation from './pages/Reservation.jsx';
 import ReserveHome from './pages/ReserveHome.jsx';
 import SignupPage from './pages/SignupPage.jsx';
+import { PrivateRoute } from "./hooks/PrivateRoute.jsx";
 import ReserveRecord from './pages/ReserveRecord.jsx';
 
 const router = createBrowserRouter([
@@ -33,8 +35,12 @@ const router = createBrowserRouter([
         element: <CodegetPage />,
       },
       {
-        path: 'reservation/:id',
-        element: <Reservation />,
+        path: "reservation/:id",
+        element: (
+          <PrivateRoute>
+            <Reservation />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'reservation',

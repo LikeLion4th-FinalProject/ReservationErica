@@ -1,37 +1,29 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useKakaoLogin from "../hooks/useKakaoLogin";
 
 function CodegetPage() {
-  const [userData, setUserData] = useState(null);
   const code = new URL(window.location.href).searchParams.get("code");
-
-  const getKaKaoUserData = async (token) => {
-    try {
-      const kakaoUser = await axios.get(`https://kapi.kakao.com/v2/user/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return kakaoUser.data;
-    } catch (error) {
-      console.error("Failed to fetch user data", error);
-      return null;
-    }
-  };
+  const userData = useKakaoLogin(code);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await getKaKaoUserData(code);
-      setUserData(data);
-    };
-
-    fetchUserData();
-  }, [code]);
+    if (userData) {
+      // TODO: 서버로 액세스 토큰을 전송하여 사용자 확인
+      // 사용자가 데이터베이스에 있다면
+      // navigate("/reservation");
+      // 사용자가 데이터베이스에 없다면
+      navigate("/signup");
+    }
+  }, [userData]);
 
   return (
     <div>
-      {code && <p>Code: {code}</p>}
-      {userData && <p>User Data: {JSON.stringify(userData)}</p>}
+      {userData ? (
+        <h2>Welcome, {userData.properties.nickname}!</h2>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }

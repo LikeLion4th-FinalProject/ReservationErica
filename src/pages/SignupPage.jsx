@@ -1,95 +1,90 @@
 import { useState } from "react";
+import { department, grade } from "../static/info";
+import Dropdown from "../components/Dropdown";
 
 function SignupPage() {
+  const initialUserName = sessionStorage.getItem("kakaoUserName") || "";
   const [formState, setFormState] = useState({
     grade: "",
-    name: "",
+    name: initialUserName,
     department: "",
   });
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  const handleSelectChange = (name, value) => {
     setFormState({
       ...formState,
       [name]: value,
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form data submitted:", formState);
+  const handleNameChange = (e) => {
+    setFormState({
+      ...formState,
+      name: e.target.value,
+    });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("입력한 회원가입 정보:", formState);
+  };
+
+  const isFormComplete =
+    formState.name && formState.grade && formState.department;
+  const buttonClasses = isFormComplete
+    ? "bg-primary text-white"
+    : "bg-gray1 text-gray-black";
+
   return (
-    <section className="min-h-screen flex items-start justify-center p-4 py-8">
+    <section className="min-h-screen flex flex-col items-center justify-center p-0">
+      <div className="flex flex-col gap-[10px] items-center ">
+        <h2 className="mb-8 semibold text-lg text-center">회원가입</h2>
+        <h1 className="text-3xl semibold">자리있소융</h1>
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg w-full max-w-md "
+        className="bg-white p-8 rounded-lg w-full max-w-md flex flex-col justify-around h-[70vh]"
       >
-        <h2 className="text-3xl mb-8 font-semibold text-primary text-center">
-          회원가입
-        </h2>
-        <div className="mb-5">
-          <label
-            htmlFor="grade"
-            className="block mb-2 text-sm font-medium text-gray-600"
+        {/* section */}
+        <section className="flex flex-col gap-5">
+          <div
+            className={`w-full relative h-[70px] flex flex-col justify-center items-start p-8 px-4 gap-2 
+          ring-2 rounded-lg `}
           >
-            학년
-          </label>
-          <input
-            type="text"
-            id="grade"
-            name="grade"
-            value={formState.grade}
-            onChange={handleInputChange}
-            className="w-full p-3 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
-            placeholder="학년을 입력하세요"
+            <label htmlFor="name" className="text-sm font-medium text-gray-600">
+              이름
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formState.name}
+              onChange={handleNameChange}
+              className={`w-full text-lg flex justify-between items-center px-0 border-0 outline-none`}
+              placeholder="이름을 입력하세요"
+            />
+          </div>
+          <Dropdown
+            label="학년"
+            options={grade}
+            selected={formState.grade}
+            onOptionSelect={(value) => handleSelectChange("grade", value)}
           />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="name"
-            className="block mb-2 text-sm font-medium text-gray-600"
-          >
-            이름
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formState.name}
-            onChange={handleInputChange}
-            className="w-full p-3 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
-            placeholder="이름을 입력하세요"
+
+          <Dropdown
+            label="학과"
+            options={department}
+            selected={formState.department}
+            onOptionSelect={(value) => handleSelectChange("department", value)}
           />
-        </div>
-        <div className="mb-7">
-          <label
-            htmlFor="department"
-            className="block mb-2 text-sm font-medium text-gray-600"
-          >
-            소속
-          </label>
-          <select
-            id="department"
-            name="department"
-            value={formState.department}
-            onChange={handleInputChange}
-            className="w-full p-3 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500"
-          >
-            <option value="" disabled>
-              학과/학부를 선택하세요.
-            </option>
-            <option value="computer_science">컴퓨터학부</option>
-            <option value="ict_convergence">ICT 융합학부</option>
-            <option value="ai">인공지능학과</option>
-          </select>
-        </div>
+        </section>
         <button
           type="submit"
-          className="w-full p-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          disabled={!isFormComplete}
+          onClick={handleSubmit}
+          className={`p-4 py-[10px] semibold w-full rounded ${buttonClasses} mt-4`}
         >
-          회원가입
+          가입하기
         </button>
       </form>
     </section>
