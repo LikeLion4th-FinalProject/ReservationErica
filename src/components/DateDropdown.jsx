@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
-import useDateOptions from "../hooks/useDateOptions";
+import { useState } from 'react';
+import { GoTriangleDown, GoTriangleUp } from 'react-icons/go';
+import useDateOptions from '../hooks/useDateOptions';
 
 function DateDropdown({ onDateSelect, selectedDate }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,37 +19,28 @@ function DateDropdown({ onDateSelect, selectedDate }) {
   };
 
   return (
-    <section className="px-4 text-sm">
+    <section className='px-4 text-sm'>
       <div
-        className="w-full h-[45px] flex justify-between items-center p-4 pr-2 bg-gray4 cursor-pointer rounded-xl"
+        className='w-full h-[45px] flex justify-between items-center p-4 pr-2 bg-gray4 cursor-pointer rounded-xl'
         onClick={() => setIsOpen(!isOpen)}
       >
-<<<<<<< HEAD
         {`${selectedDate.pickDate} (${selectedDate.pickDay})`}
-=======
-        {selectedDate || "날짜를 선택하세요"}
->>>>>>> f8b5cc72789851bbb96176a9e027e1bd3de49dbf
         {isOpen ? <GoTriangleUp size={32} /> : <GoTriangleDown size={32} />}
       </div>
       <div
         className={`rounded-xl absolute w-[90%] mt-2 bg-white border border-gray-300 z-10 max-h-[200px] overflow-y-auto shadow-lg transition-all duration-200 transform ${
           isOpen
-            ? "opacity-100 visible scale-100"
-            : "opacity-0 invisible scale-95"
+            ? 'opacity-100 visible scale-100'
+            : 'opacity-0 invisible scale-95'
         }`}
       >
         {options.map((date, index) => (
           <div
             key={index}
-<<<<<<< HEAD
             className='p-2 hover:bg-gray-100 cursor-pointer rounded transition-all duration-200 my-1 mx-2 border-b border-gray-200 last:border-b-0'
             onClick={() =>
               handleDateSelect(date.formattedDate, date.formattedDay)
             }
-=======
-            className="p-2 hover:bg-gray-100 cursor-pointer rounded transition-all duration-200 my-1 mx-2 border-b border-gray-200 last:border-b-0"
-            onClick={() => handleDateSelect(date)}
->>>>>>> f8b5cc72789851bbb96176a9e027e1bd3de49dbf
           >
             {`${date.formattedDate} (${date.formattedDay})`}
           </div>
