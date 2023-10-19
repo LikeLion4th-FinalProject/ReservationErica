@@ -28,7 +28,7 @@ function ReserveHome() {
       />
       <IndicatorSection />
       <div className='px-4 mt-5'>
-        <TimeSelect selectedDate={selectedDate} />
+        <TimeSelect selectedDate={selectedDate} nowDate={nowDate} />
         {/* {RoomList.map((room, index) => (
           <PlaceCard key={index} idx={index} title={room} />
         ))} */}
