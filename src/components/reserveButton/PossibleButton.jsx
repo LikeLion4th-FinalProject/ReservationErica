@@ -1,16 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function PossibleButton({
   count,
   getResTime,
   setResTime,
   clickTime,
+  selectedDate,
 }) {
   const [startTime, setStartTime] = useState();
+  console.log(clickTime, startTime);
   const handleClickTime = (idx) => {
     setResTime(!getResTime);
-    console.log(idx);
+    console.log('clickTime index : ', idx);
     setStartTime(idx);
+  };
+
+  useEffect(() => {
+    setStartTime(null);
+  }, [selectedDate]);
+
+  const handleStyleBtn = () => {
+    if (getResTime) {
+      // console.log('test');
+      if (clickTime < startTime || clickTime > startTime + 4) {
+        // console.log(clickTime, startTime);
+        return 'bg-gray1';
+      } else {
+        return clickTime === startTime && 'bg-[#0D51FF]';
+      }
+    }
   };
 
   return (
@@ -24,11 +42,7 @@ export default function PossibleButton({
         </button>
       ) : (
         <button
-          className={`w-9 h-9 flex justify-center items-center rounded-md ${
-            getResTime && clickTime === startTime
-              ? 'bg-[#0D51FF]'
-              : 'bg-orange-500'
-          }`}
+          className={`w-9 h-9 flex justify-center items-center rounded-md ${handleStyleBtn()} bg-orange-500`}
           onClick={() => handleClickTime(clickTime)}
         >
           <span className='text-white font-black'>{count}</span>

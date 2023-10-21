@@ -69,6 +69,7 @@ export default function TimeSelect({ selectedDate, nowDate }) {
                     getResTime={reserveRoom}
                     setResTime={setReserveRoom}
                     clickTime={index}
+                    selectedDate={selectedDate}
                   />
                 )}
               </div>
