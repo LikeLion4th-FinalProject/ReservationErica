@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import "../index.css";
-import "../App.css";
+import "../../index.css";
+import "../../App.css";
 
-import arrow from "../static/chevron-right.png";
+import arrow from "../../static/chevron-right.png";
 
 // tt: 확인 전, ft: 처리 중, ff: 처리 완료
 let nocheck_suggest = true;

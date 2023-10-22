@@ -2,7 +2,7 @@ import "../index.css";
 import "../App.css";
 
 import React from "react";
-import SuggestCard from "../components/SuggestCard";
+import SuggestCard from "../components/Suggest/SuggestCard";
 
 function Suggest() {
   let nosuggest = false; // true: 건의내역 없음, false: 건의내역 있음

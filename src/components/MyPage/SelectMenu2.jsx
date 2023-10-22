@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import MypageCancelModal from "./MypageCancelModal";
 import MypageExtendModal from "./MypageCancelModal";
-import "../index.css";
-import "../App.css";
+import "../../index.css";
+import "../../App.css";
 import { render } from "react-dom";
 
 function SelectMenu2() {

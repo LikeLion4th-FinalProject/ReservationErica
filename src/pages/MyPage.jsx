@@ -1,9 +1,9 @@
 import "../index.css";
 import "../App.css";
 
-import Profile from "../components/Profile.jsx";
+import Profile from "../components/MyPage/Profile";
 import PlaceCard from "../components/PlaceCard.jsx";
-import MypageCard from "../components/MypageCard.jsx";
+import MypageCard from "../components/MyPage/MypageCard";
 
 function MyPage() {
   let reserve = false; // true: 예약 전, false: 예약 후(이용 전, 이용 후)

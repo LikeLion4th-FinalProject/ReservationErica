@@ -1,4 +1,4 @@
-import { INDICATOR_STYLE, indicators } from "../styles/static";
+import { INDICATOR_STYLE, indicators } from "../../styles/static";
 import { BsFillCircleFill } from "react-icons/bs";
 
 export default function IndicatorSection2() {

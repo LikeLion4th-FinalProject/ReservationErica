@@ -1,6 +1,6 @@
 import { RiAlarmWarningLine } from "react-icons/ri";
-import IndicatorSection2 from "../components/IndicatorSection2.jsx";
-import SelectMenu2 from "../components/SelectMenu2.jsx";
+import IndicatorSection2 from "./IndicatorSection2.jsx";
+import SelectMenu2 from "./SelectMenu2.jsx";
 
 function MypageCard({ title }) {
   const hours = [];
@@ -11,7 +11,7 @@ function MypageCard({ title }) {
   let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
 
   return (
-    <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-20">
+    <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-9">
       <section className="w-full flex flex-col bg-gray4 rounded-t-2xl px-4 py-3 ">
         <div className="flex justify-between items-center scroll-pr-32 pb-2 border-b-[1px] border-gray1">
           <h1 className="text-lg semibold">SMASH 0</h1>
