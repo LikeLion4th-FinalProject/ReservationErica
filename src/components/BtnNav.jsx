@@ -12,6 +12,9 @@ function BtnNav() {
     case "/suggest":
       visible = false;
       break;
+    case "/beforereserve":
+      visible = false;
+      break;
     default:
       visible = true;
   }

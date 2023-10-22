@@ -34,7 +34,7 @@ function SuggestCard() {
         )}
 
         <h1 className="semibold text-2xl">Smash 1</h1>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
           <div
             style={{
               display: "flex",
