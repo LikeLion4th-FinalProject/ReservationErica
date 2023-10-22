@@ -1,4 +1,6 @@
 import { RiAlarmWarningLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+
 import IndicatorSection2 from "./IndicatorSection2.jsx";
 import SelectMenu2 from "./SelectMenu2.jsx";
 
@@ -6,6 +8,12 @@ function MypageCard({ title }) {
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
+  }
+
+  const movePage = useNavigate();
+
+  function gosuggest() {
+    movePage("/mypage/suggest");
   }
 
   let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
@@ -28,7 +36,10 @@ function MypageCard({ title }) {
                 <span>이용 중</span>
               </div>
             )}
-            <button className="flex items-center p-1 px-2 rounded-full bg-gray3 text-btn text-red tracking-wider gap-1">
+            <button
+              className="flex items-center p-1 px-2 rounded-full bg-gray3 text-btn text-red tracking-wider gap-1"
+              onClick={gosuggest}
+            >
               <RiAlarmWarningLine size={12} />
               <span>건의하기</span>
             </button>

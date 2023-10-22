@@ -12,11 +12,11 @@ function SelectMenu() {
   const movePage = useNavigate();
 
   function gobeforereserve() {
-    movePage("/before-reserve");
+    movePage("/mypage/before-reserve");
   }
 
-  function gosuggest() {
-    movePage("/before-suggest");
+  function gobeforesuggest() {
+    movePage("/mypage/before-suggest");
   }
 
   return (
@@ -36,7 +36,7 @@ function SelectMenu() {
       </button>
       <button
         className="flex items-center justify-center py-3 border-gray-300"
-        onClick={gosuggest}
+        onClick={gobeforesuggest}
       >
         <img
           src={Icon2}

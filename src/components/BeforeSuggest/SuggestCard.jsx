@@ -13,7 +13,7 @@ function SuggestCard() {
   const movePage = useNavigate();
 
   function godetailsuggest() {
-    movePage("/before-suggest-detail");
+    movePage("/mypage/before-suggest-detail");
   }
 
   return (

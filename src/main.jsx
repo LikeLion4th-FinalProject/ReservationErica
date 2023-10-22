@@ -9,8 +9,9 @@ import CodegetPage from "./pages/CodegetPage.jsx";
 import ReserveHome from "./pages/ReserveHome.jsx";
 import MyPage from "./pages/MyPage.jsx";
 import BeforeSuggest from "./pages/BeforeSuggest.jsx";
-import BeforeReserve from "./pages/BeforeReserve.jsx";
 import BeforeSuggestDetail from "./pages/BeforeSuggestDetail.jsx";
+import BeforeReserve from "./pages/BeforeReserve.jsx";
+import Suggest from "./pages/Suggest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,16 +39,20 @@ const router = createBrowserRouter([
         element: <MyPage />,
       },
       {
-        path: "before-suggest",
+        path: "mypage/before-suggest",
         element: <BeforeSuggest />,
       },
       {
-        path: "before-reserve",
+        path: "mypage/before-reserve",
         element: <BeforeReserve />,
       },
       {
-        path: "before-suggest-detail",
+        path: "mypage/before-suggest-detail",
         element: <BeforeSuggestDetail />,
+      },
+      {
+        path: "mypage/suggest",
+        element: <Suggest />,
       },
     ],
   },
