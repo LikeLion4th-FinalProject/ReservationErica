@@ -46,7 +46,7 @@ function SuggestCard() {
               날짜
             </h2>
             <h2 className="text-sm" style={{ color: "gray" }}>
-              신고사유
+              건의사유
             </h2>
           </div>
           <div
@@ -58,7 +58,7 @@ function SuggestCard() {
             }}
           >
             <h2 className="text-sm">2023-09-20</h2>
-            <h2 className="text-sm">신고사유3</h2>
+            <h2 className="text-sm">건의사유3</h2>
           </div>
           <div
             style={{

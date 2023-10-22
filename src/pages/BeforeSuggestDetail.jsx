@@ -88,7 +88,7 @@ function BeforeSuggestDetail() {
             alignItems: "center",
           }}
         >
-          <p>건의사유 1</p>
+          <p>건의사유3</p>
         </div>
         <div
           className="w-full h-40 rounded-2xl px-4"
