@@ -28,9 +28,10 @@ function ButtonList() {
   for (let i = 0; i < 26; i++) hours.push(i);
 
   const isContain = (idx) => {
-    for (let i = idx; i < idx + 3; i++) {
-      console.log(i);
-      return selectedRange.includes(idx);
+    if (selectedRange.length === 1) return selectedRange.includes(idx);
+    if (selectedRange.length === 2) {
+      console.log(selectedRange, idx);
+      return selectedRange[0] <= idx && idx <= selectedRange[1];
     }
   };
 
