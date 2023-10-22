@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ImpossibleButton from './reserveButton/ImpossibleButton';
 import PossibleButton from './reserveButton/PossibleButton';
 import Alert from './Alert';
+import { reserveTime } from '../styles/static';
+import ConfirmModal from './modal/ConfirmModal';
 
 export default function TimeSelect({ selectedDate, nowDate }) {
   const [reserveRoom, setReserveRoom] = useState(false);
@@ -44,6 +46,7 @@ export default function TimeSelect({ selectedDate, nowDate }) {
 
   useEffect(() => {
     setSelectRange([]);
+    setReserveRoom(false);
   }, [selectedDate]);
 
   const handleClickTime = (idx) => {
@@ -80,11 +83,19 @@ export default function TimeSelect({ selectedDate, nowDate }) {
     return () => clearInterval(alert);
   };
 
+  const [isValidForm, setValidForm] = useState(false);
+
+  const roomList = [
+    { roomInfo: 'SMASH 1', id: 1 },
+    { roomInfo: 'SMASH 2', id: 2 },
+    { roomInfo: 'SMASH 3', id: 3 },
+  ];
+
   return (
     <>
       <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${nowTime.getHours()}:${nowTime.getMinutes()} 기준`}</span>
       <section className='w-full flex flex-col bg-gray4 shadow-md rounded-2xl px-4 py-3 border-[1px]'>
-        <div>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
+        <div className='text-xl font-black'>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
         <section className='grid grid-cols-8 grid-rows-3 mt-2 gap-1 mb-3 items-end justify-between'>
           {hours.map((hour, index) => (
             <div key={index} className='flex flex-col'>
@@ -110,9 +121,44 @@ export default function TimeSelect({ selectedDate, nowDate }) {
         </section>
       </section>
       {reserveRoom && (
-        <section>
-          <span>{selectRange[0]}</span>
-        </section>
+        <>
+          <div className='my-6 rounded-full h-1 bg-gray3'></div>
+          <section>
+            {selectRange.length === 1 ? (
+              <span className='text-xl font-black'>
+                {reserveTime[selectRange[0]]}
+              </span>
+            ) : (
+              <span className='text-xl font-black'>
+                {`
+                ${reserveTime[selectRange[0]]} ~ ${
+                  reserveTime[selectRange[1] + 1]
+                }
+              `}
+              </span>
+            )}
+            {roomList.map((room) => (
+              <div
+                key={room.id}
+                className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
+              >
+                <span className='w-[35%] text-lg'>{room.roomInfo}</span>
+                <button
+                  onClick={() => setValidForm(true)}
+                  className='bg-[#0D51FF] w-full h-[45px] text-white rounded-2xl'
+                >
+                  <span>예약하기</span>
+                </button>
+              </div>
+            ))}
+          </section>
+          {isValidForm && (
+            <ConfirmModal
+              content={'(예약정보 들어갈 공간)'}
+              isOpen={setValidForm}
+            />
+          )}
+        </>
       )}
       {warningAlert && <Alert />}
     </>
