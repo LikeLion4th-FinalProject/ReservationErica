@@ -34,7 +34,6 @@ function ReserveHome() {
           <PlaceCard key={index} idx={index} title={room} />
         ))} */}
       </div>
-      <ButtonList />
     </section>
   );
 }

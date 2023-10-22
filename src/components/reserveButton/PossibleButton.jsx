@@ -2,32 +2,15 @@ import { useEffect, useState } from 'react';
 
 export default function PossibleButton({
   count,
-  getResTime,
-  setResTime,
   clickTime,
-  selectedDate,
+  handleClickTime,
+  selectRange,
 }) {
-  const [startTime, setStartTime] = useState();
-  console.log(clickTime, startTime);
-  const handleClickTime = (idx) => {
-    setResTime(!getResTime);
-    console.log('clickTime index : ', idx);
-    setStartTime(idx);
-  };
-
-  useEffect(() => {
-    setStartTime(null);
-  }, [selectedDate]);
-
-  const handleStyleBtn = () => {
-    if (getResTime) {
-      // console.log('test');
-      if (clickTime < startTime || clickTime > startTime + 4) {
-        // console.log(clickTime, startTime);
-        return 'bg-gray1';
-      } else {
-        return clickTime === startTime && 'bg-[#0D51FF]';
-      }
+  const handleStyleBtn = (idx) => {
+    if (selectRange.length === 1) {
+      return selectRange.includes(idx);
+    } else if (selectRange.length === 2) {
+      return selectRange[0] <= idx && idx <= selectRange[1];
     }
   };
 
@@ -42,7 +25,18 @@ export default function PossibleButton({
         </button>
       ) : (
         <button
-          className={`w-9 h-9 flex justify-center items-center rounded-md ${handleStyleBtn()} bg-orange-500`}
+          className={`w-9 h-9 flex justify-center items-center rounded-md ${
+            selectRange.length === 0
+              ? 'bg-orange-500'
+              : selectRange.length === 1 &&
+                (clickTime < selectRange[0] || clickTime > selectRange[0] + 3)
+              ? 'bg-orange-500'
+              : handleStyleBtn(clickTime)
+              ? 'transition bg-[#0D51FF]'
+              : selectRange.length === 2
+              ? 'transition bg-orange-500'
+              : 'transition bg-[#96b4ff]'
+          } `}
           onClick={() => handleClickTime(clickTime)}
         >
           <span className='text-white font-black'>{count}</span>

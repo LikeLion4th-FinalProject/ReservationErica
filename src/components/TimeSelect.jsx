@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ImpossibleButton from './reserveButton/ImpossibleButton';
 import PossibleButton from './reserveButton/PossibleButton';
+import Alert from './Alert';
 
 export default function TimeSelect({ selectedDate, nowDate }) {
   const [reserveRoom, setReserveRoom] = useState(false);
+  const [selectRange, setSelectRange] = useState([]);
+  const [warningAlert, setWarningAlert] = useState(false);
 
   const formatDateToDisplay = (pickDate) => {
     const options = { month: 'long', day: 'numeric' };
@@ -39,14 +42,44 @@ export default function TimeSelect({ selectedDate, nowDate }) {
   };
   const impossibleIndex = findTimeIndex();
 
-  /**
-   * if (formattedDate == 오늘 날짜일 때)
-   *    - 현재시간을 받아옴
-   *    - 현재시간을 기준으로 이전에 예약 불가능한 타임 -> Impossible.jsx
-   *    - 나머지 시간 중 예약 가능하면 Possible.jsx, 예약이 차있으면 InUse.jsx
-   *
-   * 백엔드에서 데이터 가져온 것이, 해당 시간에 0개이면 InUse, 1개 이상이면 Possible
-   */
+  useEffect(() => {
+    setSelectRange([]);
+  }, [selectedDate]);
+
+  const handleClickTime = (idx) => {
+    if (selectRange.length === 0) {
+      // 범위 시작 지점 선택
+      setReserveRoom(true);
+      setSelectRange([idx]);
+    } else if (selectRange.length === 1) {
+      setReserveRoom(true);
+      const startTime = selectRange[0];
+      if (idx > startTime) {
+        if (idx > startTime + 3) {
+          handleWarning();
+        }
+        // 범위 끝 지점 선택
+        else setSelectRange([startTime, idx]);
+      }
+      // 범위를 역순으로 선택한 경우 범위 시작 지점을 변경
+      else setSelectRange([idx]);
+    } else {
+      // 범위 선택 해제
+      setReserveRoom(false);
+      setSelectRange([]);
+    }
+  };
+  console.log(selectRange);
+
+  const handleWarning = () => {
+    setWarningAlert(true);
+    const alert = setInterval(() => {
+      setWarningAlert(false);
+    }, 2000);
+
+    return () => clearInterval(alert);
+  };
+
   return (
     <>
       <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${nowTime.getHours()}:${nowTime.getMinutes()} 기준`}</span>
@@ -66,10 +99,9 @@ export default function TimeSelect({ selectedDate, nowDate }) {
                 ) : (
                   <PossibleButton
                     count={3}
-                    getResTime={reserveRoom}
-                    setResTime={setReserveRoom}
                     clickTime={index}
-                    selectedDate={selectedDate}
+                    handleClickTime={handleClickTime}
+                    selectRange={selectRange}
                   />
                 )}
               </div>
@@ -79,9 +111,10 @@ export default function TimeSelect({ selectedDate, nowDate }) {
       </section>
       {reserveRoom && (
         <section>
-          <span>클릭한 시간표시</span>
+          <span>{selectRange[0]}</span>
         </section>
       )}
+      {warningAlert && <Alert />}
     </>
   );
 }
