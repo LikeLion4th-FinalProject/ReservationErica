@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ImpossibleButton from './reserveButton/ImpossibleButton';
 import PossibleButton from './reserveButton/PossibleButton';
 import Alert from './Alert';
@@ -9,6 +9,8 @@ export default function TimeSelect({ selectedDate, nowDate }) {
   const [reserveRoom, setReserveRoom] = useState(false);
   const [selectRange, setSelectRange] = useState([]);
   const [warningAlert, setWarningAlert] = useState(false);
+
+  const clickDetail = useRef(null);
 
   const formatDateToDisplay = (pickDate) => {
     const options = { month: 'long', day: 'numeric' };
@@ -50,9 +52,10 @@ export default function TimeSelect({ selectedDate, nowDate }) {
   }, [selectedDate]);
 
   const handleClickTime = (idx) => {
+    clickDetail.current?.scrollIntoView({ behavior: 'smooth' });
     if (selectRange.length === 0) {
-      // 범위 시작 지점 선택
       setReserveRoom(true);
+      // 범위 시작 지점 선택
       setSelectRange([idx]);
     } else if (selectRange.length === 1) {
       setReserveRoom(true);
@@ -139,10 +142,11 @@ export default function TimeSelect({ selectedDate, nowDate }) {
             )}
             {roomList.map((room) => (
               <div
+                ref={clickDetail}
                 key={room.id}
                 className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
               >
-                <span className='w-[35%] text-lg'>{room.roomInfo}</span>
+                <span className='w-[35%] text-base'>{room.roomInfo}</span>
                 <button
                   onClick={() => setValidForm(true)}
                   className='bg-[#0D51FF] w-full h-[45px] text-white rounded-2xl'
