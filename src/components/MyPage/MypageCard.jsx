@@ -22,7 +22,7 @@ function MypageCard({ title }) {
     <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-9">
       <section className="w-full flex flex-col bg-gray4 rounded-t-2xl px-4 py-3 ">
         <div className="flex justify-between items-center scroll-pr-32 pb-2 border-b-[1px] border-gray1">
-          <h1 className="text-lg semibold">SMASH 0</h1>
+          <h1 className="text-lg semibold">Smash 0</h1>
           <div className="flex">
             {/* <div className="flex items-center p-1 px-2 mx-2 border-solid border border-blue-500 text-blue-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
               <span>이용중</span>
