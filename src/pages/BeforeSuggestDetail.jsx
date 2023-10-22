@@ -3,7 +3,7 @@ import React from "react";
 import "../index.css";
 import "../App.css";
 
-function DetailSuggest() {
+function BeforeSuggestDetail() {
   return (
     <div className="px-6">
       <div
@@ -13,4 +13,4 @@ function DetailSuggest() {
   );
 }
 
-export default DetailSuggest;
+export default BeforeSuggestDetail;

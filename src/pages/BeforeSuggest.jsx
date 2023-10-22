@@ -2,9 +2,9 @@ import "../index.css";
 import "../App.css";
 
 import React from "react";
-import SuggestCard from "../components/Suggest/SuggestCard";
+import SuggestCard from "../components/BeforeSuggest/SuggestCard";
 
-function Suggest() {
+function BeforeSuggest() {
   let nosuggest = false; // true: 건의내역 없음, false: 건의내역 있음
 
   return (
@@ -39,4 +39,4 @@ function Suggest() {
   );
 }
 
-export default Suggest;
+export default BeforeSuggest;

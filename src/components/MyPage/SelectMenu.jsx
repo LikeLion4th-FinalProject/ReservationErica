@@ -12,11 +12,11 @@ function SelectMenu() {
   const movePage = useNavigate();
 
   function gobeforereserve() {
-    movePage("/beforereserve");
+    movePage("/before-reserve");
   }
 
   function gosuggest() {
-    movePage("/suggest");
+    movePage("/before-suggest");
   }
 
   return (

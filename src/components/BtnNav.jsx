@@ -9,10 +9,10 @@ function BtnNav() {
   let visible = true;
 
   switch (location.pathname) {
-    case "/suggest":
+    case "/before-suggest":
       visible = false;
       break;
-    case "/beforereserve":
+    case "/before-reserve":
       visible = false;
       break;
     default:

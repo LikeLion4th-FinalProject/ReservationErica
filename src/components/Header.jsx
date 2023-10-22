@@ -16,7 +16,7 @@ function Header({ title }) {
         <h1 className="text-gray0 flex-[1.6] text-center">마이 페이지</h1>
       </div>
     );
-  } else if (location.pathname === "/suggest") {
+  } else if (location.pathname === "/before-suggest") {
     headerName === "건의내역";
     headerContent = (
       <section className="h-[56px] w-full flex items-center justify-between px-4">
@@ -31,7 +31,7 @@ function Header({ title }) {
         </div>
       </section>
     );
-  } else if (location.pathname === "/detailsuggest") {
+  } else if (location.pathname === "/before-suggest-detail") {
     headerName === "건의 세부내용";
     headerContent = (
       <section className="h-[56px] w-full flex items-center justify-between px-4">
@@ -46,7 +46,7 @@ function Header({ title }) {
         </div>
       </section>
     );
-  } else if (location.pathname === "/beforereserve") {
+  } else if (location.pathname === "/before-reserve") {
     headerName === "예약기록";
     headerContent = (
       <section className="h-[56px] w-full flex items-center justify-between px-4">
