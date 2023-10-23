@@ -13,7 +13,10 @@ export default function MypageExtendModal({ content, extendCount, isOpen }) {
     <div className="fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]">
       <div className="w-full h-full bg-black opacity-50"></div>
       <div className="absolute max-w-[300px] w-[80%] min-h-[250px] h-[20%] bg-white shadow-xl flex flex-col justify-between rounded-3xl">
-        <h1 className="semibold flex column justify-center items-center h-full bg-gray3 rounded-t-3xl text-base">
+        <h1
+          className="semibold flex column justify-center items-center h-full bg-gray3 rounded-t-3xl text-base"
+          style={{ display: "flex", flexDirection: "column" }}
+        >
           {content}
           <div
             className="medium flex mt-2 pl-4 text-sm"
@@ -31,7 +34,10 @@ export default function MypageExtendModal({ content, extendCount, isOpen }) {
           <div className="medium mx-2 text-gray-500 text-sm mt-4">
             <h5>종료시간 변경</h5>
           </div>
-          <div className="w-1/2 h-1/6 bg-gray2 rounded-3xl mt-1 flex items-center space-evenly medium px-2">
+          <div
+            className="w-1/2 h-1/6 bg-gray2 rounded-3xl mt-1 flex items-center medium px-2"
+            style={{ display: "flex", justifyContent: "space-evenly" }}
+          >
             17:00
             <AiOutlineArrowRight size="14px" />
             <span className="text-blue-700">17:30</span>
