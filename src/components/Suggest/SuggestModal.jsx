@@ -1,7 +1,6 @@
 import "../../index.css";
 import "../../App.css";
 
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SuggestModal({
@@ -56,7 +55,6 @@ export default function SuggestModal({
           </button>
           <button
             onClick={() => isOpen(false)}
-            onClick={gomypage}
             className="w-1/2 h-full text-center bg-[#0D51FF] rounded-br-3xl text-white "
           >
             예
