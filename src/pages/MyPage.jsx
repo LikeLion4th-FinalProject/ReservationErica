@@ -1,12 +1,22 @@
 import "../index.css";
 import "../App.css";
 
+import React, { useState } from "react";
+
 import Profile from "../components/MyPage/Profile";
 import PlaceCard from "../components/PlaceCard.jsx";
 import MypageCard from "../components/MyPage/MypageCard";
 
 function MyPage() {
-  let reserve = false; // true: 예약 전, false: 예약 후(이용 전, 이용 후)
+  const [reserve, setReserve] = useState(false); // true: 예약 전, false: 예약 후(이용 전, 이용 후)
+
+  {
+    /* Mypage.jsx의 reserve 값 바꾸기 (해결 못 함)
+      MypageCancelModal -> SelectMenu2 -> MypageCard -> Mypage로 전달하려고 시도... */
+  }
+  const handleCancelButtonClick = () => {
+    setReserve(true);
+  };
 
   return (
     <div className="px-4 rounded-b-lg rounded-2xl">
@@ -28,7 +38,7 @@ function MyPage() {
           </section>
         </div>
       ) : (
-        <MypageCard />
+        <MypageCard handleCancelButtonClick={handleCancelButtonClick} />
       )}
     </div>
   );

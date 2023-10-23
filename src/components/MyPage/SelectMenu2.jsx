@@ -1,11 +1,12 @@
+import React from "react";
+import { render } from "react-dom";
 import { useEffect, useState } from "react";
 import MypageCancelModal from "./MypageCancelModal";
 import MypageExtendModal from "./MypageCancelModal";
 import "../../index.css";
 import "../../App.css";
-import { render } from "react-dom";
 
-function SelectMenu2() {
+function SelectMenu2({ handleCancelButtonClick }) {
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
   const [isExtendModalOpen, setExtendModalOpen] = useState(false);
 
@@ -15,10 +16,14 @@ function SelectMenu2() {
       style={{ fontSize: "14px" }}
     >
       {Button()}
+      {/* Mypage.jsx의 reserve 값 바꾸기 (해결 못 함)
+      MypageCancelModal -> SelectMenu2 -> MypageCard -> Mypage로 전달하려고 시도... */}
       {isCancelModalOpen && (
         <MypageCancelModal
-          content={`이용 및 예약을 취소하시겠습니까?`}
+          content1={`이용 및 예약을`}
+          content2={`취소하시겠습니까?`}
           isOpen={setCancelModalOpen}
+          handleCancelButtonClick={handleCancelButtonClick}
         />
       )}
       {isExtendModalOpen && (

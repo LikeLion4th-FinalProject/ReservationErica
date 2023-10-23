@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import IndicatorSection2 from "./IndicatorSection2.jsx";
 import SelectMenu2 from "./SelectMenu2.jsx";
 
-function MypageCard({ title }) {
+function MypageCard({ title, handleCancelButtonClick }) {
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
@@ -117,7 +117,9 @@ function MypageCard({ title }) {
           ))}
         </section>
       </section>
-      <SelectMenu2 />
+      {/* Mypage.jsx의 reserve 값 바꾸기 (해결 못 함)
+      MypageCancelModal -> SelectMenu2 -> MypageCard -> Mypage로 전달하려고 시도... */}
+      <SelectMenu2 handleCancelButtonClick={handleCancelButtonClick} />
     </div>
   );
 }
