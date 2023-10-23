@@ -36,3 +36,5 @@ export const selectHour = [
 export const selectMinute = ['00', '30'];
 
 export const dayList = ['일', '월', '화', '수', '목', '금', '토'];
+
+export const selectPeople = ['1명', '2명', '3명', '4명', '5명', '6명'];
