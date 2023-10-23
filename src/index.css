@@ -3,77 +3,88 @@
 @tailwind utilities;
 /* Pretendard-Black */
 @font-face {
-  font-family: "Pretendard-Black";
-  src: url("./fonts/Pretendard/Pretendard-Black.ttf") format("truetype");
+  font-family: 'Pretendard-Black';
+  src: url('./fonts/Pretendard/Pretendard-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
 }
 
 /* Pretendard-Bold */
 @font-face {
-  font-family: "Pretendard-Bold";
-  src: url("./fonts/Pretendard/Pretendard-Bold.ttf") format("truetype");
+  font-family: 'Pretendard-Bold';
+  src: url('./fonts/Pretendard/Pretendard-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 /* Pretendard-ExtraBold */
 @font-face {
-  font-family: "Pretendard-ExtraBold";
-  src: url("./fonts/Pretendard/Pretendard-ExtraBold.ttf") format("truetype");
+  font-family: 'Pretendard-ExtraBold';
+  src: url('./fonts/Pretendard/Pretendard-ExtraBold.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
 }
 
 /* Pretendard-ExtraLight */
 @font-face {
-  font-family: "Pretendard-ExtraLight";
-  src: url("./fonts/Pretendard/Pretendard-ExtraLight.ttf") format("truetype");
+  font-family: 'Pretendard-ExtraLight';
+  src: url('./fonts/Pretendard/Pretendard-ExtraLight.ttf') format('truetype');
   font-weight: 200;
   font-style: normal;
 }
 
 /* Pretendard-Light */
 @font-face {
-  font-family: "Pretendard-Light";
-  src: url("./fonts/Pretendard/Pretendard-Light.ttf") format("truetype");
+  font-family: 'Pretendard-Light';
+  src: url('./fonts/Pretendard/Pretendard-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 /* Pretendard-Medium */
 @font-face {
-  font-family: "Pretendard-Medium";
-  src: url("./fonts/Pretendard/Pretendard-Medium.ttf") format("truetype");
+  font-family: 'Pretendard-Medium';
+  src: url('./fonts/Pretendard/Pretendard-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 /* Pretendard-Regular */
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("./fonts/Pretendard/Pretendard-Regular.ttf") format("truetype");
+  font-family: 'Pretendard-Regular';
+  src: url('./fonts/Pretendard/Pretendard-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 /* Pretendard-SemiBold */
 @font-face {
-  font-family: "Pretendard-SemiBold";
-  src: url("./fonts/Pretendard/Pretendard-SemiBold.ttf") format("truetype");
+  font-family: 'Pretendard-SemiBold';
+  src: url('./fonts/Pretendard/Pretendard-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 
 /* Pretendard-Thin */
 @font-face {
-  font-family: "Pretendard-Thin";
-  src: url("./fonts/Pretendard/Pretendard-Thin.ttf") format("truetype");
+  font-family: 'Pretendard-Thin';
+  src: url('./fonts/Pretendard/Pretendard-Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
 }
 
-* {
+@layer utilities {
+  .scroll-custom {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scroll-custom::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+body {
   padding: 0;
   box-sizing: border-box;
 }
@@ -85,37 +96,37 @@
 }
 
 body {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: 'Pretendard-Regular', sans-serif;
 }
 
 .light {
-  font-family: "Pretendard-Light", sans-serif;
+  font-family: 'Pretendard-Light', sans-serif;
 }
 
 .bold {
-  font-family: "Pretendard-Bold", sans-serif;
+  font-family: 'Pretendard-Bold', sans-serif;
 }
 
 .extrabold {
-  font-family: "Pretendard-ExtraBold", sans-serif;
+  font-family: 'Pretendard-ExtraBold', sans-serif;
 }
 
 .extralight {
-  font-family: "Pretendard-ExtraLight", sans-serif;
+  font-family: 'Pretendard-ExtraLight', sans-serif;
 }
 
 .medium {
-  font-family: "Pretendard-Medium", sans-serif;
+  font-family: 'Pretendard-Medium', sans-serif;
 }
 
 .semibold {
-  font-family: "Pretendard-SemiBold", sans-serif;
+  font-family: 'Pretendard-SemiBold', sans-serif;
 }
 
 .thin {
-  font-family: "Pretendard-Thin", sans-serif;
+  font-family: 'Pretendard-Thin', sans-serif;
 }
 
 .black {
-  font-family: "Pretendard-Black", sans-serif;
+  font-family: 'Pretendard-Black', sans-serif;
 }
