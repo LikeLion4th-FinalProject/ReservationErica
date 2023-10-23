@@ -9,6 +9,23 @@ import SuggestDropdown from "../components/Suggest/SuggestDropdown";
 function Suggest() {
   const [selectedSuggest, setSelectedSuggest] = useState(null);
 
+  // textarea 최대 글자수 제한
+  const [text, setText] = useState("");
+  const maxLength = 200;
+
+  const handleChange = (event) => {
+    const inputText = event.target.value;
+    if (inputText.length <= maxLength) {
+      setText(inputText);
+    }
+  };
+
+  // textarea 입력 여부에 따라 버튼 색상 결정
+  const buttonColor = text.length > 0 ? "#0D51FF" : "#CCCCCC";
+
+  // textarea 입력 여부에 따라 버튼 활성화/비활성화 결정
+  const isButtonDisabled = text.length === 0;
+
   return (
     <div>
       <p
@@ -47,7 +64,46 @@ function Suggest() {
         onSuggestSelect={setSelectedSuggest}
         selectedSuggest={selectedSuggest}
       />
-      {/* 여기 인풋 박스 디자인 */}
+      <div className="px-5">
+        <textarea
+          className="rounded-2xl bg-gray4 text-sm"
+          placeholder="자세한 내용을 적어주세요"
+          value={text}
+          onChange={handleChange}
+          style={{
+            width: "100%",
+            height: "180px",
+            marginTop: "20px",
+            paddingTop: "20px",
+            paddingBottom: "20px",
+            paddingLeft: "14px",
+            paddingRight: "14px",
+            wordBreak: "break-all",
+            wordWrap: "break-word",
+          }}
+        ></textarea>
+        <div
+          className="text-xs text-gray-400"
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            paddingRight: "5px",
+          }}
+        >
+          <p>{`${text.length}/${maxLength}`}</p>
+        </div>
+      </div>
+      <button
+        disabled={isButtonDisabled}
+        className={`fixed bottom-0 w-full h-16 flex justify-around items-center ${
+          isButtonDisabled ? "bg-gray-300" : "bg-blue-600"
+        }`}
+        style={{ zIndex: 9999 }}
+      >
+        <p className={`${isButtonDisabled ? "text-gray-500" : "text-white"}`}>
+          건의하기
+        </p>
+      </button>
     </div>
   );
 }
