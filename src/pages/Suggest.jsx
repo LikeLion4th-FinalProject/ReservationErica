@@ -73,7 +73,7 @@ function Suggest() {
       <div className="px-5">
         <textarea
           className={`rounded-2xl bg-gray4 text-sm ${
-            isTextareaDisabled ? "" : "focus:border-blue-700" // 이거 왜 안 바뀌지?
+            isTextareaDisabled ? "" : "focus:border-blue-700" // 이거 왜 안 되지
           }`}
           placeholder="자세한 내용을 적어주세요"
           value={text}
@@ -102,17 +102,6 @@ function Suggest() {
           <p>{`${text.length}/${maxLength}`}</p>
         </div>
       </div>
-      <button
-        disabled={isButtonDisabled}
-        className={`fixed bottom-0 w-full h-16 flex justify-around items-center ${
-          isButtonDisabled ? "bg-gray-300" : "bg-blue-600"
-        }`}
-        style={{ zIndex: 9999 }}
-      >
-        <p className={`${isButtonDisabled ? "text-gray-500" : "text-white"}`}>
-          건의하기
-        </p>
-      </button>
 
       <div
         className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-lg"
@@ -140,7 +129,7 @@ function Suggest() {
         <>
           <button
             disabled={isButtonDisabled}
-            className={`fixed bottom-0 w-full h-16 flex justify-around items-center ${
+            className={`fixed bottom-0 w-full max-w-lg h-16 flex justify-around items-center ${
               isButtonDisabled ? "bg-gray-300" : "bg-blue-600"
             }`}
             style={{ zIndex: 9999 }}
