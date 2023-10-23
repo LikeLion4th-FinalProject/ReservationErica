@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Profile from "../components/MyPage/Profile";
 import PlaceCard from "../components/PlaceCard.jsx";
 import MypageCard from "../components/MyPage/MypageCard";
+// 임시 커밋
 
 function MyPage() {
   const [reserve, setReserve] = useState(false); // true: 예약 전, false: 예약 후(이용 전, 이용 후)
