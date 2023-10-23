@@ -7,7 +7,7 @@ import { useState } from "react";
 import SuggestDropdown from "../components/Suggest/SuggestDropdown";
 
 function Suggest() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedSuggest, setSelectedSuggest] = useState(null);
 
   return (
     <div>
@@ -44,8 +44,8 @@ function Suggest() {
         </div>
       </div>
       <SuggestDropdown
-        onDateSelect={setSelectedDate}
-        selectedDate={selectedDate}
+        onSuggestSelect={setSelectedSuggest}
+        selectedSuggest={selectedSuggest}
       />
       {/* 여기 인풋 박스 디자인 */}
     </div>

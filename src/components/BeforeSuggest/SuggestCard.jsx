@@ -6,8 +6,8 @@ import "../../App.css";
 import arrow from "../../static/chevron-right.png";
 
 // tt: 확인 전, ft: 처리 중, ff: 처리 완료
-let nocheck_suggest = true;
-let nofinish_suggest = true;
+let nocheck_suggest = false;
+let nofinish_suggest = false;
 
 function SuggestCard() {
   const movePage = useNavigate();
