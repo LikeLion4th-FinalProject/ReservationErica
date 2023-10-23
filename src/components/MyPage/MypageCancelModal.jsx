@@ -10,6 +10,7 @@ export default function MypageCancelModal({
   isOpen,
   handleCancelButtonClick,
 }) {
+  // 임시 커밋
   // const movePage = useNavigate();
 
   // function gomypage() {
