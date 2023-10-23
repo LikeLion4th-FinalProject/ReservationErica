@@ -280,6 +280,7 @@ export default function Reservation() {
         <ConfirmModal
           content={`Smash ${params.id}번 방을 예약하시겠습니까?`}
           isOpen={setModalOpen}
+          reserveInfo={reserveInfo}
         />
       )}
     </div>

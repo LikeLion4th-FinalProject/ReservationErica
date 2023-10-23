@@ -1,8 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ConfirmModal({ content, isOpen }) {
+export default function ConfirmModal({ content, isOpen, reserveInfo }) {
   const navigate = useNavigate();
+
+  const reserveConfirm = () => {
+    navigate('/mypage');
+    console.log(reserveInfo);
+  };
 
   return (
     <div className='fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]'>
@@ -19,7 +24,7 @@ export default function ConfirmModal({ content, isOpen }) {
             아니오
           </button>
           <button
-            onClick={() => navigate('/mypage')}
+            onClick={reserveConfirm}
             className='w-1/2 h-full text-center bg-[#0D51FF] rounded-br-3xl text-white '
           >
             예

@@ -20,13 +20,13 @@ function App() {
     title = '예약기록';
   }
   return (
-    <>
+    <div className='flex flex-col h-screen justify-between'>
       {!hideLayout && <Header title={title} />}
-      <div className='overflow-y-scroll'>
+      <div className='flex-grow overflow-y-scroll'>
         <Outlet />
       </div>
       {!hideLayout && <BtnNav />}
-    </>
+    </div>
   );
 }
 
