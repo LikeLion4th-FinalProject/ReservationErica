@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { useEffect, useState } from "react";
 import MypageCancelModal from "./MypageCancelModal";
-import MypageExtendModal from "./MypageCancelModal";
+import MypageExtendModal from "./MypageExtendModal";
 import "../../index.css";
 import "../../App.css";
 
@@ -50,7 +50,7 @@ function SelectMenu2({ handleCancelButtonClick }) {
           </button>
           <button
             onClick={() => setExtendModalOpen(true)}
-            className="flex items-center justify-center py-3 text-white bg-gray0 rounded-br-lg border-gray-300 border-b border-gray0"
+            className="flex items-center justify-center py-3 text-white bg-blue-700 rounded-br-lg border-gray-300 border-b border-gray0"
           >
             <h1>연장하기</h1>
           </button>
@@ -62,7 +62,7 @@ function SelectMenu2({ handleCancelButtonClick }) {
           <button className="flex items-center justify-center py-3 border-r border-gray-300">
             <h1>취소하기</h1>
           </button>
-          <button className="flex items-center justify-center py-3 text-white bg-gray0 rounded-br-lg border-gray-300 border-b border-gray0">
+          <button className="flex items-center justify-center py-3 text-white bg-blue-700 rounded-br-lg border-gray-300 border-b border-gray0">
             <h1>연장하기</h1>
           </button>
         </>
