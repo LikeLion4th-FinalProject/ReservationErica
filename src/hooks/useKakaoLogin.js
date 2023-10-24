@@ -38,6 +38,7 @@ const useKakaoLogin = (code) => {
         },
       });
       setUserData(data);
+      console.log("data", data);
       sessionStorage.setItem("kakaoUserName", data.properties.nickname);
       sessionStorage.setItem("kakaoUserId", data.id.toString());
     } catch (error) {
