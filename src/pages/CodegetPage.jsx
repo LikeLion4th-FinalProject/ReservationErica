@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useKakaoLogin from "../hooks/useKakaoLogin";
+import { handleLogin } from "../data/authlogin";
 
 function CodegetPage() {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -13,7 +14,8 @@ function CodegetPage() {
       // 사용자가 데이터베이스에 있다면
       // navigate("/reservation");
       // 사용자가 데이터베이스에 없다면
-      navigate("/signup");
+      // navigate("/home");
+      handleLogin();
     }
   }, [userData]);
 
