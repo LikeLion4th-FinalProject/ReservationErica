@@ -9,7 +9,6 @@ function BtnNav() {
   const isMyPage = location.pathname.includes('mypage');
 
   let visible = true;
-  console.log(location.pathname.includes('mypage'));
 
   switch (location.pathname) {
     case '/mypage/before-suggest':
