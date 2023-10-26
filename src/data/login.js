@@ -1,5 +1,8 @@
 import { client } from './client';
 
+/* 로그인페이지에서 로그인 했을때 실행되는 함수
+ * : 해당 함수가 실행되면 카카오로그인을 통해 얻은 정보를 백에 보내고, 돌려받은 토큰을 세션에 들어감
+ */
 export const getToken = () => {
   const username = sessionStorage.getItem('kakaoUserName');
   const kakao_id = sessionStorage.getItem('kakaoUserId');
@@ -10,7 +13,7 @@ export const getToken = () => {
     client
       .post('login/', userInfo)
       .then((response) => {
-        console.log(response);
+        console.log('리턴받은 토큰 값  : ', response.data);
         sessionStorage.setItem('token', response.data.token);
       })
       .catch((error) => console.log(error));

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DateDropdown from '../components/DateDropdown';
 import IndicatorSection from '../components/IndicatorSection';
 import PlaceCard from '../components/PlaceCard';
@@ -6,6 +6,7 @@ import { RoomList, dayList } from '../styles/static';
 import TimeSelect from '../components/TimeSelect';
 import ButtonList from '../components/ButtonList';
 import { getToken } from '../data/login';
+import { searchDayTable } from '../data/reservation';
 
 function ReserveHome() {
   // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환하는 함수 => 9시간 이므로 -540 이 나올거임
@@ -20,8 +21,13 @@ function ReserveHome() {
     pickDate: nowDate,
     pickDay: dayList[new Date().getDay()],
   });
-  // console.log(selectedDate);
-  getToken();
+
+  useEffect(() => {
+    if (selectedDate) {
+      console.log('searchdaytable/ 로 axios 요청 보내기 시작');
+      searchDayTable(selectedDate);
+    }
+  }, [selectedDate]);
 
   return (
     <section className='mt-4 relative'>
