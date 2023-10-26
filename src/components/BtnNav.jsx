@@ -1,23 +1,23 @@
 import { AiOutlineUser, AiOutlineCheck } from 'react-icons/ai';
+import { BiSolidUser } from 'react-icons/bi';
 import { Link, useLocation } from 'react-router-dom';
 
 function BtnNav() {
   const location = useLocation();
 
-  const isReservationPage = location.pathname.startsWith("/reservation");
-  const isMyPage = location.pathname.startsWith("/mypage");
-  const isReserveDetailPage = location.pathname.startsWith('/reservation/');
+  const isReservationPage = location.pathname.startsWith('/reservation');
+  const isMyPage = location.pathname.includes('mypage');
 
   let visible = true;
 
   switch (location.pathname) {
-    case "/mypage/before-suggest":
+    case '/mypage/before-suggest':
       visible = false;
       break;
-    case "/mypage/before-reserve":
+    case '/mypage/before-reserve':
       visible = false;
       break;
-    case "/mypage/suggest":
+    case '/mypage/suggest':
       visible = false;
       break;
     default:
@@ -26,27 +26,34 @@ function BtnNav() {
 
   return (
     <>
-      {(!isReserveDetailPage && visible) ? (
+      {visible ? (
         <section
-          className={`sticky bottom-0 left-0 right-0 z-50 flex justify-around items-center text-gray0 border-t-[1px] border-gray1 w-full h-[50px]`}
+          className={`sticky bottom-0 left-0 right-0 z-50 flex justify-around items-center  w-full h-[50px]`}
         >
           <Link
-            to={"/reservation"}
+            to={'/reservation'}
             className={`flex items-center flex-col justify-center w-full h-full ${
-              isReservationPage ? "bg-gray0 text-white" : "bg-white text-gray0"
+              isReservationPage ? ' text-[#0D51FF]' : 'bg-white text-gray0'
             }`}
           >
-            <AiOutlineCheck className="text-lg" />
-            <span className="text-btn">예약하기</span>
+            <AiOutlineCheck className='text-lg' size={23} />
+            <span className='text-btn'>예약하기</span>
           </Link>
           <Link
-            to={"/mypage"}
-            className={`flex items-center flex-col justify-center w-full h-full ${
-              isMyPage ? "bg-gray0 text-white" : "bg-white text-gray0"
-            }`}
+            to={'/mypage/:id'}
+            className={`flex items-center flex-col justify-center w-full h-full`}
           >
-            <AiOutlineUser className="text-lg" />
-            <span className="text-btn">마이페이지</span>
+            {isMyPage ? (
+              <>
+                <BiSolidUser className='text-lg text-[#0D51ff]' size={23} />
+                <span className='text-btn text-[#0D51ff]'>마이페이지</span>
+              </>
+            ) : (
+              <>
+                <AiOutlineUser className='text-lg text-gray0' size={23} />
+                <span className='text-btn'>마이페이지</span>
+              </>
+            )}
           </Link>
         </section>
       ) : (
