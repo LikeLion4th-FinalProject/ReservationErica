@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useKakaoLogin from '../hooks/useKakaoLogin';
 import { getToken } from '../data/login';
+=======
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useKakaoLogin from "../hooks/useKakaoLogin";
+import { handleLogin } from "../data/authlogin";
+>>>>>>> 55fdd47833f26fb78775c2177e081e06c79fc749
 
 function CodegetPage() {
   const code = new URL(window.location.href).searchParams.get('code');
@@ -17,6 +24,8 @@ function CodegetPage() {
       // navigate("/reservation");
       // 사용자가 데이터베이스에 없다면
       navigate('/reservation');
+      // navigate("/home");
+      handleLogin();
     }
   }, [userData]);
 
