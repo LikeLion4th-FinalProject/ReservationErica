@@ -1,9 +1,14 @@
-import axios from 'axios';
 import { client } from './client';
 
-export const searchDayTable = (selectedDate) => {
-  client
-    .get('searchdaytable/', { date: selectedDate.pickDate, type: 'smash' })
-    .then((response) => console.log(response.data))
+export const searchDayTable = async (pickDate) => {
+  const dayTableList = await client
+    .get('searchdaytable/', { date: pickDate, type: 'smash' })
+    .then((response) => {
+      return response.data;
+    })
     .catch((error) => console.log(error));
+
+  console.log(dayTableList);
+
+  return dayTableList;
 };

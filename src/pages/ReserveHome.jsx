@@ -21,11 +21,21 @@ function ReserveHome() {
     pickDate: nowDate,
     pickDay: dayList[new Date().getDay()],
   });
+  const [listDayTable, setListDayTable] = useState([]);
+  // console.log(listDayTable);
+
+  const asyncTest = async () => {
+    const result = await searchDayTable(selectedDate.pickDate);
+    console.log(result);
+    setListDayTable(result);
+  };
 
   useEffect(() => {
     if (selectedDate) {
-      console.log('searchdaytable/ 로 axios 요청 보내기 시작');
-      searchDayTable(selectedDate);
+      console.log(
+        `"searchdaytable/" 로 axios 요청 보내기 시작\n selectedDate : ${selectedDate.pickDate}`
+      );
+      asyncTest();
     }
   }, [selectedDate]);
 
@@ -37,7 +47,11 @@ function ReserveHome() {
       />
       <IndicatorSection />
       <div className='px-4 mt-5'>
-        <TimeSelect selectedDate={selectedDate} nowDate={nowDate} />
+        <TimeSelect
+          selectedDate={selectedDate}
+          nowDate={nowDate}
+          listDayTable={listDayTable}
+        />
         {/* {RoomList.map((room, index) => (
           <PlaceCard key={index} idx={index} title={room} />
         ))} */}
