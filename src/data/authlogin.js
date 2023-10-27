@@ -10,7 +10,7 @@ export const handleLogin = async () => {
 
   try {
     const response = await axios.post(
-      import.meta.env.VITE_REACT_APP_API_URL + "/login",
+      import.meta.env.VITE_REACT_APP_API_URL + "login",
       {
         username,
         kakao_id,
