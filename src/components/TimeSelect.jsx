@@ -30,7 +30,6 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   for (let i = 0; i < 26; i++) {
     hours.push(i);
   }
-  console.log(hours, listDayTable);
 
   // 1. 오늘날짜인지 확인하고
   const isToday =
@@ -76,7 +75,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       setSelectRange([]);
     }
   };
-  console.log(selectRange);
+  console.log('선택한 시간 -> ', selectRange);
 
   const handleWarning = () => {
     setWarningAlert(true);
@@ -102,7 +101,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
         <div className='text-xl font-black'>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
         <section className='grid grid-cols-8 grid-rows-3 mt-2 gap-1 mb-3 items-end justify-between'>
           {listDayTable &&
-            listDayTable.map((count, index) => (
+            listDayTable?.map((count, index) => (
               <div key={index} className='flex flex-col'>
                 {index % 2 == 0 && (
                   <span className='text-[8px] text-start mb-1'>

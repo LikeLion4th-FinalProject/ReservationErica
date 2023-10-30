@@ -15,6 +15,7 @@ export const getToken = () => {
       .then((response) => {
         console.log('리턴받은 토큰 값  : ', response.data);
         sessionStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('refresh_token', response.data.refresh_token);
       })
       .catch((error) => console.log(error));
   } else {

@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 export const client = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL,
+  baseURL: BASE_URL,
 });
 
 // header에 정보 추가하기 => [참고자료] https://leeseong010.tistory.com/133
@@ -29,17 +31,19 @@ client.interceptors.response.use(
         error.response.data.messages[0].message ===
         'Token is invalid or expired'
       ) {
-        console.log(
-          '토큰이 만료되어씀.. refresh 토큰을 백에 보내서 새로운 토큰값 받아오고, 다시 헤더에 담아야함'
-        );
+        console.log('토큰이 만료되어씀.. refresh 토큰 보내겠슴다');
+        const refresh_token = sessionStorage.getItem('refresh_token');
+        // console.log(refresh_token);
+        axios
+          .post(`${BASE_URL}/refresh-token/`, {
+            refresh_token: refresh_token,
+          })
+          .then((response) => {
+            // sessionStorage.removeItem('token');
+            console.log(response.data);
+            sessionStorage.setItem('token', response.data.access_token);
+          });
       }
-
-      // const accessToken = getToken();
-
-      // error.config.headers = {
-      //   'Content-Type': 'application/json',
-      //   Authorization: `Bearer ${accessToken}`,
-      // };
 
       const response = await axios.request(error.config);
       return response;
