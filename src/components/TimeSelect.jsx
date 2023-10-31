@@ -5,7 +5,7 @@ import Alert from './Alert';
 import { reserveTime } from '../styles/static';
 import ConfirmModal from './modal/ConfirmModal';
 
-export default function TimeSelect({ selectedDate, nowDate }) {
+export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   const [reserveRoom, setReserveRoom] = useState(false);
   const [selectRange, setSelectRange] = useState([]);
   const [warningAlert, setWarningAlert] = useState(false);
@@ -75,7 +75,7 @@ export default function TimeSelect({ selectedDate, nowDate }) {
       setSelectRange([]);
     }
   };
-  console.log(selectRange);
+  console.log('선택한 시간 -> ', selectRange);
 
   const handleWarning = () => {
     setWarningAlert(true);
@@ -100,27 +100,28 @@ export default function TimeSelect({ selectedDate, nowDate }) {
       <section className='w-full flex flex-col bg-gray4 shadow-md rounded-2xl px-4 py-3 border-[1px]'>
         <div className='text-xl font-black'>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
         <section className='grid grid-cols-8 grid-rows-3 mt-2 gap-1 mb-3 items-end justify-between'>
-          {hours.map((hour, index) => (
-            <div key={index} className='flex flex-col'>
-              {index % 2 == 0 && (
-                <span className='text-[8px] text-start mb-1'>
-                  {hour / 2 + 9}:00
-                </span>
-              )}
-              <div className='flex gap-[1px]'>
-                {isToday && impossibleIndex >= index - 1 ? (
-                  <ImpossibleButton />
-                ) : (
-                  <PossibleButton
-                    count={3}
-                    clickTime={index}
-                    handleClickTime={handleClickTime}
-                    selectRange={selectRange}
-                  />
+          {listDayTable &&
+            listDayTable?.map((count, index) => (
+              <div key={index} className='flex flex-col'>
+                {index % 2 == 0 && (
+                  <span className='text-[8px] text-start mb-1'>
+                    {index / 2 + 9}:00
+                  </span>
                 )}
+                <div className='flex gap-[1px]'>
+                  {isToday && impossibleIndex >= index - 1 ? (
+                    <ImpossibleButton />
+                  ) : (
+                    <PossibleButton
+                      count={count}
+                      clickTime={index}
+                      handleClickTime={handleClickTime}
+                      selectRange={selectRange}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </section>
       </section>
       {reserveRoom && (
@@ -149,7 +150,7 @@ export default function TimeSelect({ selectedDate, nowDate }) {
                 <span className='w-[35%] text-base'>{room.roomInfo}</span>
                 <button
                   onClick={() => setValidForm(true)}
-                  className='bg-[#0D51FF] w-full h-[45px] text-white rounded-2xl'
+                  className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
                 >
                   <span>예약하기</span>
                 </button>
