@@ -115,7 +115,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       ...reserveInfo,
       room_id: roomId,
       date: selectedDate.pickDate,
-      user_id: userId,
+      kakao_id: userId,
       start: selectRange[0],
       end: selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1,
     });
