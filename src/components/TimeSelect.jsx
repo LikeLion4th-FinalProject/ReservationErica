@@ -4,11 +4,15 @@ import PossibleButton from './reserveButton/PossibleButton';
 import Alert from './Alert';
 import { reserveTime } from '../styles/static';
 import ConfirmModal from './modal/ConfirmModal';
+import { client } from '../api/client';
 
 export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   const [reserveRoom, setReserveRoom] = useState(false);
   const [selectRange, setSelectRange] = useState([]);
   const [warningAlert, setWarningAlert] = useState(false);
+  const [roomList, setRoomList] = useState([]);
+  const [reserveInfo, setReserveInfo] = useState({ people_num: 2 });
+  const [resRoomName, setResRoomName] = useState();
 
   const clickDetail = useRef(null);
 
@@ -17,10 +21,6 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     const date = new Date(pickDate);
     return date.toLocaleDateString('ko-KR', options);
   };
-
-  useEffect(() => {
-    console.log(selectedDate);
-  }, [selectedDate]);
 
   const formattedDate = formatDateToDisplay(selectedDate.pickDate);
   // console.log(formattedDate); // "10월 23일"
@@ -51,6 +51,23 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     setReserveRoom(false);
   }, [selectedDate]);
 
+  /* 예약시간을 클릭할 때 마다 날리는 요청 */
+  useEffect(() => {
+    if (selectRange.length) {
+      // selectRange 배열 안에 값이 존재할때만 api호출하게끔
+      client
+        .get(
+          `searchtimetable/${selectedDate.pickDate}/smash/${selectRange[0]}/${
+            selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1
+          }/`
+        )
+        .then((response) => setRoomList(response.data))
+        .catch((error) => console.log(error));
+    }
+  }, [selectRange]);
+
+  console.log('roomList : ', roomList);
+
   const handleClickTime = (idx) => {
     clickDetail.current?.scrollIntoView({ behavior: 'smooth' });
     if (selectRange.length === 0) {
@@ -65,7 +82,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
           handleWarning();
         }
         // 범위 끝 지점 선택
-        else setSelectRange([startTime, idx]);
+        else {
+          setSelectRange([startTime, idx]);
+        }
       }
       // 범위를 역순으로 선택한 경우 범위 시작 지점을 변경
       else setSelectRange([idx]);
@@ -88,11 +107,19 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
 
   const [isValidForm, setValidForm] = useState(false);
 
-  const roomList = [
-    { roomInfo: 'SMASH 1', id: 1 },
-    { roomInfo: 'SMASH 2', id: 2 },
-    { roomInfo: 'SMASH 3', id: 3 },
-  ];
+  const handleReserveBtn = (roomId, resRoomName) => {
+    setValidForm(true);
+    const userId = sessionStorage.getItem('kakao_id');
+    setResRoomName(resRoomName);
+    setReserveInfo({
+      ...reserveInfo,
+      room_id: roomId,
+      date: selectedDate.pickDate,
+      kakao_id: userId,
+      start: selectRange[0],
+      end: selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1,
+    });
+  };
 
   return (
     <>
@@ -130,7 +157,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
           <section>
             {selectRange.length === 1 ? (
               <span className='text-xl font-black'>
-                {reserveTime[selectRange[0]]}
+                {`${reserveTime[selectRange[0]]} ~ ${
+                  reserveTime[selectRange[0] + 1]
+                }`}
               </span>
             ) : (
               <span className='text-xl font-black'>
@@ -147,9 +176,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
                 key={room.id}
                 className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
               >
-                <span className='w-[35%] text-base'>{room.roomInfo}</span>
+                <span className='w-[35%] text-base'>{room.name}</span>
                 <button
-                  onClick={() => setValidForm(true)}
+                  onClick={() => handleReserveBtn(room.id, room.name)}
                   className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
                 >
                   <span>예약하기</span>
@@ -159,8 +188,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
           </section>
           {isValidForm && (
             <ConfirmModal
-              content={'(예약정보 들어갈 공간)'}
+              content={resRoomName}
               isOpen={setValidForm}
+              reserveInfo={reserveInfo}
             />
           )}
         </>
