@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { reserveTime } from '../../styles/static';
 import { client } from '../../api/client';
+import { reserveInfomation } from '../../pages/ReserveHome';
 
 export default function ConfirmModal({ content, isOpen, reserveInfo }) {
   const navigate = useNavigate();
 
+  const isCompleteReserve = useContext(reserveInfomation);
   const reserveConfirm = () => {
     client
       .post('roomreserve/', reserveInfo)
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
     // navigate('/mypage/0');
+    isCompleteReserve(true);
   };
   console.log(reserveInfo);
 

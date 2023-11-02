@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ImpossibleButton from './reserveButton/ImpossibleButton';
 import PossibleButton from './reserveButton/PossibleButton';
 import Alert from './Alert';
@@ -71,6 +71,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   const handleClickTime = (idx) => {
     clickDetail.current?.scrollIntoView({ behavior: 'smooth' });
     if (selectRange.length === 0) {
+      console.log(clickDetail);
       setReserveRoom(true);
       // 범위 시작 지점 선택
       setSelectRange([idx]);
