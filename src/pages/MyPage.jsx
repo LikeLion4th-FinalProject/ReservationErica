@@ -1,7 +1,7 @@
 import "../index.css";
 import "../App.css";
 
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 
 import Profile from "../components/MyPage/Profile";
 import PlaceCard from "../components/PlaceCard.jsx";
@@ -9,8 +9,6 @@ import PlaceCard from "../components/PlaceCard.jsx";
 import MypageCard from "../components/MyPage/MypageCard";
 import SelectMenu2 from "../components/MyPage/SelectMenu2";
 import MypageCancelModal from "../components/MyPage/MypageCancelModal";
-
-// ReserveContext 생성
 
 function MyPage() {
   return (

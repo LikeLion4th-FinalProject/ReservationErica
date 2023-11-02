@@ -34,13 +34,12 @@ function SelectMenu2({}) {
   //   </div>
   // );
 
-  // function Button() {
   const [isFormValid, setFormValid] = useState(false);
 
   return (
     <>
       <div
-        className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-xl rounded-b-lg"
+        className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-md"
         style={{ fontSize: "14px" }}
       >
         <button
@@ -55,7 +54,15 @@ function SelectMenu2({}) {
         >
           <h1>연장하기</h1>
         </button>
-        {isCancelModalOpen && <MypageCancelModal setFormValid={setFormValid} />}
+        {isCancelModalOpen && (
+          <MypageCancelModal
+            content1={`이용 및 예약을`}
+            content2={`취소하시겠습니까?`}
+            isOpen={setCancelModalOpen}
+            setFormValid={setFormValid}
+          />
+        )}
+
         {isExtendModalOpen && (
           <MypageExtendModal
             content={`시간을 연장하시겠습니까?`}
@@ -66,7 +73,6 @@ function SelectMenu2({}) {
       </div>
     </>
   );
-  // }
 }
 
 export default SelectMenu2;

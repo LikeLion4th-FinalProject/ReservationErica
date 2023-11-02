@@ -8,7 +8,7 @@ import { useState } from "react";
 export const ReserveContext = createContext();
 
 function MypageCard({ title }) {
-  const [isReserve, setReserve] = useState(true); // true: 예약 전, false: 예약 후(이용 전, 이용 후)
+  const [isReserve, setReserve] = useState(true); // true: 예약 후(이용 전/이용 후), false: 예약 전
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
@@ -23,6 +23,7 @@ function MypageCard({ title }) {
 
   let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
 
+  // 나중에 사용자의 예약 정보 연동해야 함
   return (
     <>
       {/* ReserveContext.Provider로 컨텍스트 제공 */}
@@ -53,29 +54,10 @@ function MypageCard({ title }) {
               </div>
               <div className="flex border-b-[1px] border-gray1">
                 <div>
-                  <h5
-                    className="medium"
-                    style={{
-                      fontSize: "14px",
-                      color: "gray",
-                      marginTop: "10px",
-                    }}
-                  >
-                    인원
-                  </h5>
-                  <h5
-                    className="medium"
-                    style={{ fontSize: "14px", color: "gray" }}
-                  >
-                    날짜
-                  </h5>
-                  <h5
-                    className="medium"
-                    style={{ fontSize: "14px", color: "gray" }}
-                  >
-                    연장횟수
-                  </h5>
-                  <h5 className="text-[14px] text-gray1 mb-[10px]">시간</h5>
+                  <h5 className="text-[14px] text-gray-500 mt-[10px]">인원</h5>
+                  <h5 className="text-[14px] text-gray-500">날짜</h5>
+                  <h5 className="text-[14px] text-gray-500">연장횟수</h5>
+                  <h5 className="text-[14px] text-gray-500 mb-[10px]">시간</h5>
                 </div>
                 <div style={{ marginLeft: "15px" }}>
                   <h5

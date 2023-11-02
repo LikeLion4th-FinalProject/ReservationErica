@@ -18,7 +18,7 @@ export default function MypageCancelModal({
         </h1>
         <div className="w-full h-1/3 flex justify-between items-center">
           <button
-            onClick={() => setFormValid(false)}
+            onClick={() => isOpen(false)}
             className="w-1/2 h-full text-center"
           >
             아니오
