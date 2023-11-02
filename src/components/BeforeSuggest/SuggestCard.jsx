@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../index.css";
 import "../../App.css";
 
-import arrow from "../../static/chevron-right.png";
+import { IoIosArrowForward } from "react-icons/io";
 
 // tt: 확인 전, ft: 처리 중, ff: 처리 완료
 let nocheck_suggest = false;
@@ -80,7 +80,7 @@ function SuggestCard() {
               <h2 className="text-xs" style={{ color: "gray" }}>
                 세부내용보기
               </h2>
-              <img src={arrow} style={{ width: "14px" }} />
+              <IoIosArrowForward />
             </button>
           </div>
         </div>
