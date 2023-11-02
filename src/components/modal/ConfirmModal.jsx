@@ -5,7 +5,7 @@ export default function ConfirmModal({ content, isOpen, reserveInfo }) {
   const navigate = useNavigate();
 
   const reserveConfirm = () => {
-    navigate('/mypage');
+    navigate('/mypage/0');
     console.log(reserveInfo);
   };
 
