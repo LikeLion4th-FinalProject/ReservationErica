@@ -1,27 +1,13 @@
-import "../../index.css";
-import "../../App.css";
-
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { ReserveContext } from "./MypageCard";
 
 export default function MypageCancelModal({
   content1,
   content2,
   isOpen,
-  handleCancelButtonClick,
+  setFormValid,
 }) {
-  // 임시 커밋
-  // const movePage = useNavigate();
-
-  // function gomypage() {
-  //   movePage("/mypage/0");
-  // }
-
-  // Mypage.jsx의 reserve 값 바꾸기 (해결 못 함)
-  // MypageCancelModal -> SelectMenu2 -> MypageCard -> Mypage로 전달하려고 시도...
-  const handleClick = () => {
-    handleCancelButtonClick();
-  };
+  const setReserve = useContext(ReserveContext); // ReserveContext에서 setReserve 가져오기
 
   return (
     <div className="fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]">
@@ -32,18 +18,15 @@ export default function MypageCancelModal({
         </h1>
         <div className="w-full h-1/3 flex justify-between items-center">
           <button
-            onClick={() => isOpen(false)}
+            onClick={() => setFormValid(false)}
             className="w-1/2 h-full text-center"
           >
             아니오
           </button>
           <button
             onClick={() => {
-              isOpen(false);
-              {
-                handleClick;
-              }
-              // gomypage();
+              setReserve(false); // reserve 값을 true로 변경
+              setFormValid(false);
             }}
             className="w-1/2 h-full text-center bg-[#0D51FF] rounded-br-3xl text-white "
           >
