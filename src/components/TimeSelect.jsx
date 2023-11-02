@@ -5,6 +5,7 @@ import Alert from './Alert';
 import { reserveTime } from '../styles/static';
 import ConfirmModal from './modal/ConfirmModal';
 import { client } from '../api/client';
+import { fillReserveInfo } from '../pages/ReserveHome';
 
 export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   const [reserveRoom, setReserveRoom] = useState(false);
@@ -58,7 +59,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       client
         .get(
           `searchtimetable/${selectedDate.pickDate}/smash/${selectRange[0]}/${
-            selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1
+            selectRange.length === 1 ? selectRange[0] : selectRange[1]
           }/`
         )
         .then((response) => setRoomList(response.data))
@@ -71,7 +72,6 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
   const handleClickTime = (idx) => {
     clickDetail.current?.scrollIntoView({ behavior: 'smooth' });
     if (selectRange.length === 0) {
-      console.log(clickDetail);
       setReserveRoom(true);
       // 범위 시작 지점 선택
       setSelectRange([idx]);
@@ -95,7 +95,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       setSelectRange([]);
     }
   };
-  console.log('선택한 시간 -> ', selectRange);
+  // console.log('선택한 시간 -> ', selectRange);
 
   const handleWarning = () => {
     setWarningAlert(true);
@@ -121,6 +121,11 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       end: selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1,
     });
   };
+
+  const fillResInfo = useContext(fillReserveInfo);
+  useEffect(() => {
+    fillResInfo({ ...reserveInfo });
+  }, [reserveInfo]);
 
   return (
     <>
@@ -171,21 +176,25 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
               `}
               </span>
             )}
-            {roomList.map((room) => (
-              <div
-                ref={clickDetail}
-                key={room.id}
-                className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
-              >
-                <span className='w-[35%] text-base'>{room.name}</span>
-                <button
-                  onClick={() => handleReserveBtn(room.id, room.name)}
-                  className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
+            {roomList.length ? (
+              roomList.map((room) => (
+                <div
+                  ref={clickDetail}
+                  key={room.id}
+                  className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
                 >
-                  <span>예약하기</span>
-                </button>
-              </div>
-            ))}
+                  <span className='w-[35%] text-base'>{room.name}</span>
+                  <button
+                    onClick={() => handleReserveBtn(room.id, room.name)}
+                    className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
+                  >
+                    <span>예약하기</span>
+                  </button>
+                </div>
+              ))
+            ) : (
+              <div>{`선택한 시간에 예약가능한 방이 없습니다!\n다른 시간대를 선택해주세요`}</div>
+            )}
           </section>
           {isValidForm && (
             <ConfirmModal
