@@ -46,7 +46,7 @@ export default function ConfirmInfo({ content, resInfo }) {
         <p className='flex gap-10'>
           <span className='text-gray-500 font-thin'>시간</span>
           <span>{`${reserveTime[resInfo.start]} ~ ${
-            reserveTime[resInfo.end]
+            reserveTime[resInfo.end + 1]
           }`}</span>
         </p>
       </div>

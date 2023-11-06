@@ -118,7 +118,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       date: selectedDate.pickDate,
       kakao_id: userId,
       start: selectRange[0],
-      end: selectRange.length === 1 ? selectRange[0] + 1 : selectRange[1] + 1,
+      end: selectRange.length === 1 ? selectRange[0] : selectRange[1],
     });
   };
 
@@ -197,11 +197,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
             )}
           </section>
           {isValidForm && (
-            <ConfirmModal
-              content={resRoomName}
-              isOpen={setValidForm}
-              reserveInfo={reserveInfo}
-            />
+            <ConfirmModal isOpen={setValidForm} reserveInfo={reserveInfo} />
           )}
         </>
       )}
