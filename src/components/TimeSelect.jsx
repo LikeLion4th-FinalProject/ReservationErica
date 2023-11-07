@@ -108,13 +108,13 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
 
   const [isValidForm, setValidForm] = useState(false);
 
-  const handleReserveBtn = (roomId, resRoomName) => {
+  const handleReserveBtn = (roomId, roomName) => {
     setValidForm(true);
     const userId = sessionStorage.getItem('kakao_id');
-    setResRoomName(resRoomName);
+    setResRoomName(roomName);
     setReserveInfo({
       ...reserveInfo,
-      room_id: roomId,
+      room_name: roomName,
       date: selectedDate.pickDate,
       kakao_id: userId,
       start: selectRange[0],
@@ -205,3 +205,7 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     </>
   );
 }
+
+/**
+ * 이전에 예약한 시간이 지났음에도 roomreserve/ 로부터 받는 정보가 이전 예약 내역으로 받아와짐 -> 수정요청 해야함
+ */
