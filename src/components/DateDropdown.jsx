@@ -6,9 +6,10 @@ import { pickDate } from '../pages/ReserveHome';
 function DateDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const options = useDateOptions();
-  // console.log('date drop down list : ', options);
+  console.log('date drop down list : ', options);
 
   const { selectedDate, setSelectedDate } = useContext(pickDate);
+  console.log(selectedDate);
 
   const handleDateSelect = (date, day) => {
     if (setSelectedDate) {

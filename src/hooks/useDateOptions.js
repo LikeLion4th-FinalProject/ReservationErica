@@ -11,7 +11,7 @@ function useDateOptions() {
   useEffect(() => {
     const tempOptions = [];
     for (let i = 0; i < 7; i++) {
-      const date = new Date();
+      const date = new Date(Date.now() - offset);
       date.setDate(today.getDate() + i);
       // console.log(date);
       const formattedDate = date.toISOString().split('T')[0];

@@ -15,8 +15,8 @@ function App() {
   //     setTitle('예약기록');
   //   }
   // }, [location]);
-  let title;
 
+  let title;
   switch (location.pathname) {
     case '/mypage/reserveRecord':
       title = '예약기록';
