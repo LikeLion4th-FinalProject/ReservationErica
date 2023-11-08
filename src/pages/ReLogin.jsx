@@ -15,7 +15,7 @@ export default function ReLogin() {
       </div>
       <span className='mb-20'>로그인 화면으로 이동 해주세요!</span>
       <button
-        className='bg-[#0D51FF] text-white rounded-full w-[80%] py-4'
+        className='bg-myblue text-white rounded-full w-[80%] py-4'
         onClick={() => navigate('/login')}
       >
         로그인 화면으로 이동하기

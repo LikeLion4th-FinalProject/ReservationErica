@@ -53,7 +53,7 @@ export default function RoomSelect({ selectRange, roomList }) {
               <span className='w-[35%] text-base'>{room.name}</span>
               <button
                 onClick={() => handleReserveBtn(room.id, room.name)}
-                className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
+                className='bg-myblue w-full h-[40px] text-white rounded-2xl'
               >
                 <span>예약하기</span>
               </button>
