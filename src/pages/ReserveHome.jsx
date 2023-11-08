@@ -26,7 +26,7 @@ function ReserveHome() {
 
   // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환하는 함수 => 9시간 이므로 -540 이 나올거임
   const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
-  const today = new Date(Date.now() - offset);
+  const today = new Date();
   // console.log(today);
 
   const nowDate = today.toISOString().split('T')[0];
