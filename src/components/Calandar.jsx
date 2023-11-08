@@ -108,7 +108,7 @@ export default function Calandar({ data, reserveInfo }) {
               onClick={() => handleDatePicker(date)}
               className={`h-10 hover:cursor-pointer rounded-xl ${
                 datePick === date
-                  ? 'bg-[#0D51FF] text-white transition ease-in-out duration-500'
+                  ? 'bg-myblue text-white transition ease-in-out duration-500'
                   : 'bg-white hover:bg-[#ceddff]'
               }`}
             >
