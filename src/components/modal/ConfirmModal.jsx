@@ -4,6 +4,7 @@ import { reserveTime } from '../../styles/static';
 import { client } from '../../api/client';
 import { fillReserveInfo, reserveConfirm } from '../../pages/ReserveHome';
 import ConfirmInfo from '../reservation/ConfirmInfo';
+import { setPage } from '../../App';
 
 export default function ConfirmModal({ isOpen }) {
   const [isValid, setValid] = useState(true);
@@ -12,7 +13,8 @@ export default function ConfirmModal({ isOpen }) {
   // console.log(location);
 
   const { resInfo } = useContext(fillReserveInfo);
-  const isCompleteReserve = useContext(reserveConfirm);
+  const { componentPage, setComponentPage } = useContext(setPage);
+
   const handleReserveConfirm = () => {
     client
       .post('roomreserve/', resInfo)
@@ -24,7 +26,7 @@ export default function ConfirmModal({ isOpen }) {
         ) {
           console.log('이미 예약함 ㅋㅋ');
           setValid(false);
-        } else isCompleteReserve(true);
+        } else setComponentPage(componentPage + 1);
       })
       .catch((error) => console.log(error));
     // navigate('/mypage/0');

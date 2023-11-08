@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import studyHYU from '../../assets/studyHYU.png';
 import familyHYU from '../../assets/familyHYU.png';
+import { setPage } from '../../App';
 
-export default function SelectContent({ setShowDetail }) {
+export default function SelectContent() {
+  const { componentPage, setComponentPage } = useContext(setPage);
+
   const handleMyRoom = () => {
-    console.log('Test');
-    setShowDetail(true);
+    setComponentPage(componentPage + 1);
   };
   const handleOthersRoom = () => {
-    console.log('Test2');
-    setShowDetail(true);
+    setComponentPage(componentPage + 1);
   };
   return (
     <section>

@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { PiSirenLight, PiSirenFill } from 'react-icons/pi';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-function Header({ title }) {
+function Header({ title, backHandler }) {
   const navigate = useNavigate(-1);
   const location = useLocation();
 
@@ -83,7 +83,7 @@ function Header({ title }) {
         <section className='h-[56px] w-full flex items-center justify-between px-4'>
           <div className='w-full flex items-center justify-between'>
             <FaArrowLeft
-              onClick={() => navigate(-1)}
+              onClick={backHandler}
               size={24}
               className='text-gray0 cursor-pointer flex-[0.2]'
             />

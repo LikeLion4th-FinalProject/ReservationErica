@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import DateDropdown from '../components/DateDropdown';
 import IndicatorSection from '../components/IndicatorSection';
 import PlaceCard from '../components/PlaceCard';
@@ -9,12 +9,13 @@ import ButtonList from '../components/ButtonList';
 import { searchDayTable } from '../api/reservation';
 import ConfirmInfo from '../components/reservation/ConfirmInfo';
 import ReserveConfirm from '../components/reservation/ReserveConfirm';
+import { setPage } from '../App';
 export const reserveConfirm = createContext();
 export const fillReserveInfo = createContext();
 export const pickDate = createContext();
 
 function ReserveHome() {
-  const [isCompleteReserve, setCompleteReserve] = useState(false);
+  const { componentPage } = useContext(setPage);
   const [resInfo, setResInfo] = useState({
     kakao_id: null,
     room_name: null,
@@ -55,26 +56,24 @@ function ReserveHome() {
   }, [selectedDate, sessionStorage.getItem('token')]);
 
   return (
-    <reserveConfirm.Provider value={setCompleteReserve}>
-      <fillReserveInfo.Provider value={{ resInfo, setResInfo }}>
-        <pickDate.Provider value={{ selectedDate, setSelectedDate }}>
-          {isCompleteReserve ? (
-            <ReserveConfirm resInfo={resInfo} />
-          ) : (
-            <section className='mt-4 relative'>
-              <DateDropdown />
-              <IndicatorSection />
-              <div className='px-4 mt-5'>
-                <TimeSelect nowDate={nowDate} listDayTable={listDayTable} />
-                {/* {RoomList.map((room, index) => (
+    <fillReserveInfo.Provider value={{ resInfo, setResInfo }}>
+      <pickDate.Provider value={{ selectedDate, setSelectedDate }}>
+        {componentPage !== 1 ? (
+          <ReserveConfirm resInfo={resInfo} />
+        ) : (
+          <section className='mt-4 relative'>
+            <DateDropdown />
+            <IndicatorSection />
+            <div className='px-4 mt-5'>
+              <TimeSelect nowDate={nowDate} listDayTable={listDayTable} />
+              {/* {RoomList.map((room, index) => (
           <PlaceCard key={index} idx={index} title={room} />
         ))} */}
-              </div>
-            </section>
-          )}
-        </pickDate.Provider>
-      </fillReserveInfo.Provider>
-    </reserveConfirm.Provider>
+            </div>
+          </section>
+        )}
+      </pickDate.Provider>
+    </fillReserveInfo.Provider>
   );
 }
 

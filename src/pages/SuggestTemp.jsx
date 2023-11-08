@@ -1,19 +1,19 @@
-import "../index.css";
-import "../App.css";
+import '../index.css';
+import '../App.css';
 
-import React from "react";
-import { render } from "react-dom";
-import { useEffect, useState } from "react";
+import React from 'react';
+import { render } from 'react-dom';
+import { useEffect, useState } from 'react';
 
-import SuggestDropdown from "../components/Suggest/SuggestDropdown";
-import SuggestModal from "../components/Suggest/SuggestModal";
+import SuggestDropdown from '../components/suggest/SuggestDropdown';
+import SuggestModal from '../components/suggest/SuggestModal';
 
-function Suggest() {
+export function SuggestTemp() {
   const [selectedSuggest, setSelectedSuggest] = useState(null);
   const [isSuggestModalOpen, setSuggestModalOpen] = useState(false);
 
   // textarea 최대 글자수 제한
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const maxLength = 200;
 
   const handleChange = (event) => {
@@ -24,7 +24,7 @@ function Suggest() {
   };
 
   // textarea 입력 여부에 따라 버튼 색상 결정
-  const buttonColor = text.length > 0 ? "#0D51FF" : "#CCCCCC";
+  const buttonColor = text.length > 0 ? '#0D51FF' : '#CCCCCC';
 
   // selectedSuggest가 null인 경우 textarea 비활성화
   const isTextareaDisabled = selectedSuggest === null;
@@ -35,32 +35,32 @@ function Suggest() {
   return (
     <div>
       <p
-        className="semibold px-6"
+        className='semibold px-6'
         style={{
-          fontSize: "18px",
-          marginBottom: "20px",
-          marginTop: "20px",
+          fontSize: '18px',
+          marginBottom: '20px',
+          marginTop: '20px',
         }}
       >
         건의하기
       </p>
       <div
-        className="w-full h-24"
+        className='w-full h-24'
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          backgroundColor: "#F7F7F7",
-          marginBottom: "25px",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          backgroundColor: '#F7F7F7',
+          marginBottom: '25px',
         }}
       >
-        <h1 className="text-xl semibold pl-6">Smash 1</h1>
-        <div className="flex mt-2 pl-4 text-sm">
-          <div className="mx-2 text-gray-500">
+        <h1 className='text-xl semibold pl-6'>Smash 1</h1>
+        <div className='flex mt-2 pl-4 text-sm'>
+          <div className='mx-2 text-gray-500'>
             <h5>날짜</h5>
             <h5>시간</h5>
           </div>
-          <div className="mx-1">
+          <div className='mx-1'>
             <h5>2023-09-20</h5>
             <h5>14:20</h5>
           </div>
@@ -70,33 +70,33 @@ function Suggest() {
         onSuggestSelect={setSelectedSuggest}
         selectedSuggest={selectedSuggest}
       />
-      <div className="px-5">
+      <div className='px-5'>
         <textarea
           className={`rounded-2xl bg-gray4 text-sm ${
-            isTextareaDisabled ? "" : "focus:border-blue-700" // 이거 왜 안 되지
+            isTextareaDisabled ? '' : 'focus:border-blue-700' // 이거 왜 안 되지
           }`}
-          placeholder="자세한 내용을 적어주세요"
+          placeholder='자세한 내용을 적어주세요'
           value={text}
           onChange={handleChange}
           disabled={isTextareaDisabled} // textarea 비활성화 설정: 건의사유 선택 안 했을 때
           style={{
-            width: "100%",
-            height: "180px",
-            marginTop: "20px",
-            paddingTop: "20px",
-            paddingBottom: "20px",
-            paddingLeft: "14px",
-            paddingRight: "14px",
-            wordBreak: "break-all",
-            wordWrap: "break-word",
+            width: '100%',
+            height: '180px',
+            marginTop: '20px',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+            paddingLeft: '14px',
+            paddingRight: '14px',
+            wordBreak: 'break-all',
+            wordWrap: 'break-word',
           }}
         ></textarea>
         <div
-          className="text-xs text-gray-400"
+          className='text-xs text-gray-400'
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            paddingRight: "5px",
+            display: 'flex',
+            justifyContent: 'flex-end',
+            paddingRight: '5px',
           }}
         >
           <p>{`${text.length}/${maxLength}`}</p>
@@ -104,8 +104,8 @@ function Suggest() {
       </div>
 
       <div
-        className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-lg"
-        style={{ fontSize: "14px" }}
+        className='bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-lg'
+        style={{ fontSize: '14px' }}
       >
         {Button()}
         {isSuggestModalOpen && (
@@ -130,13 +130,13 @@ function Suggest() {
           <button
             disabled={isButtonDisabled}
             className={`fixed bottom-0 w-full max-w-lg h-16 flex justify-around items-center ${
-              isButtonDisabled ? "bg-gray-300" : "bg-blue-600"
+              isButtonDisabled ? 'bg-gray-300' : 'bg-blue-600'
             }`}
             style={{ zIndex: 9999 }}
             onClick={() => setSuggestModalOpen(true)}
           >
             <p
-              className={`${isButtonDisabled ? "text-gray-500" : "text-white"}`}
+              className={`${isButtonDisabled ? 'text-gray-500' : 'text-white'}`}
             >
               건의하기
             </p>
@@ -148,5 +148,3 @@ function Suggest() {
     }
   }
 }
-
-export default Suggest;
