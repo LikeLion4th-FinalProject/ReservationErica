@@ -15,6 +15,7 @@ import Suggest from './pages/Suggest.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import { PrivateRoute } from './hooks/PrivateRoute.jsx';
 import ReserveRecord from './pages/ReserveRecord.jsx';
+import ReLogin from './pages/ReLogin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 're-login',
+        element: <ReLogin />,
       },
       {
         path: 'signup',
