@@ -15,10 +15,20 @@ function App() {
   //     setTitle('예약기록');
   //   }
   // }, [location]);
-  let title = 'Home';
-  if (location.pathname === '/mypage/reserveRecord') {
-    title = '예약기록';
+  let title;
+
+  switch (location.pathname) {
+    case '/mypage/reserveRecord':
+      title = '예약기록';
+      break;
+    case '/suggest':
+      title = '건의하기';
+      break;
+    default:
+      title = '예약하기';
+      break;
   }
+
   return (
     <div className='flex flex-col h-screen justify-between'>
       {!hideLayout && <Header title={title} />}

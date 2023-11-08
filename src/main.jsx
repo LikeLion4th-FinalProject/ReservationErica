@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         element: <BeforeSuggestDetail />,
       },
       {
-        path: 'mypage/suggest',
+        path: '/suggest',
         element: <Suggest />,
       },
       {
