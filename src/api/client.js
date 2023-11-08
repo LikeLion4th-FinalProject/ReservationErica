@@ -29,13 +29,12 @@ client.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       console.log('토큰이 만료되어씀.. refresh_token으로 토큰갱신 시작');
       const refresh_token = sessionStorage.getItem('refresh_token');
-      // console.log(refresh_token);
+
       await axios
         .post(`${BASE_URL}/refresh-token/`, {
           refresh_token: refresh_token,
         })
         .then((response) => {
-          // sessionStorage.removeItem('token');
           console.log(response.data);
           sessionStorage.setItem('token', response.data.access_token);
           error.config.headers[
@@ -56,36 +55,3 @@ client.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-// client.interceptors.request.use((config) => {
-//   const token = sessionStorage.getItem("token");
-//   if (token) {
-//     console.log(token : ${token});
-//     config.headers["Authorization"] = Bearer ${token};
-//   }
-//   return config;
-// });
-
-// client.interceptors.response.use(
-//   (response) => {
-//     if (response.status === 404) {
-//     }
-//     return response;
-//   },
-//   async (error) => {
-//     if (error.response && error.response.status === 401) {
-//       const refresh_token = sessionStorage.getItem("refresh_token");
-//       try {
-//         const { data } = await axios.post(${BASE_URL}/refresh-token/, {
-//           refresh_token: refresh_token,
-//         });
-//         sessionStorage.setItem("token", data.access_token);
-//         error.config.headers["Authorization"] = Bearer ${data.access_token};
-//         return client.request(error.config);
-//       } catch (refreshError) {
-//         // 사용자 로그아웃 또는 에러 처리 필요함
-//       }
-//     }
-//     return Promise.reject(error);
-//   }
-// );

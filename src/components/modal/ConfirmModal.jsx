@@ -2,32 +2,31 @@ import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { reserveTime } from '../../styles/static';
 import { client } from '../../api/client';
-import { reserveConfirm } from '../../pages/ReserveHome';
+import { fillReserveInfo, reserveConfirm } from '../../pages/ReserveHome';
 import ConfirmInfo from '../reservation/ConfirmInfo';
 
-export default function ConfirmModal({ isOpen, reserveInfo }) {
+export default function ConfirmModal({ isOpen }) {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location);
 
+  const { resInfo } = useContext(fillReserveInfo);
   const isCompleteReserve = useContext(reserveConfirm);
   const handleReserveConfirm = () => {
     client
-      .post('roomreserve/', reserveInfo)
+      .post('roomreserve/', resInfo)
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
     // navigate('/mypage/0');
     isCompleteReserve(true);
   };
-  console.log('해당 예약 정보로 예약하실 겁니까? : ', reserveInfo);
+  console.log('해당 예약 정보로 예약하실 겁니까? : ', resInfo);
 
   const componentSwitch = (loc) => {
     switch (loc) {
       case '/reservation':
         console.log('1');
-        return (
-          <ConfirmInfo content={'예약하시겠습니까?'} resInfo={reserveInfo} />
-        );
+        return <ConfirmInfo content={'예약하시겠습니까?'} resInfo={resInfo} />;
 
       default:
         return <div>모달 테스트</div>;
