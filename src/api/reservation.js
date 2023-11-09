@@ -1,5 +1,7 @@
 import { client } from './client';
 
+const userId = sessionStorage.getItem('kakao_id');
+
 export const searchDayTable = async (pickDate) => {
   const dayTableList = await client
     .get(`searchdaytable/${pickDate}/smash/`)
@@ -13,4 +15,20 @@ export const searchDayTable = async (pickDate) => {
   // console.log(dayTableList);
 
   return dayTableList;
+};
+
+export const searchMyReservation = async () => {
+  await client
+    .post('searchmyreservation/', {
+      kakao_id: userId,
+      date: '2023-11-09',
+    })
+    .then((response) => {
+      console.log(response);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
 };
