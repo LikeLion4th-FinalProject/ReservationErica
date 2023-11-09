@@ -25,10 +25,10 @@ export const searchMyReservation = async () => {
     })
     .then((response) => {
       console.log(response);
+      // 예약한 정보가 있으면 true / 없으면 false 리턴
       return true;
     })
     .catch((error) => {
       console.log(error);
-      return false;
     });
 };

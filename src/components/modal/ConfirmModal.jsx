@@ -22,7 +22,8 @@ export default function ConfirmModal({ isOpen }) {
         console.log(response.data);
         if (
           response.data.start !== resInfo.start ||
-          response.data.end !== resInfo.end
+          response.data.end !== resInfo.end ||
+          response.data.room_name !== resInfo.room_name
         ) {
           console.log('이미 예약함 ㅋㅋ');
           setValid(false);

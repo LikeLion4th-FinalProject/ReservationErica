@@ -3,32 +3,20 @@ import '../../App.css';
 
 import { useNavigate } from 'react-router-dom';
 
-export default function SuggestModal({
-  content1,
-  content2,
-  content3,
-  content4,
-  isOpen,
-}) {
-  const movePage = useNavigate();
-
-  function gomypage() {
-    movePage('/mypage/0');
-  }
-
+export default function SuggestModal({ title, isOpen }) {
   return (
     <div className='fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]'>
-      <div className='w-full h-full bg-black opacity-50'></div>
+      <div className='w-full h-full bg-black opacity-70'></div>
       <div className='absolute max-w-[300px] w-[80%] h-[30%] bg-white shadow-xl flex flex-col justify-between rounded-3xl'>
         <h1
-          className='semibold justify-center items-center h-full bg-gray3 rounded-t-3xl'
+          className='semibold justify-center items-center h-full bg-[#ffffff] rounded-t-3xl'
           style={{
             display: 'flex',
             flexDirection: 'column',
             fontSize: '17px',
           }}
         >
-          {content1}
+          {title}
           <div
             className='medium flex mt-2 pl-4 text-sm'
             style={{ marginTop: '20px' }}
@@ -39,9 +27,9 @@ export default function SuggestModal({
               <h5>건의사유</h5>
             </div>
             <div className='medium mx-4'>
-              <h5>{content2}</h5>
-              <h5>{content3}</h5>
-              <h5>{content4}</h5>
+              <h5></h5>
+              <h5></h5>
+              <h5></h5>
             </div>
           </div>
         </h1>

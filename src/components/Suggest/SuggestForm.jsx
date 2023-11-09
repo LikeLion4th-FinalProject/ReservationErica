@@ -1,14 +1,15 @@
-import '../index.css';
-import '../App.css';
+import '../../index.css';
+import '../../App.css';
 
 import React from 'react';
 import { render } from 'react-dom';
 import { useEffect, useState } from 'react';
 
-import SuggestDropdown from '../components/suggest/SuggestDropdown';
-import SuggestModal from '../components/suggest/SuggestModal';
+import SuggestDropdown from './SuggestDropdown';
+import SuggestModal from '../modal/SuggestModal';
 
-export function SuggestTemp() {
+export function SuggestForm({ type }) {
+  console.log(type);
   const [selectedSuggest, setSelectedSuggest] = useState(null);
   const [isSuggestModalOpen, setSuggestModalOpen] = useState(false);
 
@@ -34,71 +35,21 @@ export function SuggestTemp() {
 
   return (
     <div>
-      <p
-        className='semibold px-6'
-        style={{
-          fontSize: '18px',
-          marginBottom: '20px',
-          marginTop: '20px',
-        }}
-      >
-        건의하기
-      </p>
-      <div
-        className='w-full h-24'
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          backgroundColor: '#F7F7F7',
-          marginBottom: '25px',
-        }}
-      >
-        <h1 className='text-xl semibold pl-6'>Smash 1</h1>
-        <div className='flex mt-2 pl-4 text-sm'>
-          <div className='mx-2 text-gray-500'>
-            <h5>날짜</h5>
-            <h5>시간</h5>
-          </div>
-          <div className='mx-1'>
-            <h5>2023-09-20</h5>
-            <h5>14:20</h5>
-          </div>
-        </div>
-      </div>
       <SuggestDropdown
         onSuggestSelect={setSelectedSuggest}
         selectedSuggest={selectedSuggest}
       />
       <div className='px-5'>
         <textarea
-          className={`rounded-2xl bg-gray4 text-sm ${
+          className={`w-full h-44 rounded-2xl bg-gray4 text-sm mt-5 px-[14px] py-5 break-all break-words ${
             isTextareaDisabled ? '' : 'focus:border-blue-700' // 이거 왜 안 되지
           }`}
           placeholder='자세한 내용을 적어주세요'
           value={text}
           onChange={handleChange}
           disabled={isTextareaDisabled} // textarea 비활성화 설정: 건의사유 선택 안 했을 때
-          style={{
-            width: '100%',
-            height: '180px',
-            marginTop: '20px',
-            paddingTop: '20px',
-            paddingBottom: '20px',
-            paddingLeft: '14px',
-            paddingRight: '14px',
-            wordBreak: 'break-all',
-            wordWrap: 'break-word',
-          }}
         ></textarea>
-        <div
-          className='text-xs text-gray-400'
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            paddingRight: '5px',
-          }}
-        >
+        <div className='flex justify-end mr-1 text-xs text-gray-400'>
           <p>{`${text.length}/${maxLength}`}</p>
         </div>
       </div>
@@ -110,10 +61,10 @@ export function SuggestTemp() {
         {Button()}
         {isSuggestModalOpen && (
           <SuggestModal
-            content1={`건의하시겠습니까?`}
-            content2={`Smash 1`}
-            content3={`2023-09-26`}
-            content4={selectedSuggest}
+            title={`건의하시겠습니까?`}
+            // content2={`Smash 1`}
+            // content3={`2023-09-26`}
+            // content4={selectedSuggest}
             isOpen={setSuggestModalOpen}
           />
         )}

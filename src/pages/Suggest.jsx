@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import SelectContent from '../components/suggest/SelectContent';
 import { setPage } from '../App';
-import { SuggestTemp } from './SuggestTemp';
+import SuggestDetail from '../components/suggest/SuggestDetail';
 
 export default function Suggest() {
   const [suggestType, setSuggestType] = useState('mine');
@@ -22,11 +22,11 @@ export default function Suggest() {
     // console.log('??');
     switch (componentPage) {
       case 1:
-        return <SelectContent />;
+        return <SelectContent setSuggestType={setSuggestType} />;
       case 2:
-        return <SuggestTemp />;
+        return <SuggestDetail suggestType={suggestType} />;
       default:
-        return <div>test</div>;
+        return <div>test123123</div>;
     }
   };
   return (

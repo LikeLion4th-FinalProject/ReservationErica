@@ -5,9 +5,9 @@ function useDateOptions() {
   const [options, setOptions] = useState([]);
 
   const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
-  const today = new Date();
-  // const today = new Date(Date.now() - offset);
-  console.log(today);
+  // const today = new Date();
+  const today = new Date(Date.now() - offset);
+  console.log('today: ', today);
   useEffect(() => {
     const tempOptions = [];
     for (let i = 0; i < 7; i++) {
