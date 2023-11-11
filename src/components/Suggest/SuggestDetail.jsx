@@ -3,12 +3,12 @@ import { SuggestForm } from './SuggestForm';
 import FormMine from './FormMine';
 import FormOthers from './FormOthers';
 
-export default function SuggestDetail({ suggestType }) {
+export default function SuggestDetail({ suggestType, myResInfo }) {
   const [type, setType] = useState();
 
   switch (suggestType) {
     case 'mine':
-      return <FormMine />;
+      return <FormMine myResInfo={myResInfo} />;
     case 'others':
       return <FormOthers />;
   }

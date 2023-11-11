@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import { feedback } from './FormOthers';
-
+import { feedback } from '../../pages/Suggest';
 const SuggestDropdown = ({
   onSuggestSelect,
   selectedSuggest,
@@ -21,7 +20,6 @@ const SuggestDropdown = ({
     }
     setIsOpen(false);
   };
-  console.log(suggestInfo);
 
   return (
     <section className='px-4 text-sm'>

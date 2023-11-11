@@ -15,8 +15,8 @@ export default function ConfirmModal({ isOpen }) {
   const { resInfo } = useContext(fillReserveInfo);
   const { componentPage, setComponentPage } = useContext(setPage);
 
-  const handleReserveConfirm = () => {
-    client
+  const handleReserveConfirm = async () => {
+    await client
       .post('roomreserve/', resInfo)
       .then((response) => {
         console.log(response.data);

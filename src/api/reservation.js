@@ -18,17 +18,18 @@ export const searchDayTable = async (pickDate) => {
 };
 
 export const searchMyReservation = async () => {
-  await client
+  const tmp = await client
     .post('searchmyreservation/', {
       kakao_id: userId,
-      date: '2023-11-09',
+      date: '2023-11-12',
     })
     .then((response) => {
-      console.log(response);
+      console.log(response.data);
       // 예약한 정보가 있으면 true / 없으면 false 리턴
-      return true;
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
     });
+  return tmp;
 };

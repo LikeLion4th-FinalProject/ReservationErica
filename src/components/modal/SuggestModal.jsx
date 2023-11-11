@@ -3,11 +3,22 @@ import '../../App.css';
 
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { feedback } from '../suggest/FormOthers';
+import { feedback } from '../../pages/Suggest';
+import { client } from '../../api/client';
 
 export default function SuggestModal({ title, isOpen }) {
   const { suggestInfo } = useContext(feedback);
-  const todayDate = new Date().toISOString().split('T')[0];
+  const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
+  const today = new Date(Date.now() - offset);
+  const todayDate = today.toISOString().split('T')[0];
+
+  const handleSubmit = () => {
+    isOpen(false);
+    client
+      .post('createfeedback/', suggestInfo)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div className='fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]'>
@@ -47,7 +58,7 @@ export default function SuggestModal({ title, isOpen }) {
             아니오
           </button>
           <button
-            onClick={() => isOpen(false)}
+            onClick={() => handleSubmit()}
             className='w-1/2 h-full text-center bg-myblue rounded-br-3xl text-white '
           >
             예
