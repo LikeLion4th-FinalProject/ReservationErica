@@ -1,152 +1,50 @@
-import "../index.css";
-import "../App.css";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import SelectContent from '../components/suggest/SelectContent';
+import { setPage } from '../App';
+import SuggestDetail from '../components/suggest/SuggestDetail';
+export const feedback = createContext();
 
-import React from "react";
-import { render } from "react-dom";
-import { useEffect, useState } from "react";
+export default function Suggest() {
+  const [suggestType, setSuggestType] = useState('mine');
+  const [suggestInfo, setSuggestInfo] = useState([]);
+  const [myResInfo, setMyResInfo] = useState({});
 
-import SuggestDropdown from "../components/Suggest/SuggestDropdown";
-import SuggestModal from "../components/Suggest/SuggestModal";
+  const { componentPage, setComponentPage } = useContext(setPage);
+  // console.log(componentPage);
+  useEffect(() => {
+    /** suggest 페이지 초기 로딩 시, componentPage 숫자 1로 초기화
+     *  -> 왜냐면 예약 확정 컴포넌트 로딩 시 componentPage 값이 2로 되어있음
+     *  -> 그 상태에서 우상단의 건의하기 누르면 componentPage 값이 2인 제출폼이 보임
+     *  -> 그 오류 해결하기 위해서 사용.. 지렸다 ㅇㅈ?
+     */
+    console.log('here!!');
+    setComponentPage(1);
+  }, []);
 
-function Suggest() {
-  const [selectedSuggest, setSelectedSuggest] = useState(null);
-  const [isSuggestModalOpen, setSuggestModalOpen] = useState(false);
-
-  // textarea 최대 글자수 제한
-  const [text, setText] = useState("");
-  const maxLength = 200;
-
-  const handleChange = (event) => {
-    const inputText = event.target.value;
-    if (inputText.length <= maxLength) {
-      setText(inputText);
+  const handleShowComponent = () => {
+    // console.log('??');
+    switch (componentPage) {
+      case 1:
+        return (
+          <SelectContent
+            setSuggestType={setSuggestType}
+            setMyResInfo={setMyResInfo}
+          />
+        );
+      case 2:
+        return (
+          <SuggestDetail suggestType={suggestType} myResInfo={myResInfo} />
+        );
+      default:
+        return <div>test123123</div>;
     }
   };
-
-  // textarea 입력 여부에 따라 버튼 색상 결정
-  const buttonColor = text.length > 0 ? "#0D51FF" : "#CCCCCC";
-
-  // selectedSuggest가 null인 경우 textarea 비활성화
-  const isTextareaDisabled = selectedSuggest === null;
-
-  // textarea 입력 여부에 따라 버튼 활성화/비활성화 결정
-  const isButtonDisabled = text.length === 0;
-
   return (
-    <div>
-      <p
-        className="semibold px-6"
-        style={{
-          fontSize: "18px",
-          marginBottom: "20px",
-          marginTop: "20px",
-        }}
-      >
-        건의하기
-      </p>
-      <div
-        className="w-full h-24"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          backgroundColor: "#F7F7F7",
-          marginBottom: "25px",
-        }}
-      >
-        <h1 className="text-xl semibold pl-6">Smash 1</h1>
-        <div className="flex mt-2 pl-4 text-sm">
-          <div className="mx-2 text-gray-500">
-            <h5>날짜</h5>
-            <h5>시간</h5>
-          </div>
-          <div className="mx-1">
-            <h5>2023-09-20</h5>
-            <h5>14:20</h5>
-          </div>
-        </div>
+    <feedback.Provider value={{ suggestInfo, setSuggestInfo }}>
+      <div>
+        <p className='w-[90%] mx-auto text-lg font-semibold my-8'>건의하기</p>
+        {handleShowComponent()}
       </div>
-      <SuggestDropdown
-        onSuggestSelect={setSelectedSuggest}
-        selectedSuggest={selectedSuggest}
-      />
-      <div className="px-5">
-        <textarea
-          className={`rounded-2xl bg-gray4 text-sm ${
-            isTextareaDisabled ? "" : "focus:border-blue-700" // 이거 왜 안 되지
-          }`}
-          placeholder="자세한 내용을 적어주세요"
-          value={text}
-          onChange={handleChange}
-          disabled={isTextareaDisabled} // textarea 비활성화 설정: 건의사유 선택 안 했을 때
-          style={{
-            width: "100%",
-            height: "180px",
-            marginTop: "20px",
-            paddingTop: "20px",
-            paddingBottom: "20px",
-            paddingLeft: "14px",
-            paddingRight: "14px",
-            wordBreak: "break-all",
-            wordWrap: "break-word",
-          }}
-        ></textarea>
-        <div
-          className="text-xs text-gray-400"
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            paddingRight: "5px",
-          }}
-        >
-          <p>{`${text.length}/${maxLength}`}</p>
-        </div>
-      </div>
-
-      <div
-        className="bg-gray3 flex items-center grid grid-flow-col justify-stretch rounded-b-lg"
-        style={{ fontSize: "14px" }}
-      >
-        {Button()}
-        {isSuggestModalOpen && (
-          <SuggestModal
-            content1={`건의하시겠습니까?`}
-            content2={`Smash 1`}
-            content3={`2023-09-26`}
-            content4={selectedSuggest}
-            isOpen={setSuggestModalOpen}
-          />
-        )}
-      </div>
-    </div>
+    </feedback.Provider>
   );
-
-  function Button() {
-    const [isFormValid, setFormValid] = useState(true);
-
-    if (isFormValid) {
-      return (
-        <>
-          <button
-            disabled={isButtonDisabled}
-            className={`fixed bottom-0 w-full max-w-lg h-16 flex justify-around items-center ${
-              isButtonDisabled ? "bg-gray-300" : "bg-blue-600"
-            }`}
-            style={{ zIndex: 9999 }}
-            onClick={() => setSuggestModalOpen(true)}
-          >
-            <p
-              className={`${isButtonDisabled ? "text-gray-500" : "text-white"}`}
-            >
-              건의하기
-            </p>
-          </button>
-        </>
-      );
-    } else {
-      return <></>;
-    }
-  }
 }
-
-export default Suggest;

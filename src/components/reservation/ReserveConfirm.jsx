@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ConfirmInfo from './ConfirmInfo';
-import completeImg from '../../assets/reserveComplete.png';
+import completeImg from '../../assets/studyHYU.png';
 
 export default function ReserveConfirm({ resInfo }) {
   const navigate = useNavigate();

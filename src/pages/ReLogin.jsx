@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import alertHYU from '../assets/4.png';
+import alertHYU from '../assets/alertHYU.png';
 
 export default function ReLogin() {
   const navigate = useNavigate();

@@ -121,7 +121,13 @@ export default function TimeSelect({ nowDate, listDayTable }) {
 
   return (
     <>
-      <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${nowTime.getHours()}:${nowTime.getMinutes()} 기준`}</span>
+      <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${
+        nowTime.getHours() < 10 ? '0' + nowTime.getHours() : nowTime.getHours()
+      }:${
+        nowTime.getMinutes() < 10
+          ? '0' + nowTime.getMinutes()
+          : nowTime.getMinutes()
+      } 기준`}</span>
       <section className='w-full flex flex-col bg-gray4 shadow-md rounded-2xl px-4 py-3 border-[1px]'>
         <div className='text-xl font-black'>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
         <section className='grid grid-cols-8 grid-rows-3 mt-2 gap-1 mb-3 items-end justify-between'>

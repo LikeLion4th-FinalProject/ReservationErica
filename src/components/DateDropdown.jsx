@@ -9,6 +9,7 @@ function DateDropdown() {
   // console.log('date drop down list : ', options);
 
   const { selectedDate, setSelectedDate } = useContext(pickDate);
+  // console.log(selectedDate);
 
   const handleDateSelect = (date, day) => {
     if (setSelectedDate) {
