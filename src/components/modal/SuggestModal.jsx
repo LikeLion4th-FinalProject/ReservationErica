@@ -2,8 +2,13 @@ import '../../index.css';
 import '../../App.css';
 
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { feedback } from '../suggest/FormOthers';
 
 export default function SuggestModal({ title, isOpen }) {
+  const { suggestInfo } = useContext(feedback);
+  const todayDate = new Date().toISOString().split('T')[0];
+
   return (
     <div className='fixed top-0 left-0 flex justify-center items-center w-full h-full z-[99]'>
       <div className='w-full h-full bg-black opacity-70'></div>
@@ -27,9 +32,9 @@ export default function SuggestModal({ title, isOpen }) {
               <h5>건의사유</h5>
             </div>
             <div className='medium mx-4'>
-              <h5></h5>
-              <h5></h5>
-              <h5></h5>
+              <h5>{suggestInfo.room_name}</h5>
+              <h5>{todayDate}</h5>
+              <h5>{suggestInfo.case}</h5>
             </div>
           </div>
         </h1>

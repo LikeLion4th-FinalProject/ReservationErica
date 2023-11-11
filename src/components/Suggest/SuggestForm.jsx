@@ -1,15 +1,17 @@
 import '../../index.css';
 import '../../App.css';
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { render } from 'react-dom';
 import { useEffect, useState } from 'react';
 
 import SuggestDropdown from './SuggestDropdown';
 import SuggestModal from '../modal/SuggestModal';
+import { feedback } from './FormOthers';
 
-export function SuggestForm({ type }) {
-  console.log(type);
+export function SuggestForm({ options }) {
+  const { suggestInfo, setSuggestInfo } = useContext(feedback);
+  // console.log(type);
   const [selectedSuggest, setSelectedSuggest] = useState(null);
   const [isSuggestModalOpen, setSuggestModalOpen] = useState(false);
 
@@ -21,6 +23,7 @@ export function SuggestForm({ type }) {
     const inputText = event.target.value;
     if (inputText.length <= maxLength) {
       setText(inputText);
+      setSuggestInfo({ ...suggestInfo, content: inputText });
     }
   };
 
@@ -38,6 +41,7 @@ export function SuggestForm({ type }) {
       <SuggestDropdown
         onSuggestSelect={setSelectedSuggest}
         selectedSuggest={selectedSuggest}
+        options={options}
       />
       <div className='px-5'>
         <textarea
