@@ -7,11 +7,16 @@ import { useEffect, useState } from 'react';
 
 import SuggestDropdown from './SuggestDropdown';
 import SuggestModal from '../modal/SuggestModal';
-import { feedback } from './FormOthers';
+import { feedback } from '../../pages/Suggest';
+
+// import { feedback } from './FormMine';
 
 export function SuggestForm({ options }) {
   const { suggestInfo, setSuggestInfo } = useContext(feedback);
-  // console.log(type);
+  useEffect(() => {
+    setSuggestInfo({ kakao_id: sessionStorage.getItem('kakao_id') });
+  }, []);
+  console.log(suggestInfo);
   const [selectedSuggest, setSelectedSuggest] = useState(null);
   const [isSuggestModalOpen, setSuggestModalOpen] = useState(false);
 

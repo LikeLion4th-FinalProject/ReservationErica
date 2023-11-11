@@ -15,7 +15,7 @@ export const fillReserveInfo = createContext();
 export const pickDate = createContext();
 
 function ReserveHome() {
-  const { componentPage } = useContext(setPage);
+  const { componentPage, setComponentPage } = useContext(setPage);
   const [resInfo, setResInfo] = useState({
     kakao_id: null,
     room_name: null,
@@ -24,6 +24,15 @@ function ReserveHome() {
     end: null,
     people_num: null,
   });
+
+  useEffect(() => {
+    /** suggest 페이지 초기 로딩 시, componentPage 숫자 1로 초기화
+     *  -> 왜냐면 예약 확정 컴포넌트 로딩 시 componentPage 값이 2로 되어있음
+     *  -> 그 상태에서 우상단의 건의하기 누르면 componentPage 값이 2인 제출폼이 보임
+     *  -> 그 오류 해결하기 위해서 사용.. 지렸다 ㅇㅈ?
+     */
+    setComponentPage(1);
+  }, []);
 
   // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환하는 함수 => 9시간 이므로 -540 이 나올거임
   const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌

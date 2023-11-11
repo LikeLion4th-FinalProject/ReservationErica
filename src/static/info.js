@@ -4,7 +4,7 @@ export const department = ['컴퓨터학부', 'ICT융합학부', '인공지능�
 
 export const token = '3058214391';
 
-export const smashRoomList = ['Smash 0', 'Smash 1', 'Smash 2', 'Smash 3'];
+export const smashRoomList = ['smash0', 'smash1', 'smash2', 'smash3'];
 
 export const suggestForMyRoom = ['모니터', '물품 부족', '멀티탭', '기타'];
 

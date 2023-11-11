@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { AiOutlineClose } from 'react-icons/ai';
 import { PiSirenLight, PiSirenFill } from 'react-icons/pi';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { setPage } from '../App';
 
 function Header({ title, backHandler }) {
   const navigate = useNavigate(-1);
   const location = useLocation();
+  const { componentPage, setComponentPage } = useContext(setPage);
 
   let headerContent;
 
@@ -91,6 +93,7 @@ function Header({ title, backHandler }) {
             <button
               className='flex flex-col items-center'
               onClick={() => {
+                setComponentPage(1);
                 navigate('/suggest');
               }}
             >

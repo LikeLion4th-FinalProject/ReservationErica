@@ -5,21 +5,21 @@ import { setPage } from '../../App';
 import { searchMyReservation } from '../../api/reservation';
 import SuggestModal from '../modal/SuggestModal';
 
-export default function SelectContent({ setSuggestType }) {
+export default function SelectContent({ setSuggestType, setMyResInfo }) {
   const { componentPage, setComponentPage } = useContext(setPage);
   const [isValid, setValid] = useState(true);
 
-  const handleMyRoom = () => {
-    // await searchMyReservation();
-    // searchMyReservation()
-    //   .then((response) => setValid(response))
-    //   .catch((error) => console.log('ERRor: ', error));
-    // setValid(await searchMyReservation());
-    setValid(async () => await searchMyReservation());
-    // console.log(await searchMyReservation());
+  const handleMyRoom = async () => {
+    const myResInfo = await searchMyReservation();
     console.log('여기');
-    setComponentPage(componentPage + 1);
-    setSuggestType('mine');
+    if (myResInfo) {
+      setMyResInfo(myResInfo);
+      setComponentPage(componentPage + 1);
+      setSuggestType('mine');
+    } else {
+      setValid(false);
+    }
+    // setValid(async () => await searchMyReservation());
   };
   const handleOthersRoom = () => {
     setComponentPage(componentPage + 1);
