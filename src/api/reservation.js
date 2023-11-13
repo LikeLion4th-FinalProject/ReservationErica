@@ -21,7 +21,7 @@ export const searchMyReservation = async () => {
   const tmp = await client
     .post('searchmyreservation/', {
       kakao_id: userId,
-      date: '2023-11-12',
+      date: '2023-11-13',
     })
     .then((response) => {
       console.log(response.data);
