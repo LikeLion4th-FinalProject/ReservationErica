@@ -6,7 +6,6 @@ export const client = axios.create({
   baseURL: BASE_URL,
 });
 
-// header에 정보 추가하기 => [참고자료] https://leeseong010.tistory.com/133
 client.interceptors.request.use(
   (config) => {
     console.log('인터셉터 요청 보냅니다잉');

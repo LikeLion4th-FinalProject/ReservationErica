@@ -10,11 +10,20 @@ import { searchDayTable } from '../api/reservation';
 import ConfirmInfo from '../components/reservation/ConfirmInfo';
 import ReserveConfirm from '../components/reservation/ReserveConfirm';
 import { setPage } from '../App';
+import { timeToLange } from '../utils/timeToIndex';
 export const reserveConfirm = createContext();
 export const fillReserveInfo = createContext();
 export const pickDate = createContext();
 
 function ReserveHome() {
+  // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환하는 함수 => 9시간 이므로 -540 이 나올거임
+  const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
+  // const today = new Date(Date.now() - offset);
+  const today = new Date();
+  const offsetToday = new Date(Date.now() - offset);
+  const nowDate = offsetToday.toISOString().split('T')[0];
+  // console.log(nowDate);
+
   const { componentPage, setComponentPage } = useContext(setPage);
   const [resInfo, setResInfo] = useState({
     kakao_id: null,
@@ -23,7 +32,10 @@ function ReserveHome() {
     start: null,
     end: null,
     people_num: null,
+    current_date: nowDate,
+    current_index: timeToLange(),
   });
+  console.log('test: ', resInfo);
 
   useEffect(() => {
     /** suggest 페이지 초기 로딩 시, componentPage 숫자 1로 초기화
@@ -33,16 +45,6 @@ function ReserveHome() {
      */
     setComponentPage(1);
   }, []);
-
-  // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환하는 함수 => 9시간 이므로 -540 이 나올거임
-  const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
-  // const today = new Date(Date.now() - offset);
-  const today = new Date();
-  // console.log(today);
-
-  const offsetToday = new Date(Date.now() - offset);
-  const nowDate = offsetToday.toISOString().split('T')[0];
-  // console.log(nowDate);
 
   const [selectedDate, setSelectedDate] = useState({
     pickDate: nowDate,
