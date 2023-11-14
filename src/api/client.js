@@ -12,7 +12,6 @@ client.interceptors.request.use(
     const token = sessionStorage.getItem('token');
     config.headers['Content-Type'] = 'application/json';
     if (token) {
-      console.log(`token : ${token}`);
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;

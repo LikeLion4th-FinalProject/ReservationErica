@@ -1,3 +1,4 @@
+import { requestDate, timeToLange } from '../utils/requestDateInfo';
 import { client } from './client';
 
 const userId = sessionStorage.getItem('kakao_id');
@@ -21,12 +22,14 @@ export const searchMyReservation = async () => {
   const tmp = await client
     .post('searchmyreservation/', {
       kakao_id: userId,
-      date: '2023-11-13',
+      current_date: requestDate(),
+      current_index: timeToLange(),
     })
     .then((response) => {
       console.log(response.data);
       // 예약한 정보가 있으면 true / 없으면 false 리턴
-      return response.data;
+      if (response.data.reservations) return true;
+      else return false;
     })
     .catch((error) => {
       console.log(error);
