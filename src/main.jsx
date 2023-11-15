@@ -8,8 +8,6 @@ import LoginPage from './pages/LoginPage.jsx';
 import CodegetPage from './pages/CodegetPage.jsx';
 import ReserveHome from './pages/ReserveHome.jsx';
 import MyPage from './pages/MyPage.jsx';
-import BeforeSuggestDetail from './components/suggest/record/RecordDetail.jsx';
-import BeforeReserve from './pages/BeforeReserve.jsx';
 import Suggest from './pages/Suggest.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import { PrivateRoute } from './hooks/PrivateRoute.jsx';
@@ -64,7 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mypage/before-reserve',
-        element: <BeforeReserve />,
+        element: <ReserveRecord />,
       },
       {
         path: '/suggest',
