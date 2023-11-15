@@ -27,14 +27,14 @@ export default function PossibleButton({
         <button
           className={`w-9 h-9 flex justify-center items-center rounded-md ${
             selectRange.length === 0
-              ? 'bg-orange-500'
+              ? 'bg-myorange'
               : selectRange.length === 1 &&
                 (clickTime < selectRange[0] || clickTime > selectRange[0] + 3)
-              ? 'bg-orange-500'
+              ? 'bg-myorange'
               : handleStyleBtn(clickTime)
-              ? 'transition bg-[#0D51FF]'
+              ? 'transition bg-myblue'
               : selectRange.length === 2
-              ? 'transition bg-orange-500'
+              ? 'transition bg-myorange'
               : 'transition bg-[#96b4ff]'
           } `}
           onClick={() => handleClickTime(clickTime)}

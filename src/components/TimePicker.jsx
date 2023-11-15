@@ -120,7 +120,7 @@ const Picker = ({
           key={index}
           className={`h-[30px] flex justify-center items-center z-10 ${
             index === selected
-              ? 'font-bold opacity-100 text-[#0D51FF] sticky'
+              ? 'font-bold opacity-100 text-myblue sticky'
               : 'opacity-20'
           }`}
           ref={(el) => (itemRefs.current[index] = el)}
