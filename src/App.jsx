@@ -39,6 +39,13 @@ function App() {
           ? () => navigate(-1)
           : () => setComponentPage(componentPage - 1);
       break;
+    case '/mypage/before-suggest':
+      title = '건의내역ㅋ';
+      backHandler =
+        componentPage === 1
+          ? () => navigate(-1)
+          : () => setComponentPage(componentPage - 1);
+      break;
   }
 
   return (

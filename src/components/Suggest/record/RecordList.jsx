@@ -1,26 +1,22 @@
+import React, { useContext } from 'react';
+import arrow from '../../../static/chevron-right.png';
 import { useNavigate } from 'react-router-dom';
+import { setPage } from '../../../App';
 
-import '../../index.css';
-import '../../App.css';
+export default function RecordList({ recordInfo, setDetailInfo }) {
+  const { componentPage, setComponentPage } = useContext(setPage);
 
-import arrow from '../../static/chevron-right.png';
-
-// tt: 확인 전, ft: 처리 중, ff: 처리 완료
-let nocheck_suggest = false;
-let nofinish_suggest = false;
-
-function SuggestCard({ recordInfo }) {
-  const movePage = useNavigate();
-
-  function godetailsuggest() {
-    movePage('/mypage/before-suggest-detail');
+  function godetailsuggest(data) {
+    console.log('test', data);
+    setDetailInfo(data);
+    setComponentPage(componentPage + 1);
   }
 
   const changeDate = (date) => {
     const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
     const today = new Date(Date.now() - offset);
     // today.setDate(date);
-    console.log(today.toISOString());
+    // console.log(today.toISOString());
     const todayDate = date.split('T')[0];
     return todayDate;
   };
@@ -32,15 +28,17 @@ function SuggestCard({ recordInfo }) {
           key={data.id}
           className='w-full flex flex-col bg-gray4 rounded-2xl px-4 py-3 border-[1px]'
         >
-          {nocheck_suggest ? (
+          {data.status === 'ready' && (
             <div className='w-12 items-center text-center p-1 border-solid text-gray-400 rounded-full bg-gray3 text-btn tracking-wider gap-1'>
               <span>확인 전</span>
             </div>
-          ) : nofinish_suggest ? (
+          )}
+          {data.status === 'progress' && (
             <div className='w-12 items-center text-center p-1 border-solid text-orange-400 rounded-full bg-gray3 text-btn tracking-wider gap-1'>
               <span>처리 중</span>
             </div>
-          ) : (
+          )}
+          {data.status === 'done' && (
             <div className='w-14 items-center text-center p-1 border-solid text-blue-400 rounded-full bg-gray3 text-btn tracking-wider gap-1'>
               <span>처리 완료</span>
             </div>
@@ -58,7 +56,7 @@ function SuggestCard({ recordInfo }) {
               </div>
             </div>
             <div className=''>
-              <button onClick={godetailsuggest} className='flex'>
+              <button onClick={() => godetailsuggest(data)} className='flex'>
                 <h2 className='text-xs text-gray0'>세부내용보기</h2>
                 <img src={arrow} className='w-[14px]' />
               </button>
@@ -69,5 +67,3 @@ function SuggestCard({ recordInfo }) {
     </div>
   );
 }
-
-export default SuggestCard;

@@ -2,10 +2,11 @@ import '../index.css';
 import '../App.css';
 
 import React, { useEffect, useState } from 'react';
-import SuggestCard from '../components/BeforeSuggest/SuggestCard';
-import { recordSuggest } from '../api/suggest';
 
-function BeforeSuggest() {
+import { recordSuggest } from '../api/suggest';
+import SuggestCard from '../components/suggest/record/SuggestCard';
+
+function SuggestRecord() {
   const [hasRecord, setHasRecord] = useState(false);
   const [recordInfo, setRecordInfo] = useState();
 
@@ -58,4 +59,4 @@ function BeforeSuggest() {
   );
 }
 
-export default BeforeSuggest;
+export default SuggestRecord;

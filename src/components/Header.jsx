@@ -20,21 +20,6 @@ function Header({ title, backHandler }) {
         </div>
       );
       break;
-    case '/mypage/before-suggest':
-      headerContent = (
-        <section className='h-[56px] w-full flex items-center justify-between px-4'>
-          <div className='w-full flex items-center justify-between'>
-            <FaArrowLeft
-              onClick={() => navigate(-1)}
-              size={24}
-              className='text-gray0 cursor-pointer flex-[0.2]'
-            />
-            <h1 className='text-gray0 flex-[1.6] text-center'>건의내역</h1>
-            <div className='flex-[0.2]'></div>
-          </div>
-        </section>
-      );
-      break;
     case '/mypage/before-suggest-detail':
       headerContent = (
         <section className='h-[56px] w-full flex items-center justify-between px-4'>
