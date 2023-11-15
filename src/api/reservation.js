@@ -1,8 +1,6 @@
 import { requestDate, timeToLange } from '../utils/requestDateInfo';
 import { client } from './client';
 
-const userId = sessionStorage.getItem('kakao_id');
-
 export const searchDayTable = async (pickDate) => {
   const dayTableList = await client
     .get(`searchdaytable/${pickDate}/smash/`)
@@ -19,6 +17,8 @@ export const searchDayTable = async (pickDate) => {
 };
 
 export const searchMyReservation = async () => {
+  const userId = sessionStorage.getItem('kakao_id');
+
   const tmp = await client
     .post('searchmyreservation/', {
       kakao_id: userId,
@@ -28,7 +28,7 @@ export const searchMyReservation = async () => {
     .then((response) => {
       console.log(response.data);
       // 예약한 정보가 있으면 true / 없으면 false 리턴
-      if (response.data.reservations) return true;
+      if (response.data.reservations) return response.data.reservations;
       else return false;
     })
     .catch((error) => {

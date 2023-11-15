@@ -11,7 +11,7 @@ export default function SelectContent({ setSuggestType, setMyResInfo }) {
 
   const handleMyRoom = async () => {
     const myResInfo = await searchMyReservation();
-    console.log('여기');
+    console.log('여기 myResInfo : ', myResInfo);
     if (myResInfo) {
       setMyResInfo(myResInfo);
       setComponentPage(componentPage + 1);

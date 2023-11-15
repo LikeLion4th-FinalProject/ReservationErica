@@ -45,7 +45,7 @@ function SuggestCard({ recordInfo }) {
               <span>처리 완료</span>
             </div>
           )}
-          <h1 className='text-2xl font-bold mb-3'>{data.room_id}</h1>
+          <h1 className='text-2xl font-bold mb-3'>{data.room_name}</h1>
           <div className='flex justify-between items-end'>
             <div className='flex gap-4'>
               <div className='text-sm text-gray0 font-semibold'>
