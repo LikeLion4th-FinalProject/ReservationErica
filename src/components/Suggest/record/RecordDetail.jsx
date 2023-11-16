@@ -1,12 +1,8 @@
 import React from 'react';
 
-import SuggestProgress1 from '../../BeforeSuggestDetail/SuggestProgress1';
-import SuggestProgress2 from '../../BeforeSuggestDetail/SuggestProgress2';
-import SuggestProgress3 from '../../BeforeSuggestDetail/SuggestProgress3';
-
-// tt: 확인 전, ft: 처리 중, ff: 처리 완료
-let nocheck_suggest = false;
-let nofinish_suggest = false;
+import SuggestProgress1 from '../suggestDetailInfo/SuggestProgress1';
+import SuggestProgress2 from '../suggestDetailInfo/SuggestProgress2';
+import SuggestProgress3 from '../suggestDetailInfo/SuggestProgress3';
 
 function RecordDetail({ detailInfo }) {
   return (

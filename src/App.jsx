@@ -40,7 +40,7 @@ function App() {
           : () => setComponentPage(componentPage - 1);
       break;
     case '/mypage/before-suggest':
-      title = '건의내역ㅋ';
+      title = '건의내역';
       backHandler =
         componentPage === 1
           ? () => navigate(-1)

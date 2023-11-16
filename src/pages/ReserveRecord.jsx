@@ -32,7 +32,7 @@ export default function ReserveRecord() {
           최근 6개월간 예약 내역이 없습니다.
         </div>
       ) : (
-        reserveInfo.map((item) => (
+        reserveInfo.reverse().map((item) => (
           <ul
             key={item.id}
             className='flex flex-col gap-4 justify-around mb-4 p-4 mx-auto rounded-2xl bg-gray4'

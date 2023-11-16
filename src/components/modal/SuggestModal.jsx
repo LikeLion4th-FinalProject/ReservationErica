@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { feedback } from '../../pages/Suggest';
 import { client } from '../../api/client';
+import { setPage } from '../../App';
 
 export default function SuggestModal({ title, isOpen, hasData }) {
   const { suggestInfo } = useContext(feedback);
+  const { componentPage, setComponentPage } = useContext(setPage);
 
   const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
   const today = new Date(Date.now() - offset);
@@ -22,6 +24,7 @@ export default function SuggestModal({ title, isOpen, hasData }) {
           .then((response) => console.log(response))
           .catch((error) => console.log(error)));
     }
+    setComponentPage(componentPage + 1);
   };
 
   return (

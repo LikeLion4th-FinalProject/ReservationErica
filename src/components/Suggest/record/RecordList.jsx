@@ -22,7 +22,7 @@ export default function RecordList({ recordInfo, setDetailInfo }) {
   };
 
   return (
-    <div className='flex flex-col gap-2 px-6'>
+    <div className='flex flex-col gap-2 px-6 pb-6'>
       {recordInfo.map((data) => (
         <section
           key={data.id}
