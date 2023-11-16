@@ -12,15 +12,6 @@ export default function RecordList({ recordInfo, setDetailInfo }) {
     setComponentPage(componentPage + 1);
   }
 
-  const changeDate = (date) => {
-    const offset = new Date().getTimezoneOffset() * 60000; // ms 단위를 맞추기 위해 60000 곱해줌
-    const today = new Date(Date.now() - offset);
-    // today.setDate(date);
-    // console.log(today.toISOString());
-    const todayDate = date.split('T')[0];
-    return todayDate;
-  };
-
   return (
     <div className='flex flex-col gap-2 px-6 pb-6'>
       {recordInfo.map((data) => (
@@ -51,7 +42,7 @@ export default function RecordList({ recordInfo, setDetailInfo }) {
                 <h2>건의사유</h2>
               </div>
               <div className='text-sm font-semibold'>
-                <h2>{changeDate(data.create_at)}</h2>
+                <h2>{data.create_at.split('T')[0]}</h2>
                 <h2>{data.case}</h2>
               </div>
             </div>

@@ -28,7 +28,7 @@ export default function ReserveRecord() {
     <div className='w-full h-screen p-4'>
       <p className='font-bold mb-4 text-lg'>이전 예약내역</p>
       {!hasRecord ? (
-        <div className='flex h-[150px] justify-center items-center mx-auto rounded-2xl bg-gray4 text-gray1'>
+        <div className='flex h-[150px] justify-center items-center mx-auto rounded-2xl bg-gray4 text-gray1 px-6'>
           최근 6개월간 예약 내역이 없습니다.
         </div>
       ) : (
@@ -45,10 +45,10 @@ export default function ReserveRecord() {
                 <span className='text-gray1 mr-4'>인원</span> {item.peopleCount}
               </p> */}
               <p>
-                <span className='text-gray1 mr-4'>날짜</span> {item.date}
+                <span className='text-gray1 mr-4'>이용 날짜</span> {item.date}
               </p>
               <p>
-                <span className='text-gray1 mr-4'>시간</span>{' '}
+                <span className='text-gray1 mr-4'>이용 시간</span>{' '}
                 {`${reserveTime[item.start]} ~ ${reserveTime[item.end + 1]}`}
               </p>
             </li>
