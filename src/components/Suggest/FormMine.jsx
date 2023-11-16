@@ -8,10 +8,10 @@ export default function FormMine({ myResInfo }) {
   const options = suggestForMyRoom;
   // console.log(myResInfo.reservations[0]);
 
-  const roomName = myResInfo.reservations[0].room_name;
-  const resDate = myResInfo.reservations[0].create_at.split('T')[0];
-  const startTime = reserveTime[myResInfo.reservations[0].start];
-  const endTime = reserveTime[myResInfo.reservations[0].end + 1];
+  const roomName = myResInfo.room_name;
+  const resDate = myResInfo.create_at.split('T')[0];
+  const startTime = reserveTime[myResInfo.start];
+  const endTime = reserveTime[myResInfo.end + 1];
 
   const { suggestInfo, setSuggestInfo } = useContext(feedback);
   useEffect(() => {

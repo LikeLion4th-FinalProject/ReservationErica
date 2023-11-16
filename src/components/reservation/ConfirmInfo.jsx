@@ -4,29 +4,6 @@ import { getRoomType } from '../../api/room';
 import { useEffect, useState } from 'react';
 
 export default function ConfirmInfo({ content, resInfo }) {
-  console.log(resInfo);
-  // const test = getRoomType();
-  // console.log(test);
-
-  const [roomname, setRoomname] = useState([]); // 상태 변수 초기화
-
-  // useEffect(() => {
-  //   // 데이터를 가져오는 비동기 작업
-  //   const fetchRoomInfo = async () => {
-  //     try {
-  //       const response = await client.get('rooms/');
-  //       const data = response.data.filter(
-  //         (item) => item.id == resInfo.room_id
-  //       )[0].name;
-  //       setRoomname(data); // 상태 업데이트
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchRoomInfo(); // 데이터 가져오기 함수 호출
-  // }, []); // 빈 배열을 두번째 인자로 전달하여 컴포넌트가 처음 렌더링될 때만 데이터 가져오도록 설정
-
   return (
     <div
       className={`flex flex-col justify-center items-center h-full bg-gray3 p-8 ${
