@@ -10,7 +10,7 @@ function Header({ title }) {
   let headerContent;
 
   switch (location.pathname) {
-    case "/mypage/0":
+    case "/mypage/:id":
       headerContent = (
         <div className="h-[80px] w-full flex items-center justify-between px-4">
           <h1 className="text-gray0 flex-[1.6] text-center">마이 페이지</h1>
