@@ -1,10 +1,10 @@
 import { RiAlarmWarningLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 import IndicatorSection2 from "./IndicatorSection2.jsx";
 import SelectMenu2 from "./SelectMenu2.jsx";
 import { createContext } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import hanyang from "../../static/mypage_hanyang.png";
 
 import { searchMyReservation } from "../../api/mypage.js";
@@ -14,6 +14,19 @@ export const ReserveContext = createContext();
 function MypageCard({ title }) {
   const [isReserve, setReserve] = useState(true); // true: 예약 후(이용 전/이용 후), false: 예약 전
   const [myData, setMyData] = useState(null);
+  const [prevRes, setPrevRes] = useState("");
+
+  useEffect(() => {
+    timeTableHandler();
+  }, []);
+
+  async function timeTableHandler() {
+    try {
+      const date = await searchMyReservation();
+      setPrevRes(date.daytimetable[0].timetable);
+      console.log(date.daytimetable[0].timetable);
+    } catch {}
+  }
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
@@ -24,19 +37,10 @@ function MypageCard({ title }) {
 
   let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
 
-  // 나중에 사용자의 예약 정보 연동해야 함
   return (
     <>
       {/* ReserveContext.Provider로 컨텍스트 제공 */}
       <ReserveContext.Provider value={setReserve}>
-        <button
-          onClick={() => {
-            console.log("hihihi");
-            searchMyReservation();
-          }}
-        >
-          hi
-        </button>
         {isReserve ? (
           <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-9">
             <section className="w-full flex flex-col bg-gray4 rounded-t-2xl  py-3 ">
@@ -94,31 +98,54 @@ function MypageCard({ title }) {
               </div>
 
               <section className="grid grid-cols-7 grid-rows-2 mt-2 gap-1 mb-6 px-4">
-                {hours.map((hour, index) => (
-                  <div key={index} className="flex flex-col">
-                    <div style={{}}>
-                      <span className="text-[8px] mb-1">{hour}</span>
-                      <span className="text-[8px] mb-1">{hour + 1}</span>
-                    </div>
+                {hours.map((hour, index) => {
+                  const timeTable = prevRes;
+                  let evenArray = []; // x시 ~ x시 30분
+                  let oddArray = []; // x시 30분 ~ x시
 
-                    <div className="flex gap-[1px]">
-                      <div
-                        className={`w-[25px] h-[15px] bg-gray-200 ${
-                          index === 0 || index === 7
-                            ? "rounded-tl-md rounded-bl-md"
-                            : ""
-                        }`}
-                      />
-                      <div
-                        className={`w-[25px] h-[15px] bg-gray-200 ${
-                          index === 6 || index === hours.length - 1
-                            ? "rounded-tr-md rounded-br-md"
-                            : ""
-                        }`}
-                      />
+                  for (let i = 0; i < timeTable.length; i++) {
+                    if (i % 2 === 0) {
+                      // 짝수번째 인덱스
+                      evenArray.push(timeTable[i]);
+                    } else {
+                      // 홀수번째 인덱스
+                      oddArray.push(timeTable[i]);
+                    }
+                  }
+
+                  return (
+                    <div key={index} className="flex flex-col">
+                      <div>
+                        <span className="text-[8px] mb-1">{hour}</span>
+                      </div>
+
+                      <div className="flex gap-[1px]">
+                        <div
+                          className={`w-[25px] h-[15px] ${
+                            index === 0 || index === 7
+                              ? "rounded-tl-md rounded-bl-md"
+                              : ""
+                          } ${
+                            evenArray[index] === "1"
+                              ? "bg-orange-500"
+                              : "bg-gray-200"
+                          } `}
+                        />
+                        <div
+                          className={`w-[25px] h-[15px] ${
+                            index === 6 || index === hours.length - 1
+                              ? "rounded-tr-md rounded-br-md"
+                              : ""
+                          } ${
+                            oddArray[index] === "1"
+                              ? "bg-orange-500"
+                              : "bg-gray-200"
+                          } `}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </section>
             </section>
             <SelectMenu2 />
