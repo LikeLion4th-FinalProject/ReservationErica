@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { GoTriangleDown, GoTriangleUp } from 'react-icons/go';
 import useDateOptions from '../hooks/useDateOptions';
+import { pickDate } from '../pages/ReserveHome';
 
-function DateDropdown({ onDateSelect, selectedDate }) {
+function DateDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const options = useDateOptions();
+  // console.log('date drop down list : ', options);
+
+  const { selectedDate, setSelectedDate } = useContext(pickDate);
+  // console.log(selectedDate);
 
   const handleDateSelect = (date, day) => {
-    if (onDateSelect) {
-      onDateSelect({
+    if (setSelectedDate) {
+      setSelectedDate({
         ...selectedDate,
         pickDate: date,
         pickDay: day,

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useKakaoLogin from '../hooks/useKakaoLogin';
-import { handleLogin } from '../api/authlogin';
 import { getToken } from '../api/login';
 
 function CodegetPage() {
@@ -9,12 +8,21 @@ function CodegetPage() {
   const userData = useKakaoLogin(code);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (userData) {
-      getToken(); // 로그인된 정보를 백으로 보내 토큰값 받아와서 세션스토리지에 넣는 함수
+  const fetchToken = async () => {
+    try {
+      const isValid = await getToken(); // Assuming getToken returns a promise
+      console.log('isValid : ', isValid);
+      if (isValid) navigate('/reservation');
+    } catch (error) {
+      console.error('Error fetching token:', error);
+    }
+  };
 
-      navigate('/reservation');
-      // handleLogin();
+  useEffect(() => {
+    console.log('걸리나?1');
+    if (userData) {
+      console.log('걸리나?2');
+      fetchToken();
     }
   }, [userData]);
 

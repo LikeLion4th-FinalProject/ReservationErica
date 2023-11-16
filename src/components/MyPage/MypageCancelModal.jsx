@@ -28,7 +28,7 @@ export default function MypageCancelModal({
               setReserve(false); // reserve 값을 true로 변경
               setFormValid(false);
             }}
-            className="w-1/2 h-full text-center bg-[#0D51FF] rounded-br-3xl text-white "
+            className="w-1/2 h-full text-center bg-myblue rounded-br-3xl text-white "
           >
             예
           </button>

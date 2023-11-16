@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function useIsAuthenticated() {
-  const accessToken = sessionStorage.getItem("kakaoUserId");
+  const accessToken = sessionStorage.getItem('kakao_id');
   return !!accessToken;
 }
 
@@ -13,7 +13,7 @@ export function PrivateRoute({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login", { replace: true, state: { from: location } });
+      navigate('/login', { replace: true, state: { from: location } });
     }
   }, [isAuthenticated, navigate, location]);
 

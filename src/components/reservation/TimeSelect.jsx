@@ -1,16 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ImpossibleButton from './reserveButton/ImpossibleButton';
-import PossibleButton from './reserveButton/PossibleButton';
-import Alert from './Alert';
-import { reserveTime } from '../styles/static';
-import ConfirmModal from './modal/ConfirmModal';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import ImpossibleButton from '../reserveButton/ImpossibleButton';
+import PossibleButton from '../reserveButton/PossibleButton';
+import Alert from '../Alert';
+import { reserveTime } from '../../styles/static';
+import ConfirmModal from '../modal/ConfirmModal';
+import { client } from '../../api/client';
+import { fillReserveInfo } from '../../pages/ReserveHome';
+import { pickDate } from '../../pages/ReserveHome';
+import RoomSelect from './RoomSelect';
 
-export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
+export default function TimeSelect({ nowDate, listDayTable }) {
   const [reserveRoom, setReserveRoom] = useState(false);
   const [selectRange, setSelectRange] = useState([]);
   const [warningAlert, setWarningAlert] = useState(false);
+  const [roomList, setRoomList] = useState([]);
+  const [reserveInfo, setReserveInfo] = useState({ people_num: 2 });
 
   const clickDetail = useRef(null);
+
+  const { selectedDate } = useContext(pickDate);
+  const { resInfo, setResInfo } = useContext(fillReserveInfo);
+  useEffect(() => {
+    console.log('언제찍힘?');
+    setResInfo({ ...reserveInfo });
+  }, [reserveInfo]);
 
   const formatDateToDisplay = (pickDate) => {
     const options = { month: 'long', day: 'numeric' };
@@ -18,19 +31,17 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     return date.toLocaleDateString('ko-KR', options);
   };
 
-  useEffect(() => {
-    console.log(selectedDate);
-  }, [selectedDate]);
-
   const formattedDate = formatDateToDisplay(selectedDate.pickDate);
-  // console.log(formattedDate); // "10월 23일"
+  // console.log('formattedDate : ', formattedDate); // "10월 23일"
   const nowTime = new Date();
 
+  /* 26개의 index를 담은 배열 만들기 */
   const hours = [];
   for (let i = 0; i < 26; i++) {
     hours.push(i);
   }
 
+  /* -------- 30분 단위로, 오늘 날짜의 예약가능한 시작시간 필터링하는 코드 -------- */
   // 1. 오늘날짜인지 확인하고
   const isToday =
     `${nowTime.getMonth() + 1}월 ${nowTime.getDate()}일` === formattedDate
@@ -50,7 +61,25 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     setSelectRange([]);
     setReserveRoom(false);
   }, [selectedDate]);
+  /* ------------------------------------------------ */
 
+  /* -----------예약시간을 클릭할 때 마다 날리는 요청----------- */
+  useEffect(() => {
+    if (selectRange.length) {
+      // selectRange 배열 안에 값이 존재할때만 api호출하게끔
+      client
+        .get(
+          `searchtimetable/${selectedDate.pickDate}/smash/${selectRange[0]}/${
+            selectRange.length === 1 ? selectRange[0] : selectRange[1]
+          }/`
+        )
+        .then((response) => setRoomList(response.data))
+        .catch((error) => console.log(error));
+    }
+  }, [selectRange]);
+  /* ------------------------------------------------ */
+
+  /* ---------------- 시간선택 알고리즘!! ---------------- */
   const handleClickTime = (idx) => {
     clickDetail.current?.scrollIntoView({ behavior: 'smooth' });
     if (selectRange.length === 0) {
@@ -65,7 +94,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
           handleWarning();
         }
         // 범위 끝 지점 선택
-        else setSelectRange([startTime, idx]);
+        else {
+          setSelectRange([startTime, idx]);
+        }
       }
       // 범위를 역순으로 선택한 경우 범위 시작 지점을 변경
       else setSelectRange([idx]);
@@ -75,7 +106,9 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
       setSelectRange([]);
     }
   };
-  console.log('선택한 시간 -> ', selectRange);
+  // console.log('선택한 시간 -> ', selectRange);
+  // console.log('roomList : ', roomList);
+  /* ------------------------------------------------ */
 
   const handleWarning = () => {
     setWarningAlert(true);
@@ -86,17 +119,15 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
     return () => clearInterval(alert);
   };
 
-  const [isValidForm, setValidForm] = useState(false);
-
-  const roomList = [
-    { roomInfo: 'SMASH 1', id: 1 },
-    { roomInfo: 'SMASH 2', id: 2 },
-    { roomInfo: 'SMASH 3', id: 3 },
-  ];
-
   return (
     <>
-      <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${nowTime.getHours()}:${nowTime.getMinutes()} 기준`}</span>
+      <span className='text-[#BEBEBE] text-xs flex justify-end pr-2 pb-2'>{`${nowDate} ${
+        nowTime.getHours() < 10 ? '0' + nowTime.getHours() : nowTime.getHours()
+      }:${
+        nowTime.getMinutes() < 10
+          ? '0' + nowTime.getMinutes()
+          : nowTime.getMinutes()
+      } 기준`}</span>
       <section className='w-full flex flex-col bg-gray4 shadow-md rounded-2xl px-4 py-3 border-[1px]'>
         <div className='text-xl font-black'>{`${formattedDate} ${selectedDate.pickDay}요일`}</div>
         <section className='grid grid-cols-8 grid-rows-3 mt-2 gap-1 mb-3 items-end justify-between'>
@@ -125,47 +156,13 @@ export default function TimeSelect({ selectedDate, nowDate, listDayTable }) {
         </section>
       </section>
       {reserveRoom && (
-        <>
-          <div className='my-6 rounded-full h-1 bg-gray3'></div>
-          <section>
-            {selectRange.length === 1 ? (
-              <span className='text-xl font-black'>
-                {reserveTime[selectRange[0]]}
-              </span>
-            ) : (
-              <span className='text-xl font-black'>
-                {`
-                ${reserveTime[selectRange[0]]} ~ ${
-                  reserveTime[selectRange[1] + 1]
-                }
-              `}
-              </span>
-            )}
-            {roomList.map((room) => (
-              <div
-                ref={clickDetail}
-                key={room.id}
-                className='bg-gray4 w-full rounded-2xl flex justify-around items-center gap-4 px-5 py-2 shadow-sm my-4'
-              >
-                <span className='w-[35%] text-base'>{room.roomInfo}</span>
-                <button
-                  onClick={() => setValidForm(true)}
-                  className='bg-[#0D51FF] w-full h-[40px] text-white rounded-2xl'
-                >
-                  <span>예약하기</span>
-                </button>
-              </div>
-            ))}
-          </section>
-          {isValidForm && (
-            <ConfirmModal
-              content={'(예약정보 들어갈 공간)'}
-              isOpen={setValidForm}
-            />
-          )}
-        </>
+        <RoomSelect selectRange={selectRange} roomList={roomList} />
       )}
       {warningAlert && <Alert />}
     </>
   );
 }
+
+/**
+ * 이전에 예약한 시간이 지났음에도 roomreserve/ 로부터 받는 정보가 이전 예약 내역으로 받아와짐 -> 수정요청 해야함
+ */

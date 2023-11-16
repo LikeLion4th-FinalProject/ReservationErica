@@ -33,7 +33,7 @@ function BtnNav() {
           <Link
             to={"/reservation"}
             className={`flex items-center flex-col justify-center w-full h-full ${
-              isReservationPage ? " text-[#0D51FF]" : "bg-white text-gray0"
+              isReservationPage ? " text-myblue" : "bg-white text-gray0"
             }`}
           >
             <AiOutlineCheck className="text-lg" size={23} />
@@ -45,8 +45,8 @@ function BtnNav() {
           >
             {isMyPage ? (
               <>
-                <BiSolidUser className="text-lg text-[#0D51ff]" size={23} />
-                <span className="text-btn text-[#0D51ff]">마이페이지</span>
+                <BiSolidUser className="text-lg text-myblue" size={23} />
+                <span className="text-btn text-myblue">마이페이지</span>
               </>
             ) : (
               <>
