@@ -28,19 +28,10 @@ function SuggestRecord() {
   }, []);
 
   return (
-    <div className='px-6'>
-      <p
-        className='semibold'
-        style={{
-          fontSize: '18px',
-          marginBottom: '20px',
-          marginTop: '20px',
-        }}
-      >
-        건의내역
-      </p>
+    <div>
+      <p className='semibold text-lg my-5 px-6'>건의내역</p>
       {!hasRecord ? (
-        <div className='w-full flex flex-col bg-gray4 border-[1px] rounded-2xl'>
+        <div className='w-full flex flex-col bg-gray4 border-[1px] rounded-2xl px-6'>
           <section className='w-full flex flex-col bg-gray4 rounded-t-2xl rounded-b-2xl px-4 py-14 text-gray1 items-center'>
             <p
               style={{

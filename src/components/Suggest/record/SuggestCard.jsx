@@ -21,7 +21,7 @@ function SuggestCard({ recordInfo }) {
           <RecordList recordInfo={recordInfo} setDetailInfo={setDetailInfo} />
         );
       case 2:
-        return <RecordDetail />;
+        return <RecordDetail detailInfo={detailInfo} />;
     }
   };
 

@@ -6,8 +6,8 @@ import { setPage } from '../../../App';
 export default function RecordList({ recordInfo, setDetailInfo }) {
   const { componentPage, setComponentPage } = useContext(setPage);
 
-  function godetailsuggest(data) {
-    console.log('test', data);
+  function showDetailSuggest(data) {
+    console.log('상세정보 : ', data);
     setDetailInfo(data);
     setComponentPage(componentPage + 1);
   }
@@ -22,7 +22,7 @@ export default function RecordList({ recordInfo, setDetailInfo }) {
   };
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-2 px-6'>
       {recordInfo.map((data) => (
         <section
           key={data.id}
@@ -56,7 +56,7 @@ export default function RecordList({ recordInfo, setDetailInfo }) {
               </div>
             </div>
             <div className=''>
-              <button onClick={() => godetailsuggest(data)} className='flex'>
+              <button onClick={() => showDetailSuggest(data)} className='flex'>
                 <h2 className='text-xs text-gray0'>세부내용보기</h2>
                 <img src={arrow} className='w-[14px]' />
               </button>
