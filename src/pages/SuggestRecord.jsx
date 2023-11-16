@@ -1,12 +1,14 @@
 import '../index.css';
 import '../App.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { recordSuggest } from '../api/suggest';
 import SuggestCard from '../components/suggest/record/SuggestCard';
+import { setPage } from '../App';
 
 function SuggestRecord() {
+  const { componentPage } = useContext(setPage);
   const [hasRecord, setHasRecord] = useState(false);
   const [recordInfo, setRecordInfo] = useState();
 
@@ -29,16 +31,13 @@ function SuggestRecord() {
 
   return (
     <div>
-      <p className='semibold text-lg my-5 px-6'>건의내역</p>
+      {componentPage === 1 && (
+        <p className='semibold text-lg my-5 px-6'>건의내역</p>
+      )}
       {!hasRecord ? (
-        <div className='w-full flex flex-col bg-gray4 border-[1px] rounded-2xl px-6'>
+        <div className='w-[90%] flex bg-gray4 border-[1px] rounded-2xl mx-auto'>
           <section className='w-full flex flex-col bg-gray4 rounded-t-2xl rounded-b-2xl px-4 py-14 text-gray1 items-center'>
-            <p
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
+            <p className='flex justify-center'>
               현재 6개월 간 건의내역이 없습니다.
             </p>
           </section>

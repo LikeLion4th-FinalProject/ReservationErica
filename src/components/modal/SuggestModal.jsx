@@ -48,8 +48,8 @@ export default function SuggestModal({ title, isOpen, hasData }) {
               <>
                 <div className='medium mx-2 text-gray-500'>
                   <h5>장소</h5>
-                  <h5>날짜</h5>
-                  <h5>건의사유</h5>
+                  <h5>건의 날짜</h5>
+                  <h5>건의 사유</h5>
                 </div>
                 <div className='medium mx-4'>
                   <h5>{suggestInfo.room_name}</h5>

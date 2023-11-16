@@ -48,7 +48,7 @@ client.interceptors.response.use(
             'Content-Type': 'application/json',
             Authorization: `Bearer ${response.data.access_token}`,
           };
-          const res = client(error.config);
+          const res = axios(error.config);
           console.log('res 뭐지 ? : ', res);
           return res;
         })

@@ -9,7 +9,7 @@ export default function FormMine({ myResInfo }) {
   // console.log(myResInfo.reservations[0]);
 
   const roomName = myResInfo.room_name;
-  const resDate = myResInfo.create_at.split('T')[0];
+  const resDate = myResInfo.date;
   const startTime = reserveTime[myResInfo.start];
   const endTime = reserveTime[myResInfo.end + 1];
 
@@ -28,8 +28,8 @@ export default function FormMine({ myResInfo }) {
         <h1 className='text-xl semibold pl-6'>{roomName}</h1>
         <div className='flex mt-2 pl-4 text-sm'>
           <div className='mx-2 text-gray-500'>
-            <h5>날짜</h5>
-            <h5>시간</h5>
+            <h5>이용 날짜</h5>
+            <h5>이용 시간</h5>
           </div>
           <div className='mx-1'>
             <h5>{resDate}</h5>
