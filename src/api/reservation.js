@@ -1,6 +1,5 @@
+import { requestDate, timeToLange } from "../utils/requestDateInfo";
 import { client } from "./client";
-
-const userId = sessionStorage.getItem('kakao_id');
 
 export const searchDayTable = async (pickDate) => {
   const dayTableList = await client
@@ -18,18 +17,36 @@ export const searchDayTable = async (pickDate) => {
 };
 
 export const searchMyReservation = async () => {
+  const userId = sessionStorage.getItem("kakao_id");
+
   const tmp = await client
-    .post('searchmyreservation/', {
+    .post("searchmyreservation/", {
       kakao_id: userId,
-      date: '2023-11-13',
+      current_date: requestDate(),
+      current_index: timeToLange(),
     })
     .then((response) => {
       console.log(response.data);
       // 예약한 정보가 있으면 true / 없으면 false 리턴
-      return response.data;
+      if (response.data.reservations) return response.data.reservations;
+      else return false;
     })
     .catch((error) => {
       console.log(error);
     });
   return tmp;
+};
+
+export const reservationList = async (userId) => {
+  const response = await client
+    .post("reservationlist/", {
+      kakao_id: userId,
+    })
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+
+    .catch((error) => console.log(error));
+  return response;
 };

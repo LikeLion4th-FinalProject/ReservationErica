@@ -8,10 +8,10 @@ export default function FormMine({ myResInfo }) {
   const options = suggestForMyRoom;
   // console.log(myResInfo.reservations[0]);
 
-  const roomName = myResInfo.reservations[0].room_name;
-  const resDate = myResInfo.reservations[0].create_at.split('T')[0];
-  const startTime = reserveTime[myResInfo.reservations[0].start];
-  const endTime = reserveTime[myResInfo.reservations[0].end + 1];
+  const roomName = myResInfo.room_name;
+  const resDate = myResInfo.date;
+  const startTime = reserveTime[myResInfo.start];
+  const endTime = reserveTime[myResInfo.end + 1];
 
   const { suggestInfo, setSuggestInfo } = useContext(feedback);
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function FormMine({ myResInfo }) {
         <h1 className='text-xl semibold pl-6'>{roomName}</h1>
         <div className='flex mt-2 pl-4 text-sm'>
           <div className='mx-2 text-gray-500'>
-            <h5>날짜</h5>
-            <h5>시간</h5>
+            <h5>이용 날짜</h5>
+            <h5>이용 시간</h5>
           </div>
           <div className='mx-1'>
             <h5>{resDate}</h5>

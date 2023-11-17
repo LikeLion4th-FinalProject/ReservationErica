@@ -7,19 +7,19 @@ import SuggestModal from '../modal/SuggestModal';
 
 export default function SelectContent({ setSuggestType, setMyResInfo }) {
   const { componentPage, setComponentPage } = useContext(setPage);
-  const [isValid, setValid] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleMyRoom = async () => {
     const myResInfo = await searchMyReservation();
-    console.log('여기');
+    console.log('여기 myResInfo : ', myResInfo);
     if (myResInfo) {
       setMyResInfo(myResInfo);
       setComponentPage(componentPage + 1);
       setSuggestType('mine');
     } else {
-      setValid(false);
+      setModalOpen(true);
     }
-    // setValid(async () => await searchMyReservation());
+    // setModalOpen(async () => await searchMyReservation());
   };
   const handleOthersRoom = () => {
     setComponentPage(componentPage + 1);
@@ -27,8 +27,8 @@ export default function SelectContent({ setSuggestType, setMyResInfo }) {
   };
 
   // useEffect(() => {
-  //   console.log(isValid);
-  // }, [isValid]);
+  //   console.log(isModalOpen);
+  // }, [isModalOpen]);
 
   return (
     <>
@@ -58,7 +58,13 @@ export default function SelectContent({ setSuggestType, setMyResInfo }) {
           <img src={familyHYU} alt='하냥이공부중' width='35%' />
         </div>
       </section>
-      {!isValid && <SuggestModal title={'현재 예약한 회의실이 없어요!'} />}
+      {isModalOpen && (
+        <SuggestModal
+          title={'현재 예약한 회의실이 없어요!'}
+          isOpen={setModalOpen}
+          hasData={false}
+        />
+      )}
     </>
   );
 }

@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import ImpossibleButton from '../reserveButton/ImpossibleButton';
 import PossibleButton from '../reserveButton/PossibleButton';
 import Alert from '../Alert';
-import { reserveTime } from '../../styles/static';
-import ConfirmModal from '../modal/ConfirmModal';
 import { client } from '../../api/client';
-import { fillReserveInfo } from '../../pages/ReserveHome';
 import { pickDate } from '../../pages/ReserveHome';
 import RoomSelect from './RoomSelect';
 
@@ -14,16 +11,10 @@ export default function TimeSelect({ nowDate, listDayTable }) {
   const [selectRange, setSelectRange] = useState([]);
   const [warningAlert, setWarningAlert] = useState(false);
   const [roomList, setRoomList] = useState([]);
-  const [reserveInfo, setReserveInfo] = useState({ people_num: 2 });
 
   const clickDetail = useRef(null);
 
   const { selectedDate } = useContext(pickDate);
-  const { resInfo, setResInfo } = useContext(fillReserveInfo);
-  useEffect(() => {
-    console.log('언제찍힘?');
-    setResInfo({ ...reserveInfo });
-  }, [reserveInfo]);
 
   const formatDateToDisplay = (pickDate) => {
     const options = { month: 'long', day: 'numeric' };

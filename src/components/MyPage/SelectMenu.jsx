@@ -10,14 +10,6 @@ import { useNavigate } from "react-router-dom";
 function SelectMenu() {
   const movePage = useNavigate();
 
-  function gobeforereserve() {
-    movePage("/mypage/before-reserve");
-  }
-
-  function gobeforesuggest() {
-    movePage("/mypage/before-suggest");
-  }
-
   return (
     <div
       className="bg-gray3 text-gray-500 grid items-center grid-flow-col justify-stretch rounded-b-xl"
@@ -25,7 +17,7 @@ function SelectMenu() {
     >
       <button
         className="flex items-center justify-center py-3 border-r border-gray-300"
-        onClick={gobeforereserve}
+        onClick={() => movePage("/mypage/before-reserve")}
       >
         <img
           src={Icon1}
@@ -39,7 +31,7 @@ function SelectMenu() {
       </button>
       <button
         className="flex items-center justify-center py-3 border-gray-300"
-        onClick={gobeforesuggest}
+        onClick={() => movePage("/mypage/before-suggest")}
       >
         <img
           src={Icon2}
