@@ -41,7 +41,7 @@ function BtnNav() {
           </Link>
           <Link
             to={"/mypage/:id"}
-            className={`flex items-center flex-col justify-center w-full h-full`}
+            className={`flex items-center flex-col justify-center w-full h-[50px]`}
           >
             {isMyPage ? (
               <>

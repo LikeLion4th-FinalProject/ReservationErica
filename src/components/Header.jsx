@@ -15,9 +15,11 @@ function Header({ title, backHandler }) {
   switch (location.pathname) {
     case "/mypage/:id":
       headerContent = (
-        <div className="h-[80px] w-full flex items-center justify-between px-4">
-          <h1 className="text-gray0 flex-[1.6] text-center">마이 페이지</h1>
-        </div>
+        <section className="h-[56px] w-full flex items-center justify-between px-4 mt-1">
+          <div className="w-full flex items-center justify-between">
+            <h1 className="text-gray0 flex-[1.6] text-center">마이페이지</h1>
+          </div>
+        </section>
       );
       break;
     case "/mypage/before-suggest":

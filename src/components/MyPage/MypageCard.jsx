@@ -14,7 +14,14 @@ export const ReserveContext = createContext();
 function MypageCard({ title }) {
   const [isReserve, setReserve] = useState(true); // true: 예약 후(이용 전/이용 후), false: 예약 전
   const [myData, setMyData] = useState(null);
+
   const [prevRes, setPrevRes] = useState("");
+  const [myRoom, setMyRoom] = useState("");
+  const [peopleNum, setPeopleNum] = useState("");
+  const [myDate, setMyDate] = useState("");
+  const [extensionNum, setExtensionNum] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   useEffect(() => {
     timeTableHandler();
@@ -24,7 +31,14 @@ function MypageCard({ title }) {
     try {
       const date = await searchMyReservation();
       setPrevRes(date.daytimetable[0].timetable);
-      console.log(date.daytimetable[0].timetable);
+      setMyRoom(date.reservations.room_name);
+      setPeopleNum(date.reservations.people_num);
+      setMyDate(date.reservations.date);
+      setExtensionNum(date.reservations.extension);
+      setStartTime(date.reservations.start);
+      setEndTime(date.reservations.end);
+
+      console.log("마이페이지 데이터 조회", date);
     } catch {}
   }
 
@@ -35,28 +49,48 @@ function MypageCard({ title }) {
 
   const movePage = useNavigate();
 
-  let before = true; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
+  let before = false; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
+
+  let room_name = myRoom;
+  let people_num = peopleNum;
+  let date = myDate;
+  let extension = extensionNum;
+
+  let start = startTime / 2 + 9;
+  let end = (endTime + 19) / 2;
+
+  if (start % 1 === 0.5) {
+    start = `${Math.floor(start)}:30`;
+  } else {
+    start = `${Math.floor(start)}:00`;
+  }
+
+  if (end % 1 === 0.5) {
+    end = `${Math.floor(end)}:30`;
+  } else {
+    end = `${Math.floor(end)}:00`;
+  }
 
   return (
     <>
       {/* ReserveContext.Provider로 컨텍스트 제공 */}
       <ReserveContext.Provider value={setReserve}>
         {isReserve ? (
-          <div className="border-[1px] rounded-t-2xl rounded-b-lg border-[1px] mb-9">
+          <div className="rounded-t-2xl rounded-b-2xl mb-9">
             <section className="w-full flex flex-col bg-gray4 rounded-t-2xl  py-3 ">
               <div className="justify-between items-center scroll-pr-32 pb-2 px-4">
                 <div>
                   {before ? (
-                    <div className="w-[50px] flex items-center p-1 px-2 border-solid border border-gray-300 text-gray-400 rounded-full bg-gray3 text-btn tracking-wider gap-1 justify-center">
+                    <div className="w-[50px] flex items-center p-1 px-2 border-solid border border-gray-300 text-gray-400 rounded-full bg-gray4 text-btn tracking-wider gap-1 justify-center">
                       <span>이용 전</span>
                     </div>
                   ) : (
-                    <div className="flex items-center p-1 px-2 mx-2 border-solid border border-blue-500 text-blue-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
+                    <div className="w-[50px] flex items-center p-1 px-2 border-solid border border-myblue text-myblue rounded-full bg-gray4 text-btn tracking-wider gap-1 justify-center">
                       <span>이용 중</span>
                     </div>
                   )}
                 </div>
-                <h1 className="text-[24px] semibold mt-2">Smash 0</h1>
+                <h1 className="text-[24px] semibold mt-2">{room_name}</h1>
               </div>
               <div className="flex border-b-[8px] border-x-gray2">
                 <div className="px-4">
@@ -67,16 +101,16 @@ function MypageCard({ title }) {
                 </div>
                 <div style={{ marginLeft: "15px" }}>
                   <h5 className="medium" style={{ fontSize: "14px" }}>
-                    3명
+                    {people_num}명
                   </h5>
                   <h5 className="medium" style={{ fontSize: "14px" }}>
-                    2023-09-26
+                    {date}
                   </h5>
                   <h5 className="medium" style={{ fontSize: "14px" }}>
-                    0/2
+                    <span className="text-myblue">{extension}</span>/2
                   </h5>
                   <h5 className="medium" style={{ fontSize: "14px" }}>
-                    15:00~17:00
+                    {start} ~ {end}
                   </h5>
                 </div>
               </div>
@@ -105,10 +139,10 @@ function MypageCard({ title }) {
 
                   for (let i = 0; i < timeTable.length; i++) {
                     if (i % 2 === 0) {
-                      // 짝수번째 인덱스
+                      // 짝수 번째 인덱스
                       evenArray.push(timeTable[i]);
                     } else {
-                      // 홀수번째 인덱스
+                      // 홀수 번째 인덱스
                       oddArray.push(timeTable[i]);
                     }
                   }
@@ -126,9 +160,9 @@ function MypageCard({ title }) {
                               ? "rounded-tl-md rounded-bl-md"
                               : ""
                           } ${
-                            evenArray[index] === "1"
-                              ? "bg-orange-500"
-                              : "bg-gray-200"
+                            evenArray[index] === "1" // 다른 사람이 사용 중, 즉 예약 중
+                              ? "bg-gray-400"
+                              : "bg-myorange"
                           } `}
                         />
                         <div
@@ -137,9 +171,9 @@ function MypageCard({ title }) {
                               ? "rounded-tr-md rounded-br-md"
                               : ""
                           } ${
-                            oddArray[index] === "1"
-                              ? "bg-orange-500"
-                              : "bg-gray-200"
+                            oddArray[index] === "1" // 다른 사람이 사용 중, 즉 예약 중
+                              ? "bg-gray-400"
+                              : "bg-myorange"
                           } `}
                         />
                       </div>
@@ -151,7 +185,7 @@ function MypageCard({ title }) {
             <SelectMenu2 />
           </div>
         ) : (
-          <div className="w-full flex flex-col bg-gray4 border-[1px] rounded-t-2xl rounded-b-2xl border-[1px] mt-28">
+          <div className="w-full flex flex-col bg-gray4 rounded-t-2xl rounded-b-2xl mt-28">
             <section
               className="w-full flex flex-col bg-gray4 rounded-t-2xl rounded-b-2xl px-4 py-16 text-gray1"
               style={{ position: "relative" }}

@@ -53,13 +53,13 @@ function SuggestProgress3() {
       <p class="absolute left-[197.93px] top-[7.23px] text-base font-bold text-center text-white">
         3
       </p>
-      <p class="absolute left-[96.19px] top-[43.99px] text-[10px] text-left text-[#f58115]">
+      <p class="absolute left-[96.19px] top-[43.99px] text-[10px] text-left text-myorange">
         처리 중
       </p>
       <p class="absolute left-[4.23px] top-[43.99px] text-[10px] text-left text-[#3f3f3f]">
         확인 전
       </p>
-      <p class="absolute left-[183.65px] top-[43.99px] text-[10px] text-left text-[#0d51ff]">
+      <p class="absolute left-[183.65px] top-[43.99px] text-[10px] text-left text-myblue">
         처리 완료
       </p>
       <svg

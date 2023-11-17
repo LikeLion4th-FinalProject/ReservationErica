@@ -1,10 +1,17 @@
 export const INDICATOR_STYLE = "flex items-center gap-1";
 
 export const indicators = [
+  { color: "text-myblue", text: "선택" },
+  { color: "text-myorange", text: "이용 가능" },
+  { color: "text-primary", text: "이용 불가" },
+  { color: "text-gray-400", text: "예약 중" },
+];
+
+export const indicators2 = [
   { color: "#0A6DE2", text: "선택" },
   { color: "#F58115", text: "이용 가능" },
   { color: "#353535", text: "이용 불가" },
-  { color: "#BEBEBE", text: "예약 중" },
+  { color: "#9CA3AF", text: "예약 중" },
 ];
 
 export const RoomList = [

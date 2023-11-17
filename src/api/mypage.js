@@ -10,8 +10,6 @@ export const searchMyReservation = async () => {
     current_index: 10,
   };
 
-  //?${username}/2023-10-12/10
-
   const myPageInfo = await client
     .post(`searchmyreservation/`, data)
     .then((response) => {

@@ -56,7 +56,7 @@ function SuggestProgress2() {
       <p class="absolute left-[197.93px] top-[7.23px] text-base font-bold text-center text-black">
         3
       </p>
-      <p class="absolute left-[96.19px] top-[43.99px] text-[10px] text-left text-[#f58115]">
+      <p class="absolute left-[96.19px] top-[43.99px] text-[10px] text-left text-myorange">
         처리 중
       </p>
       <p class="absolute left-[4.23px] top-[43.99px] text-[10px] text-left text-[#3f3f3f]">

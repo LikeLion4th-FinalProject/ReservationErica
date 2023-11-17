@@ -1,25 +1,25 @@
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-import { RouterProvider } from 'react-router';
-import { createBrowserRouter } from 'react-router-dom';
-import Home from './pages/Home.jsx';
-import LoginPage from './pages/LoginPage.jsx';
-import CodegetPage from './pages/CodegetPage.jsx';
-import ReserveHome from './pages/ReserveHome.jsx';
-import MyPage from './pages/MyPage.jsx';
-import BeforeSuggest from './pages/BeforeSuggest.jsx';
-import BeforeSuggestDetail from './pages/BeforeSuggestDetail.jsx';
-import BeforeReserve from './pages/BeforeReserve.jsx';
-import Suggest from './pages/Suggest.jsx';
-import SignupPage from './pages/SignupPage.jsx';
-import { PrivateRoute } from './hooks/PrivateRoute.jsx';
-import ReserveRecord from './pages/ReserveRecord.jsx';
-import ReLogin from './pages/ReLogin.jsx';
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { RouterProvider } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import CodegetPage from "./pages/CodegetPage.jsx";
+import ReserveHome from "./pages/ReserveHome.jsx";
+import MyPage from "./pages/MyPage.jsx";
+import BeforeSuggest from "./pages/BeforeSuggest.jsx";
+import BeforeSuggestDetail from "./pages/BeforeSuggestDetail.jsx";
+import BeforeReserve from "./pages/BeforeReserve.jsx";
+import Suggest from "./pages/Suggest.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+import { PrivateRoute } from "./hooks/PrivateRoute.jsx";
+import ReserveRecord from "./pages/ReserveRecord.jsx";
+import ReLogin from "./pages/ReLogin.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
@@ -27,23 +27,23 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'login',
+        path: "login",
         element: <LoginPage />,
       },
       {
-        path: 're-login',
+        path: "re-login",
         element: <ReLogin />,
       },
       {
-        path: 'signup',
+        path: "signup",
         element: <SignupPage />,
       },
       {
-        path: 'auth/kakao/callback',
+        path: "auth/kakao/callback",
         element: <CodegetPage />,
       },
       {
-        path: 'reservation',
+        path: "reservation",
         element: (
           <PrivateRoute>
             <ReserveHome />
@@ -51,37 +51,37 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'mypage/:id',
+        path: "mypage/:id",
         element: (
           <PrivateRoute>
-            <MyPage />,
+            <MyPage />
           </PrivateRoute>
         ),
       },
       {
-        path: 'mypage/before-suggest',
+        path: "mypage/before-suggest",
         element: <BeforeSuggest />,
       },
       {
-        path: 'mypage/before-reserve',
+        path: "mypage/before-reserve",
         element: <BeforeReserve />,
       },
       {
-        path: 'mypage/before-suggest-detail',
+        path: "mypage/before-suggest-detail",
         element: <BeforeSuggestDetail />,
       },
       {
-        path: '/suggest',
+        path: "/suggest",
         element: <Suggest />,
       },
       {
-        path: 'mypage/reserveRecord',
+        path: "mypage/reserveRecord",
         element: <ReserveRecord />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <RouterProvider router={router} />
 );
