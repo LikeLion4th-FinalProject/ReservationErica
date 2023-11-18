@@ -12,7 +12,7 @@ function SplashPage() {
   }, []);
 
   return (
-    <section className={`flex absolute flex-col justify-center items-center gap-4 h-[100vh] z-[99] bg-white w-full top-0 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 ease-in-out`}>
+    <section className={`flex absolute flex-col justify-center items-center gap-4 h-[100vh] z-[99] bg-white w-full top-0 left-0 ${isVisible ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 ease-in-out`}>
       <img src={MainImage} alt="SplashImage" className="w-3/5 object-cover" />
       <h1 className='extrabold text-[50px] text-primary'>자리있소융</h1>
       <SyncLoader color="#6990F5" margin={12} size={15} speedMultiplier={0.7} />
