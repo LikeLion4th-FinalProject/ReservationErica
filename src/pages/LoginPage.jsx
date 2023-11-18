@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { kakaoURL } from '../static';
-import { getToken } from '../api/login';
 
 function LoginPage() {
   const location = useLocation();
