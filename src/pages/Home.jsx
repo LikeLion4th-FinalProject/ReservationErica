@@ -1,11 +1,24 @@
-import Header from '../components/Header';
-
+import { useEffect, useState } from 'react';
+import SplashPage from '../components/SplashPage';
 function Home() {
+  const [showSplash, setShowSplash] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+  }, [])
+  if(showSplash) 
   return (
-    <div>
-      <h1>hi</h1>
-    </div>
+    <SplashPage/>
   );
+  return (
+    <section>
+      hi
+    </section>
+  )
 }
 
 export default Home;
+
+
+

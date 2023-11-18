@@ -14,6 +14,7 @@ export default {
         gray4: '#F9F9F9',
         myorange: '#F58115',
         myblue: '#0A6DE2',
+        primary:"#6990F5",
         dark: '606060',
         red: '#FF0000',
         secondary: '#85A7FF',
