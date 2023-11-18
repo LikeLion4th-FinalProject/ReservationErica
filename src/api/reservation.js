@@ -1,5 +1,5 @@
-import { requestDate, timeToLange } from '../utils/requestDateInfo';
-import { client } from './client';
+import { requestDate, timeToLange } from "../utils/requestDateInfo";
+import { client } from "./client";
 
 export const searchDayTable = async (pickDate) => {
   const dayTableList = await client
@@ -17,10 +17,10 @@ export const searchDayTable = async (pickDate) => {
 };
 
 export const searchMyReservation = async () => {
-  const userId = sessionStorage.getItem('kakao_id');
+  const userId = sessionStorage.getItem("kakao_id");
 
   const tmp = await client
-    .post('searchmyreservation/', {
+    .post("searchmyreservation/", {
       kakao_id: userId,
       current_date: requestDate(),
       current_index: timeToLange(),
@@ -39,7 +39,7 @@ export const searchMyReservation = async () => {
 
 export const reservationList = async (userId) => {
   const response = await client
-    .post('reservationlist/', {
+    .post("reservationlist/", {
       kakao_id: userId,
     })
     .then((response) => {

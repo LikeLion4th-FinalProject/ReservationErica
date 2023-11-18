@@ -30,6 +30,16 @@ const useKakaoLogin = (code) => {
     }
   };
 
+  /**
+   * 
+
+   axios.get('searchdaytable/')
+   .then( (response) => console.log(response) )
+   .catch( (error) => console.log(error) )
+
+   * 
+   */
+
   const fetchKakaoUserData = async (access_token) => {
     try {
       const { data } = await axios.get("https://kapi.kakao.com/v2/user/me", {

@@ -1,16 +1,21 @@
 import "../../index.css";
 import "../../App.css";
 
-import Icon1 from "../../static/icon1.png";
-import Icon2 from "../../static/icon2.png";
-import Icon3 from "../../static/icon3.png";
+import Icon1 from "../../static/scroll-text.svg";
+import Icon2 from "../../static/siren.svg";
 import Image from "../../static/profile_image.png";
 
 import SelectMenu from "./SelectMenu.jsx";
 
 function Profile() {
+  const username = sessionStorage.getItem("username");
+  // 학번 정보 가져오기, 아직 없는 듯?
+  // const schoolnum = sessionStorage.getItem("schoolnum");
+  // 학과 정보 가져오기, 아직 없는 듯?
+  // const major = sessionStorage.getItem("major");
+
   return (
-    <section className="w-full flex-col bg-gray4 rounded-2xl border-[1px] mb-10 items-center">
+    <section className="w-full flex-col bg-gray4 rounded-2xl mt-4 mb-10 items-center">
       <div className="flex items-center px-4 py-6">
         <div className="mx-4">
           <img src={Image} style={{ width: "88px" }} />
@@ -18,11 +23,8 @@ function Profile() {
         <div>
           <div className="flex items-center">
             <h3 className="semibold mx-2" style={{ fontSize: "20px" }}>
-              김아무개
+              {username}
             </h3>
-            {/* <div className="p-1 px-2 mx-2 my-2 border text-gray-500 rounded-full bg-gray3 text-btn tracking-wider gap-1">
-              <span>제재수 0</span>
-            </div> */}
           </div>
           <div className="flex mt-2">
             <div className="mx-2 text-gray-500">
