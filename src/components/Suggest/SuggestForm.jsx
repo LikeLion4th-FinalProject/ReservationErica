@@ -75,6 +75,7 @@ export function SuggestForm({ options }) {
             // content3={`2023-09-26`}
             // content4={selectedSuggest}
             isOpen={setSuggestModalOpen}
+            hasData={true}
           />
         )}
       </div>

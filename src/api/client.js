@@ -6,14 +6,12 @@ export const client = axios.create({
   baseURL: BASE_URL,
 });
 
-// header에 정보 추가하기 => [참고자료] https://leeseong010.tistory.com/133
 client.interceptors.request.use(
   (config) => {
     console.log('인터셉터 요청 보냅니다잉');
     const token = sessionStorage.getItem('token');
     config.headers['Content-Type'] = 'application/json';
     if (token) {
-      console.log(`token : ${token}`);
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
@@ -50,7 +48,7 @@ client.interceptors.response.use(
             'Content-Type': 'application/json',
             Authorization: `Bearer ${response.data.access_token}`,
           };
-          const res = axios.request(error.config);
+          const res = axios(error.config);
           console.log('res 뭐지 ? : ', res);
           return res;
         })
