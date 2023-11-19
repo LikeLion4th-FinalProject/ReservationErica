@@ -30,15 +30,22 @@ function MypageCard({ title }) {
   useEffect(() => {
     timeTableHandler();
   }, []);
-  // useEffect(() => {
-  //   console.log('re-rendering');
-  // }, [reserveInfo]);
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
   }
 
+  /** todo
+   * 1. before 값을 받아온 데이터로 관리하기
+   * 2. 연장하기 API 연동하기 (마이페이지의 연장횟수 관리하는것도)
+   * 3. 예약현황 옆에 안내 띠(?) 수정하기
+   * 4. 음 ..
+   *
+   * 의논사항
+   * 1. 인원 어떻게할건지?
+   * 2. 마이페이지 학번, 학과, 프사 어케할거임?
+   */
   let before = false; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
 
   return (
@@ -66,15 +73,15 @@ function MypageCard({ title }) {
               </div>
               <div className='flex border-b-[8px] border-x-gray2'>
                 <div className='px-4'>
-                  <h5 className='text-[14px] text-gray-500'>인원</h5>
+                  {/* <h5 className='text-[14px] text-gray-500'>인원</h5> */}
                   <h5 className='text-[14px] text-gray-500'>날짜</h5>
                   <h5 className='text-[14px] text-gray-500'>연장횟수</h5>
                   <h5 className='text-[14px] text-gray-500 mb-[20px]'>시간</h5>
                 </div>
                 <div style={{ marginLeft: '15px' }}>
-                  <h5 className='medium' style={{ fontSize: '14px' }}>
+                  {/* <h5 className='medium' style={{ fontSize: '14px' }}>
                     {reserveInfo.reservations.people_num}명
-                  </h5>
+                  </h5> */}
                   <h5 className='medium' style={{ fontSize: '14px' }}>
                     {reserveInfo.reservations.date}
                   </h5>

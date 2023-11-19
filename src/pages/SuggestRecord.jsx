@@ -17,7 +17,7 @@ function SuggestRecord() {
   const fetchRecord = async () => {
     const response = await recordSuggest(userId);
     console.log(response);
-    if (response.length) {
+    if (response) {
       setRecordInfo(response.reverse());
       setHasRecord(true);
     }
