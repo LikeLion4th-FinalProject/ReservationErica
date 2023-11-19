@@ -1,21 +1,38 @@
-import { client } from "./client";
+import { requestDate, timeToLange } from '../utils/requestDateInfo';
+import { client } from './client';
 
-export const searchMyReservation = async () => {
-  //const username = sessionStorage.getItem("username");
-  const kakao_id = sessionStorage.getItem("kakao_id");
+const userId = sessionStorage.getItem('kakao_id');
 
-  const data = {
-    kakao_id: kakao_id,
-    current_date: "2023-10-12",
-    current_index: 10,
-  };
-
-  const myPageInfo = await client
-    .post(`searchmyreservation/`, data)
+export const getMyReservation = async () => {
+  return await client
+    .post('searchmyreservation/', {
+      kakao_id: userId,
+      current_date: requestDate(),
+      current_index: timeToLange(),
+    })
     .then((response) => {
+      console.log(response.data);
+      // 예약한 정보가 있으면 true / 없으면 false 리턴
+      if (response.data.error) return false;
+      else return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const cancelMyReservation = async (roomName, date) => {
+  return await client
+    .post('deletereservation/', {
+      room_name: roomName,
+      date: date,
+      kakao_id: userId,
+    })
+    .then((response) => {
+      console.log(response.data);
       return response.data;
     })
-    .catch((error) => console.log(error));
-
-  return myPageInfo;
+    .catch((error) => {
+      console.log(error);
+    });
 };
