@@ -1,15 +1,15 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import "./App.css";
-import Header from "./components/Header";
-import BtnNav from "./components/BtnNav";
-import { createContext, useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import './App.css';
+import Header from './components/Header';
+import BtnNav from './components/BtnNav';
+import { createContext, useEffect, useState } from 'react';
 export const setPage = createContext();
 
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const hideLayout =
-    location.pathname === "/signup" || location.pathname === "/login";
+    location.pathname === '/signup' || location.pathname === '/login';
   // const [title, setTitle] = useState('Home');
   // console.log(location);
   // useEffect(() => {
@@ -22,18 +22,21 @@ function App() {
   let title;
   let backHandler = () => navigate(-1);
   switch (location.pathname) {
-    case "/mypage/reserveRecord":
-      title = "예약기록";
+    case '/mypage/:id':
+      title = '마이페이지';
       break;
-    case "/suggest":
-      title = "건의하기";
+    case '/mypage/reserveRecord':
+      title = '예약기록';
+      break;
+    case '/suggest':
+      title = '건의하기';
       backHandler =
         componentPage === 1
           ? () => navigate(-1)
           : () => setComponentPage(componentPage - 1);
       break;
-    case "/reservation":
-      title = "예약하기";
+    case '/reservation':
+      title = '예약하기';
       backHandler =
         componentPage === 1
           ? () => navigate(-1)
@@ -50,9 +53,9 @@ function App() {
 
   return (
     <setPage.Provider value={{ componentPage, setComponentPage }}>
-      <div className="flex flex-col h-screen justify-between">
+      <div className='flex flex-col h-screen justify-between'>
         {!hideLayout && <Header title={title} backHandler={backHandler} />}
-        <div className="flex-grow overflow-y-scroll">
+        <div className='flex-grow overflow-y-scroll'>
           <Outlet />
         </div>
         {!hideLayout && <BtnNav />}
