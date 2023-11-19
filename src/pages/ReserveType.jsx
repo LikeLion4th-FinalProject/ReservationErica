@@ -3,6 +3,7 @@ import roomDetails from '../static/SmashInfo';
 import { FiClock } from 'react-icons/fi';
 import { FaLocationDot } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
+import { IoIosConstruct } from 'react-icons/io';
 
 
 function ReserveType() {
@@ -15,10 +16,10 @@ function ReserveType() {
   const navigate = useNavigate();
 
   return (
-    <section className='w-full flex flex-col items-center py-4'>
+    <section className='w-full flex flex-col items-center py-4 gap-4'>
       <div 
       onClick={() => navigate('/reservation/smash')}
-      className='w-[90%] flex flex-col justify-between relative rounded-xl h-[180px] text-white p-6' style={backgroundStyle}>
+      className='w-[90%] flex flex-col justify-between relative rounded-xl h-[180px] text-white p-6 ring-2' style={backgroundStyle}>
         <h1 className='text-2xl'>{roomDetails.title}</h1>
         <div className='flex flex-col gap-2'>
         <span className="text-xs text-gray1 opacity-80 tracking-widest">
@@ -33,6 +34,11 @@ function ReserveType() {
           {roomDetails.location}
         </span>
         </div>
+      </div>
+      <div className='w-[90%] flex flex-col justify-center items-center relative rounded-xl h-[120px] bg-gray-700 bg-opacity-70 text-white p-4 ring-2'>
+        <IoIosConstruct className="text-4xl" /> 
+        <h2 className='text-xl mt-2'>준비 중입니다</h2>
+        <p className='text-sm text-gray-300'>추후 추가될 예정입니다!</p>
       </div>
     </section>
   );
