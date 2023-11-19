@@ -1,5 +1,3 @@
-// useKakaoLogin.js
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rest_api_key, redirect_uri } from "../static";

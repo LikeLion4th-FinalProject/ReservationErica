@@ -1,3 +1,3 @@
-export const redirect_uri = "http://localhost:5173/auth/kakao/callback";
+export const redirect_uri = import.meta.env.VITE_REDIRECT_URI;
 export const Rest_api_key = import.meta.env.VITE_REST_API_KEY;
-export const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
+export const kakaoURL = import.meta.env.VITE_KAKAO_URL;

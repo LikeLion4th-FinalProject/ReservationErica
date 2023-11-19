@@ -88,12 +88,15 @@ body {
   padding: 0;
   box-sizing: border-box;
   border: 1px solid;
+  margin: 0;
 }
 
 #root {
   max-width: 480px;
   min-width: 320px;
   margin: 0 auto;
+  overflow-x: hidden;
+  height: 100vh;
 }
 
 body {
