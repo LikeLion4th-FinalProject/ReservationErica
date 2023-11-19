@@ -14,6 +14,7 @@ import { PrivateRoute } from "./hooks/PrivateRoute.jsx";
 import ReserveRecord from "./pages/ReserveRecord.jsx";
 import ReLogin from "./pages/ReLogin.jsx";
 import SuggestRecord from "./pages/SuggestRecord.jsx";
+import ReserveType from "./pages/ReserveType.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,9 +45,16 @@ const router = createBrowserRouter([
         path: "reservation",
         element: (
           <PrivateRoute>
-            <ReserveHome />
+            <ReserveType/>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "reservation/smash",
+        element: (<PrivateRoute>
+    <ReserveHome />
+        </PrivateRoute>
+        )
       },
       {
         path: "mypage/:id",
