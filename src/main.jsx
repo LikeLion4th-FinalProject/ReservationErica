@@ -50,9 +50,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "reservation/:type",
+        path: "reservation/smash",
         element: (<PrivateRoute>
-                      <ReserveHome />
+    <ReserveHome />
         </PrivateRoute>
         )
       },
