@@ -17,14 +17,13 @@ export default function SuggestModal({ title, isOpen, hasData }) {
 
   const handleSubmit = async () => {
     isOpen(false);
-    {
-      hasData &&
-        (await client
-          .post('createfeedback/', suggestInfo)
-          .then((response) => console.log(response))
-          .catch((error) => console.log(error)));
+    if (hasData) {
+      await client
+        .post('createfeedback/', suggestInfo)
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error));
+      setComponentPage(componentPage + 1);
     }
-    setComponentPage(componentPage + 1);
   };
 
   return (

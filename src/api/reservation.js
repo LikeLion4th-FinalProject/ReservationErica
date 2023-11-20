@@ -26,10 +26,14 @@ export const searchMyReservation = async () => {
       current_index: timeToLange(),
     })
     .then((response) => {
-      console.log(response.data);
       // 예약한 정보가 있으면 true / 없으면 false 리턴
-      if (response.data.reservations) return response.data.reservations;
-      else return false;
+      if (response.data.error) {
+        console.log(response.data.error);
+        return false;
+      } else {
+        console.log(response.data);
+        return response.data.reservations;
+      }
     })
     .catch((error) => {
       console.log(error);

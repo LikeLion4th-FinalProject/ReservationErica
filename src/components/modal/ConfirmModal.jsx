@@ -32,7 +32,7 @@ export default function ConfirmModal({ isOpen }) {
 
   const componentSwitch = (loc) => {
     switch (loc) {
-      case '/reservation':
+      case '/reservation/smash':
         if (isValid)
           return (
             <ConfirmInfo content={'예약하시겠습니까?'} resInfo={resInfo} />
@@ -58,7 +58,11 @@ export default function ConfirmModal({ isOpen }) {
           );
 
       default:
-        return <div>모달 테스트</div>;
+        return (
+          <div className='flex justify-center items-center min-h-[100px]'>
+            예약정보를 받아오는 중입니다...
+          </div>
+        );
     }
   };
 
