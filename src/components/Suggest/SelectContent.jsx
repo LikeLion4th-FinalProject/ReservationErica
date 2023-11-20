@@ -11,12 +11,13 @@ export default function SelectContent({ setSuggestType, setMyResInfo }) {
 
   const handleMyRoom = async () => {
     const myResInfo = await searchMyReservation();
-    console.log('여기 myResInfo : ', myResInfo);
+    console.log('myResInfo : ', myResInfo);
     if (myResInfo) {
       setMyResInfo(myResInfo);
       setComponentPage(componentPage + 1);
       setSuggestType('mine');
     } else {
+      console.log(componentPage);
       setModalOpen(true);
     }
     // setModalOpen(async () => await searchMyReservation());
