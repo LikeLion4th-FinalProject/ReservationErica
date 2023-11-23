@@ -39,3 +39,14 @@ export const requestDate = () => {
     return offsetToday.toISOString().split('T')[0];
   }
 };
+
+export const compareReserveTime = (resDate, resStartTime) => {
+  const nowDate = requestDate();
+  const nowTime = timeToLange();
+  if (nowDate < resDate) return true;
+  else if (nowDate > resDate) return false;
+  else {
+    if (nowTime < resStartTime) return true;
+    else return false;
+  }
+};

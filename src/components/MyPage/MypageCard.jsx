@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import hanyang from '../../static/mypage_hanyang.png';
 import { getMyReservation } from '../../api/mypage.js';
 import { reserveTime } from '../../styles/static.js';
+import { compareReserveTime } from '../../utils/requestDateInfo.js';
 
 export const ReserveContext = createContext();
 
@@ -15,6 +16,7 @@ function MypageCard({ title }) {
   const [isReserve, setReserve] = useState(false); // true: 예약 후(이용 전/이용 후), false: 예약 전
   const [reserveInfo, setReserveInfo] = useState({});
   const [prevRes, setPrevRes] = useState('');
+  const [isBeforeUse, setBeforeUse] = useState(false);
 
   const timeTableHandler = async () => {
     const date = await getMyReservation();
@@ -23,13 +25,17 @@ function MypageCard({ title }) {
       setReserve(true);
       setReserveInfo(date); // 예약 내역이 있을 경우 예약내역을 담아두는 코드
       setPrevRes(date.daytimetable[0].timetable);
+      setBeforeUse(
+        compareReserveTime(date.reservations.date, date.reservations.start)
+      );
     }
     console.log('마이페이지 데이터 조회', date);
   };
 
   useEffect(() => {
+    console.log('useEffect 실행..');
     timeTableHandler();
-  }, []);
+  }, [sessionStorage.getItem('token')]);
 
   const hours = [];
   for (let i = 9; i <= 21; i++) {
@@ -57,7 +63,7 @@ function MypageCard({ title }) {
             <section className='w-full flex flex-col bg-gray4 rounded-t-2xl  py-3 '>
               <div className='justify-between items-center scroll-pr-32 pb-2 px-4'>
                 <div>
-                  {before ? (
+                  {isBeforeUse ? (
                     <div className='w-[50px] flex items-center p-1 px-2 border-solid border border-gray-300 text-gray-400 rounded-full bg-gray4 text-btn tracking-wider gap-1 justify-center'>
                       <span>이용 전</span>
                     </div>
@@ -117,7 +123,7 @@ function MypageCard({ title }) {
               <section className='grid grid-cols-7 grid-rows-2 mt-2 gap-1 mb-6 px-4'>
                 {hours.map((hour, index) => {
                   const timeTable = prevRes;
-                  console.log(timeTable);
+                  // console.log(timeTable);
                   let evenArray = []; // x시 ~ x시 30분
                   let oddArray = []; // x시 30분 ~ x시
 
