@@ -10,36 +10,6 @@ import { searchMyReservation } from '../../api/reservation.js';
 function SelectMenu2({ reserveInfo }) {
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
   const [isExtendModalOpen, setExtendModalOpen] = useState(false);
-  const [extensionNum, setExtensionNum] = useState('');
-  const [endTime, setEndTime] = useState('');
-
-  useEffect(() => {
-    timeTableHandler();
-  }, []);
-
-  async function timeTableHandler() {
-    const date = await searchMyReservation();
-    setExtensionNum(date.extension);
-    setEndTime(date.end);
-
-    // console.log('마이페이지 데이터 조회', date);
-  }
-
-  let extension = extensionNum;
-  let end = (endTime + 19) / 2;
-  let end2 = end + 0.5;
-
-  if (end % 1 === 0.5) {
-    end = `${Math.floor(end)}:30`;
-  } else {
-    end = `${Math.floor(end)}:00`;
-  }
-
-  if (end2 % 1 === 0.5) {
-    end2 = `${Math.floor(end2)}:30`;
-  } else {
-    end2 = `${Math.floor(end2)}:00`;
-  }
 
   return (
     <>
@@ -71,10 +41,10 @@ function SelectMenu2({ reserveInfo }) {
         {isExtendModalOpen && (
           <MypageExtendModal
             content={`시간을 연장하시겠습니까?`}
-            extendCount={extension}
+            extendCount={reserveInfo.reservations.extension}
             isOpen={setExtendModalOpen}
-            end={end}
-            end2={end2}
+            end={reserveInfo.reservations.end}
+            end2={reserveInfo.reservations.end + 1}
           />
         )}
       </div>
