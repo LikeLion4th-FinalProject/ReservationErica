@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { useEffect, useState } from 'react';
-import MypageCancelModal from './MypageCancelModal.jsx';
-import MypageExtendModal from './MypageExtendModal.jsx';
+import MypageCancelModal from './MypageCancelModal';
+import MypageExtendModal from './MypageExtendModal';
 import '../../index.css';
 import '../../App.css';
 import { searchMyReservation } from '../../api/reservation.js';
