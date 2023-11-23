@@ -1,8 +1,9 @@
 import { requestDate, timeToLange } from '../utils/requestDateInfo';
 import { client } from './client';
 
+const userId = sessionStorage.getItem('kakao_id');
+
 export const getMyReservation = async () => {
-  const userId = sessionStorage.getItem('kakao_id');
   return await client
     .post('searchmyreservation/', {
       kakao_id: userId,
@@ -21,7 +22,6 @@ export const getMyReservation = async () => {
 };
 
 export const cancelMyReservation = async (roomName, date) => {
-  const userId = sessionStorage.getItem('kakao_id');
   return await client
     .post('deletereservation/', {
       room_name: roomName,

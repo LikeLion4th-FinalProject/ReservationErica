@@ -1,8 +1,8 @@
 import '../index.css';
 import '../App.css';
 
-import Profile from '../components/mypage/Profile';
-import MypageCard from '../components/mypage/MypageCard';
+import Profile from '../components/MyPage/Profile';
+import MypageCard from '../components/MyPage/MypageCard';
 
 function MyPage() {
   return (
