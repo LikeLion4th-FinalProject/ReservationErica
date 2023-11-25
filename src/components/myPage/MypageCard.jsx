@@ -37,6 +37,10 @@ function MypageCard({ title }) {
     timeTableHandler();
   }, [sessionStorage.getItem('token')]);
 
+  // useEffect(() => {
+  //   console.log('연장돼서 useeffect 실행');
+  // }, [reserveInfo.reservations.extension]);
+
   const hours = [];
   for (let i = 9; i <= 21; i++) {
     hours.push(i);
@@ -93,7 +97,7 @@ function MypageCard({ title }) {
                   </h5>
                   <h5 className='medium' style={{ fontSize: '14px' }}>
                     <span className='text-myblue'>
-                      {reserveInfo.reservations.extension}
+                      {2 - reserveInfo.reservations.extension}
                     </span>
                     /2
                   </h5>

@@ -43,6 +43,7 @@ function SelectMenu2({ reserveInfo }) {
             content={`시간을 연장하시겠습니까?`}
             extendCount={reserveInfo.reservations.extension}
             isOpen={setExtendModalOpen}
+            reserveInfo={reserveInfo.reservations}
             end={reserveInfo.reservations.end}
             end2={reserveInfo.reservations.end + 1}
           />

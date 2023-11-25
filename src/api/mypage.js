@@ -36,3 +36,21 @@ export const cancelMyReservation = async (roomName, date) => {
       console.log(error);
     });
 };
+
+export const extendReservation = async (roomName, date) => {
+  const userId = sessionStorage.getItem('kakao_id');
+  return await client
+    .post('extendreservation/', {
+      room_name: roomName,
+      date: date,
+      kakao_id: userId,
+    })
+    .then((response) => {
+      console.log(response.date);
+      if (response.data.timetable) {
+        console.log('누가 예약을 해놔서 연장이 불가능함');
+        return false;
+      } else return true;
+    })
+    .catch((error) => console.log(error));
+};
