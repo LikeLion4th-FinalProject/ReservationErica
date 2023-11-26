@@ -13,7 +13,7 @@ export function PrivateRoute({ children }) {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login', { replace: true, state: { from: location } });
+      navigate('/', { replace: true, state: { from: location } });
     }
   }, [isAuthenticated, navigate, location]);
 

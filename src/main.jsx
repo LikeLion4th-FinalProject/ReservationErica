@@ -67,19 +67,35 @@ const router = createBrowserRouter([
       },
       {
         path: 'mypage/before-suggest',
-        element: <SuggestRecord />,
+        element: (
+          <PrivateRoute>
+            <SuggestRecord />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/before-reserve',
-        element: <ReserveRecord />,
+        element: (
+          <PrivateRoute>
+            <ReserveRecord />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/suggest',
-        element: <Suggest />,
+        element: (
+          <PrivateRoute>
+            <Suggest />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'mypage/reserveRecord',
-        element: <ReserveRecord />,
+        element: (
+          <PrivateRoute>
+            <ReserveRecord />
+          </PrivateRoute>
+        ),
       },
     ],
   },
