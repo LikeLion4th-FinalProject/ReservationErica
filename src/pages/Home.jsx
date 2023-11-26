@@ -1,27 +1,36 @@
-import { useEffect, useState } from 'react';
-import SplashPage from '../components/SplashPage';
-import HomeLogin from '../components/HomeLogin';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import SplashPage from "../components/SplashPage";
+import HomeLogin from "../components/HomeLogin";
+
 function Home() {
   const [showSplash, setShowSplash] = useState(true);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setTimeout(() => {
-      setShowSplash(false);
+      const accessToken = sessionStorage.getItem("kakao_id");
+      if (accessToken) {
+        navigate("/reservation");
+      } else {
+        setShowSplash(false);
+      }
     }, 2000);
-  }, [])
-  if(showSplash) 
+  }, [navigate]);
+
+  if (showSplash) {
     return (
-    <section className='h-screen w-full'>
+      <section className="h-screen w-full">
         <SplashPage />
-        </section>
-  );
+      </section>
+    );
+  }
+
   return (
-    <section className='h-screen w-full'>
-      <HomeLogin/>
+    <section className="h-screen w-full">
+      <HomeLogin />
     </section>
-  )
+  );
 }
 
 export default Home;
-
-
-
