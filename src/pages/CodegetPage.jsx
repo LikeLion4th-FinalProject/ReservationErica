@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useKakaoLogin from '../hooks/useKakaoLogin';
 import { getToken } from '../api/login';
+import { SyncLoader } from 'react-spinners';
 
 function CodegetPage() {
   const code = new URL(window.location.href).searchParams.get('code');
@@ -11,7 +12,6 @@ function CodegetPage() {
   const fetchToken = async () => {
     try {
       const isValid = await getToken(); // Assuming getToken returns a promise
-      console.log('isValid : ', isValid);
       if (isValid) navigate('/reservation');
     } catch (error) {
       console.error('Error fetching token:', error);
@@ -19,9 +19,7 @@ function CodegetPage() {
   };
 
   useEffect(() => {
-    console.log('걸리나?1');
     if (userData) {
-      console.log('걸리나?2');
       fetchToken();
     }
   }, [userData]);
@@ -29,9 +27,23 @@ function CodegetPage() {
   return (
     <div>
       {userData ? (
-        <h2>Welcome, {userData.properties.nickname}!</h2>
+        <div className='w-full h-screen flex justify-center items-center'>
+          <SyncLoader
+            color='#6990F5'
+            margin={12}
+            size={15}
+            speedMultiplier={0.7}
+          />
+        </div>
       ) : (
-        <p>Loading...</p>
+        <div className='w-full h-screen flex justify-center items-center'>
+          <SyncLoader
+            color='#6990F5'
+            margin={12}
+            size={15}
+            speedMultiplier={0.7}
+          />
+        </div>
       )}
     </div>
   );
