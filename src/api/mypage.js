@@ -1,13 +1,13 @@
-import { requestDate, timeToLange } from '../utils/requestDateInfo';
-import { client } from './client';
-
-const userId = sessionStorage.getItem('kakao_id');
+import { requestDate, timeToLange } from "../utils/requestDateInfo";
+import { client } from "./client";
 
 export const getMyReservation = async () => {
+  const userId = sessionStorage.getItem("kakao_id");
   return await client
-    .post('searchmyreservation/', {
+    .post("searchmyreservation/", {
       kakao_id: userId,
       current_date: requestDate(),
+      // current_date: "2023-11-26",
       current_index: timeToLange(),
     })
     .then((response) => {
@@ -22,8 +22,9 @@ export const getMyReservation = async () => {
 };
 
 export const cancelMyReservation = async (roomName, date) => {
+  const userId = sessionStorage.getItem("kakao_id");
   return await client
-    .post('deletereservation/', {
+    .post("deletereservation/", {
       room_name: roomName,
       date: date,
       kakao_id: userId,
