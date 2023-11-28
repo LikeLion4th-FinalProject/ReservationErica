@@ -46,18 +46,6 @@ function MypageCard({ title }) {
     hours.push(i);
   }
 
-  /** todo
-   * 1. before 값을 받아온 데이터로 관리하기 - [하준] 진행예정
-   * 2. 연장하기 API 연동하기 (마이페이지의 연장횟수 관리하는것도) - [지수님] 진행예정
-   * 3. '/' 로 갔을 때, 이미 로그인이 유효한 사용자는 바로 'reservation'으로 가게끔? - [종문님] 진행예정
-   * 4. 예약현황 옆에 안내 띠(?) 수정하기
-   *
-   * 의논사항
-   * 1. 인원 어떻게할건지? - 해결 완료
-   * 2. 마이페이지 학번, 학과, 프사 어케할거임? - 해결 예정
-   */
-  let before = false; // 예약 후 상태에서, 이용 전이면 true, 이용 중이면 false
-
   return (
     <>
       {/* ReserveContext.Provider로 컨텍스트 제공 */}
@@ -161,7 +149,7 @@ function MypageCard({ title }) {
                                   : ''
                               } ${
                                 evenArray[index] === '1' // 다른 사람이 사용 중, 즉 예약 중
-                                  ? 'bg-gray-400'
+                                  ? 'bg-myblue'
                                   : 'bg-myorange'
                               } `}
                             />
@@ -172,7 +160,7 @@ function MypageCard({ title }) {
                                   : ''
                               } ${
                                 oddArray[index] === '1' // 다른 사람이 사용 중, 즉 예약 중
-                                  ? 'bg-gray-400'
+                                  ? 'bg-myblue'
                                   : 'bg-myorange'
                               } `}
                             />
