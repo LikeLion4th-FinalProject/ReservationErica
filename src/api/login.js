@@ -18,7 +18,8 @@ export const getToken = async () => {
         sessionStorage.setItem('refresh_token', response.data.refresh_token);
         return true;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => sessionStorage.setItem('isAuthRequest', true));
     return isValid;
   } else {
     console.log('sessionStorage에서 값을 가져오지 못함');
