@@ -59,6 +59,7 @@ client.interceptors.response.use(
           console.log('refresh token도 만료됨 -> 재로그인 ㄱㄱ');
           console.log('에러내용 : ', err);
           sessionStorage.clear();
+          if (window.location.pathname === '/re-login') return;
           window.location.replace('/re-login');
         });
     }
