@@ -49,7 +49,7 @@ client.interceptors.response.use(
             Authorization: `Bearer ${response.data.access_token}`,
           };
           console.log('what is error( + config ) - ', error);
-          return client(error.config);
+          return axios(error.config);
         })
         .then(() => {
           window.location.reload();
