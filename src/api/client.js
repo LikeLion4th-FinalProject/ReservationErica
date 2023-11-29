@@ -49,7 +49,7 @@ client.interceptors.response.use(
             Authorization: `Bearer ${response.data.access_token}`,
           };
           console.log('what is error( + config ) - ', error);
-          return client(error.config);
+          return axios(error.config);
         })
         .then(() => {
           window.location.reload();
@@ -58,7 +58,7 @@ client.interceptors.response.use(
         .catch((err) => {
           console.log('refresh token도 만료됨 -> 재로그인 ㄱㄱ');
           console.log('에러내용 : ', err);
-          sessionStorage.clear();
+          // sessionStorage.clear();
           window.location.replace('/re-login');
         });
     }
