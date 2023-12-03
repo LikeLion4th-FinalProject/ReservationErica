@@ -3,6 +3,7 @@ import { pickDate } from '../../pages/ReserveHome';
 import { reserveTime } from '../../styles/static';
 import ConfirmModal from '../modal/ConfirmModal';
 import { fillReserveInfo } from '../../pages/ReserveHome';
+import { SyncLoader } from 'react-spinners';
 
 export default function RoomSelect({ selectRange, roomList }) {
   // const [resRoomName, setResRoomName] = useState();
@@ -60,7 +61,14 @@ export default function RoomSelect({ selectRange, roomList }) {
             </div>
           ))
         ) : (
-          <div>{`선택한 시간에 예약가능한 방이 없습니다!\n다른 시간대를 선택해주세요`}</div>
+          <div className='w-full mt-4 flex justify-center items-center'>
+            <SyncLoader
+              color='#6990F5'
+              margin={12}
+              size={15}
+              speedMultiplier={0.7}
+            />
+          </div>
         )}
       </section>
       {isValidForm && <ConfirmModal isOpen={setValidForm} />}
