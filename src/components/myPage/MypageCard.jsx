@@ -49,6 +49,7 @@ function MypageCard({ title }) {
     hours.push(i);
   }
 
+<<<<<<< HEAD
   /** todo
    * 1. before 값을 받아온 데이터로 관리하기 - [하준] 진행예정
    * 2. 연장하기 API 연동하기 (마이페이지의 연장횟수 관리하는것도) - [지수님] 진행예정
@@ -66,6 +67,8 @@ function MypageCard({ title }) {
   const reserveDate = reserveInfo.reservations; // 예약 날짜
   console.log("예약 날짜", reserveDate);
 
+=======
+>>>>>>> 94e4ae3e7a7bb3241680b7fa2718a59d062f1760
   return (
     <>
       {/* ReserveContext.Provider로 컨텍스트 제공 */}
@@ -168,9 +171,15 @@ function MypageCard({ title }) {
                                   ? "rounded-tl-md rounded-bl-md"
                                   : ""
                               } ${
+<<<<<<< HEAD
                                 evenArray[index] === "1" // 다른 사람이 사용 중, 즉 예약 중
                                   ? "bg-gray-400"
                                   : "bg-myorange"
+=======
+                                evenArray[index] === '1' // 다른 사람이 사용 중, 즉 예약 중
+                                  ? 'bg-myblue'
+                                  : 'bg-myorange'
+>>>>>>> 94e4ae3e7a7bb3241680b7fa2718a59d062f1760
                               } `}
                             />
                             <div
@@ -179,9 +188,15 @@ function MypageCard({ title }) {
                                   ? "rounded-tr-md rounded-br-md"
                                   : ""
                               } ${
+<<<<<<< HEAD
                                 oddArray[index] === "1" // 다른 사람이 사용 중, 즉 예약 중
                                   ? "bg-gray-400"
                                   : "bg-myorange"
+=======
+                                oddArray[index] === '1' // 다른 사람이 사용 중, 즉 예약 중
+                                  ? 'bg-myblue'
+                                  : 'bg-myorange'
+>>>>>>> 94e4ae3e7a7bb3241680b7fa2718a59d062f1760
                               } `}
                             />
                           </div>

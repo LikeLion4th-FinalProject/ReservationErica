@@ -1,10 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import ConfirmInfo from './ConfirmInfo';
 import completeImg from '../../assets/studyHYU.png';
+import { useEffect, useState } from 'react';
+import { getUserId } from '../../api/mypage';
 
 export default function ReserveConfirm({ resInfo }) {
   const navigate = useNavigate();
   const username = sessionStorage.getItem('username');
+
+  const [userId, setUserId] = useState();
+
+  const fetchUserId = async () => {
+    setUserId(await getUserId());
+  };
+
+  useEffect(() => {
+    fetchUserId();
+  }, []);
+
   return (
     <div className='flex flex-col h-full items-center justify-around'>
       <div className='w-full flex flex-col items-center gap-3'>
@@ -23,7 +36,7 @@ export default function ReserveConfirm({ resInfo }) {
           완료
         </button>
         <button
-          onClick={() => navigate('/mypage/:id')}
+          onClick={() => navigate(`/mypage/${userId}`)}
           className='w-[80%] bg-gray3 rounded-full py-3'
         >
           예약 관리하기

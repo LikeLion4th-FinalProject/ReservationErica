@@ -5,12 +5,11 @@ import PlaceCard from '../components/PlaceCard';
 import { RoomList, dayList } from '../styles/static';
 import TimeSelect from '../components/reservation/TimeSelect';
 import ButtonList from '../components/ButtonList';
-// import { getToken } from '../api/login';
 import { searchDayTable } from '../api/reservation';
-import ConfirmInfo from '../components/reservation/ConfirmInfo';
 import ReserveConfirm from '../components/reservation/ReserveConfirm';
 import { setPage } from '../App';
 import { requestDate, timeToLange } from '../utils/requestDateInfo';
+import reserveNumber from '../assets/reserveNumber.png';
 export const reserveConfirm = createContext();
 export const fillReserveInfo = createContext();
 export const pickDate = createContext();
@@ -75,6 +74,10 @@ function ReserveHome() {
           <section className='mt-4 relative'>
             <DateDropdown />
             <IndicatorSection />
+            <div className='w-full bg-gray4 h-[33px] mt-1 py-[14px] flex text-xs text-gray0 justify-center items-center gap-2'>
+              <img src={reserveNumber} alt='예약숫자' className='w-6' />
+              현재 예약할 수 있는 방 개수를 보여줍니다.
+            </div>
             <div className='px-4 mt-5'>
               <TimeSelect nowDate={nowDate} listDayTable={listDayTable} />
               {/* {RoomList.map((room, index) => (

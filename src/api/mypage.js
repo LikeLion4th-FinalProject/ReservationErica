@@ -45,6 +45,8 @@ export const extendReservation = async (roomName, date) => {
       room_name: roomName,
       date: date,
       kakao_id: userId,
+      current_date: requestDate(),
+      current_index: timeToLange(),
     })
     .then((response) => {
       console.log(response.date);
@@ -52,6 +54,16 @@ export const extendReservation = async (roomName, date) => {
         console.log("누가 예약을 해놔서 연장이 불가능함");
         return false;
       } else return true;
+    })
+    .catch((error) => console.log(error));
+};
+
+export const getUserId = async () => {
+  return await client
+    .get('requestuserid/')
+    .then((response) => {
+      console.log('user id = ', response.data.id);
+      return response.data.id;
     })
     .catch((error) => console.log(error));
 };
